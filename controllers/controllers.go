@@ -8,7 +8,7 @@ type PortfolioController struct {
 	web.Controller
 }
 
-// Project struct to hold data for your portfolio items
+// Project struct
 type Project struct {
 	Title       string
 	Description string
@@ -21,7 +21,7 @@ func (c *PortfolioController) Get() {
 	// Title and Personal Info
 	c.Data["Title"] = "Jake Morgan | Software Engineer"
 	c.Data["Name"] = "Jake Morgan"
-	c.Data["Headline"] = "Innovative Software Engineer"
+	c.Data["Career"] = "Software Engineer"
 	
 	// Social Links
 	c.Data["GithubLink"] = "https://github.com/jmorgan3142001"
