@@ -1,0 +1,40 @@
+/* --- Global Overrides --- */
+:root {
+    --bs-primary: #0d6efd; /* Standard Blue or pick your favorite color */
+    --bs-font-sans-serif: 'Inter', sans-serif;
+}
+
+body {
+    font-family: var(--bs-font-sans-serif);
+    background-color: #ffffff;
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    min-height: 80vh; /* Takes up most of the viewport */
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+/* --- Utilities --- */
+.divider {
+    height: 3px;
+    width: 60px;
+    margin-top: 10px;
+    border-radius: 2px;
+}
+
+/* --- Project Cards --- */
+.project-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+/* --- Navbar Tweaks --- */
+.navbar-brand {
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+}

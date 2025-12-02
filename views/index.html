@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">{{.Name}}</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-primary text-white ms-lg-3 px-4" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section text-center d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-3">Building Scalable <span class="text-primary">Software Solutions</span></h1>
+                    <p class="lead text-secondary mb-5">
+                        I am a {{.Headline}} dedicated to writing clean code, solving complex problems, and building efficient applications.
+                    </p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="#projects" class="btn btn-outline-dark btn-lg">View Projects</a>
+                        <a href="{{.GithubLink}}" target="_blank" class="btn btn-dark btn-lg"><i class="bi bi-github"></i> GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tech Stack / About Section -->
+    <section id="about" class="py-5 bg-light">
+        <div class="container py-4">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h2 class="fw-bold mb-4">About Me</h2>
+                    <p class="text-muted">
+                        I am a software engineer with a passion for full-stack development. My approach combines technical precision with a focus on user experience. 
+                        Whether it's architecting backend systems in <strong>Go</strong> or designing responsive frontends, I strive for excellence in every line of code.
+                    </p>
+                    <p class="text-muted">
+                        Check out my latest work on GitHub or connect with me on LinkedIn to discuss how we can build something great together.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-4 bg-white rounded shadow-sm">
+                        <h5 class="fw-bold mb-3">Technical Toolkit</h5>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge bg-secondary">Go (Golang)</span>
+                            <span class="badge bg-secondary">Beego</span>
+                            <span class="badge bg-secondary">Python</span>
+                            <span class="badge bg-secondary">JavaScript</span>
+                            <span class="badge bg-secondary">AWS</span>
+                            <span class="badge bg-secondary">Docker</span>
+                            <span class="badge bg-secondary">Git</span>
+                            <span class="badge bg-secondary">SQL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section id="projects" class="py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Featured Projects</h2>
+                <div class="divider mx-auto bg-primary"></div>
+            </div>
+            
+            <div class="row g-4">
+                {{range .Projects}}
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm border-0 project-card">
+                        <div class="card-body p-4">
+                            <h3 class="h5 fw-bold">{{.Title}}</h3>
+                            <p class="card-text text-muted mb-4">{{.Description}}</p>
+                            <div class="mb-4">
+                                {{range .TechStack}}
+                                <span class="badge bg-light text-dark border me-1">{{.}}</span>
+                                {{end}}
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <a href="{{.Link}}" target="_blank" class="text-decoration-none fw-bold">Live Demo <i class="bi bi-arrow-right-short"></i></a>
+                                <a href="{{.Repo}}" target="_blank" class="text-secondary"><i class="bi bi-github fs-5"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{end}}
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-dark text-white text-center">
+        <div class="container py-4">
+            <h2 class="fw-bold mb-3">Let's Connect</h2>
+            <p class="mb-4 text-white-50">I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
+            <a href="mailto:{{.Email}}" class="btn btn-primary btn-lg px-5">Get in Touch</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 bg-black text-white-50">
+        <div class="container text-center">
+            <div class="mb-3">
+                <a href="{{.GithubLink}}" class="text-white mx-2 fs-4"><i class="bi bi-github"></i></a>
+                <a href="{{.LinkedinLink}}" class="text-white mx-2 fs-4"><i class="bi bi-linkedin"></i></a>
+            </div>
+            <p class="small mb-0">&copy; 2025 Jake Morgan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
