@@ -1,0 +1,52 @@
+<div class="container py-5 mt-3">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold">Knowledge <span class="text-accent">Base</span></h1>
+        <p class="lead text-secondary">Required reading for system optimization and architectural understanding.</p>
+        
+        <div class="mt-4 mb-2 d-flex justify-content-center">
+        </div>
+    </div>
+
+    <div class="row g-4">
+        {{range .Books}}
+        <div class="col-md-6 col-lg-4">
+            <div class="sys-card h-100 position-relative overflow-hidden book-card">
+                <div class="book-spine"></div>
+                
+                <div class="ps-3">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="badge bg-secondary text-light text-mono" style="opacity: 0.7;">{{.Type}}</span>
+                        <i class="bi bi-book text-accent"></i>
+                    </div>
+                    
+                    <h4 class="h5 fw-bold mb-1">{{.Title}}</h4>
+                    <div class="text-mono small text-accent mb-3">By {{.Author}}</div>
+                    
+                    <p class="text-secondary small mb-0">
+                        {{.Desc}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {{end}}
+        
+        <div class="col-md-6 col-lg-4">
+            <div class="sys-card h-100 d-flex align-items-center justify-content-center border-dashed" style="opacity: 0.5;">
+                <div class="text-center text-secondary">
+                    <i class="bi bi-plus-circle fs-2 mb-2"></i>
+                    <div class="text-mono small">AWAITING INPUT...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="rounded-4 bg-white p-4 mt-5">
+        <div class="sys-card card-terminal-retro border-0">
+            <div class="text-mono small">
+                <span class="terminal-prompt">user@portfolio:~/library$</span> cat footer_notes.txt<br>
+                > "Read the source code. It is the ultimate documentation."<br>
+                > <span class="cursor-blink">_</span>
+            </div>
+        </div>
+    </div>
+</div>

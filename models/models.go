@@ -24,6 +24,56 @@ type Experience struct {
 	Tags     []string
 }
 
+type GithubProfile struct {
+    PublicRepos int    `json:"public_repos"`
+    Login       string `json:"login"`
+    AvatarUrl   string `json:"avatar_url"`
+}
+
+type SystemModule struct {
+    ID          string
+    Title       string
+    Icon        string
+    Description string
+    Progress    int
+    Tags        []string
+}
+
+type HardwareInfo struct {
+    Category string
+    Item     string
+}
+
+type Book struct {
+    Title  string
+    Author string
+    Desc   string
+    Type   string
+}
+
+type ResearchPaper struct {
+    Title string
+    Topic string
+    Note  string
+}
+
+type Algorithm struct {
+    Name string
+    Lang string
+    Desc string
+}
+
+type ResearchMeta struct {
+    Label  string
+    Value  string
+    Status string // "success", "warning", or "accent" for color logic
+}
+
+type ComplexityStat struct {
+    Operation  string
+    Complexity string
+}
+
 // --- Data Retrieval Functions ---
 
 func GetTechSpecs() []TechItem {
@@ -56,7 +106,7 @@ func GetExperience() []Experience {
 			Role:     "Systems Programmer II",
 			Duration: "2023 - 2025",
 			Desc:     "Spearheaded full-stack development of enterprise healthcare applications using C# and SQL. Modernized legacy applications to .NET Core.",
-			Tags:     []string{"C#", ".Net Core", "SQL", "Flutter"},
+			Tags:     []string{"C#", ".Net Core", "Flutter", "SQL"},
 		},
 	}
 }
@@ -95,5 +145,90 @@ func GetProjects() []Project {
             Link:        "https://jmorgan3142001.github.io/portfolio-website/",
             Icon:        "bi-clock-history",
         },
+    }
+}
+
+func GetSystemModules() []SystemModule {
+    return []SystemModule{
+        {
+            ID:          "MODULE_01",
+            Title:       "Backend Architecture",
+            Icon:        "bi-hdd-network",
+            Description: "High-availability server logic and API design.",
+            Progress:    90,
+            Tags:        []string{"Python (Django)", "Go (Beego)", "PostgreSQL"},
+        },
+        {
+            ID:          "MODULE_02",
+            Title:       "Distributed Systems",
+            Icon:        "bi-diagram-3",
+            Description: "Scalable infrastructure and consensus logic.",
+            Progress:    45,
+            Tags:        []string{"gRPC", "Docker", "AWS"},
+        },
+        {
+            ID:          "MODULE_03",
+            Title:       "Full Stack Integration",
+            Icon:        "bi-window-stack",
+            Description: "Bridging complex backend logic with user interfaces.",
+            Progress:    67,
+            Tags:        []string{"Angular", "TypeScript", "UI/UX"},
+        },
+		{
+            ID:          "MODULE_04",
+            Title:       "Data Management",
+            Icon:        "bi-database-fill",
+            Description: "Architect of efficient schemas and handling large-scale datasets.",
+            Progress:    100,
+            Tags:        []string{"PostgreSQL", "SQL Server", "SQLite"},
+        },
+    }
+}
+
+func GetHardwareProfile() []HardwareInfo {
+    return []HardwareInfo{
+        {Category: "Computer", Item: "MAC/WINDOWS/LINUX"},
+        {Category: "Monitor", Item: "INNOCN 24.5\" 240Hz"},
+        {Category: "Input", Item: "Custom Ergo Keyboard"},
+        {Category: "Companions", Item: "1x Wife and 2x Staffordshire Terriers"},
+    }
+}
+
+func GetBooks() []Book {
+    return []Book{
+        {Title: "Clean Code", Author: "Robert C. Martin", Desc: "The standard protocol for writing maintainable software.", Type: "CORE_LOGIC"},
+        {Title: "Designing Data-Intensive Applications", Author: "Martin Kleppmann", Desc: "Essential for understanding distributed systems and scalability.", Type: "DATABASE_SYS"},
+        {Title: "Operating Systems: Three Easy Pieces", Author: "Remzi & Andrea Arpaci-Dusseau", Desc: "Deep dive into virtualization, concurrency, and persistence.", Type: "KERNEL_OPS"},
+        {Title: "Modern Operating Systems", Author: "Andrew S. Tanenbaum", Desc: "The definitive guide to underlying computer architecture.", Type: "KERNEL_OPS"},
+    }
+}
+
+func GetResearchPapers() []ResearchPaper {
+    return []ResearchPaper{
+        {Title: "MapReduce: Simplified Data Processing", Topic: "Distributed Systems", Note: "Analysis of Google's implementation of map and reduce primitives for large clusters. Key focus on fault tolerance."},
+        {Title: "Time, Clocks, and Ordering", Topic: "Concurrency", Note: "Leslie Lamport's seminal work on partial ordering and logical clocks in distributed systems."},
+    }
+}
+
+func GetAlgorithms() []Algorithm {
+    return []Algorithm{
+        {Name: "Barrier Synchronization", Lang: "C++ / OpenMP", Desc: "Implementing thread barriers without standard libraries to understand race conditions."},
+        {Name: "gRPC Store", Lang: "C++", Desc: "A distributed key-value store utilizing thread pools and custom replication logic."},
+    }
+}
+
+func GetResearchMeta() []ResearchMeta {
+    return []ResearchMeta{
+        {Label: "SYSTEM", Value: "ACTIVE", Status: "success"},
+        {Label: "THREADS", Value: "8", Status: "warning"},
+        {Label: "FOCUS", Value: "DISTRIBUTED", Status: "accent"},
+    }
+}
+
+func GetComplexityStats() []ComplexityStat {
+    return []ComplexityStat{
+        {Operation: "Hash Map Access", Complexity: "O(1)"},
+        {Operation: "Bin. Tree Search", Complexity: "O(log n)"},
+        {Operation: "Quick Sort", Complexity: "O(n log n)"},
     }
 }

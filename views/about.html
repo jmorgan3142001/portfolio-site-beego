@@ -1,0 +1,117 @@
+<div class="container py-5 mt-3">
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="d-flex align-items-center mb-2">
+                <span class="badge bg-danger me-2 text-mono">ROOT_ACCESS_GRANTED</span>
+                <span class="text-mono text-secondary">log_file: user_journey.txt</span>
+            </div>
+            <h1 class="display-4 fw-bold">System <span class="text-accent">Log</span></h1>
+        </div>
+    </div>
+
+    <div class="row g-5">
+        <div class="col-lg-8">
+            
+            <div class="sys-card mb-5 p-5">
+                <div class="deco-vents deco-vents-left">
+                    <div class="vent-line"></div><div class="vent-line"></div>
+                </div>
+                
+                <h3 class="h4 fw-bold mb-4">Origin & Migration</h3>
+                
+                <div class="d-flex flex-column flex-md-row gap-4 align-items-start mb-4">
+                    <div class="text-center">
+                        <div class="map-node mb-2 mx-auto">IL</div>
+                        <small class="text-mono text-secondary">Springfield</small>
+                    </div>
+                    
+                    <div class="flex-grow-1 w-100 position-relative map-line-container mt-4">
+                        <div class="migration-arrow"></div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="map-node active mb-2 mx-auto">SC</div>
+                        <small class="text-mono text-secondary">Charleston</small>
+                    </div>
+                </div>
+
+                <p class="text-secondary">
+                    I grew up in <strong>Springfield, Illinois</strong>, where I wrote my first lines of code. However, the coast always called to me. Capitalizing on the flexibility of software engineering, I seized the opportunity to relocate with my wife to <strong>Charleston, SC</strong> fulfilling a long-held personal goal.
+                </p>
+                <p class="text-secondary">
+                    Since the move, my focus has only sharpened. Beyond my professional work, I am constantly expanding my technical horizons, whether it's optimizing my home server rack, exploring the bleeding edge of tech, or deep-diving into distributed systems theory.
+                </p>
+            </div>
+
+            <h3 class="h4 fw-bold mb-4"><i class="bi bi-motherboard me-2 text-accent"></i>System Modules</h3>
+            
+            <div class="row g-4 mb-5">
+                {{range .SystemModules}}
+                <div class="col-md-6">
+                    <div class="sys-card h-100">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-mono fw-bold text-accent">{{.ID}}</span>
+                            <i class="bi {{.Icon}}"></i>
+                        </div>
+                        <h4 class="h5 fw-bold mb-2">{{.Title}}</h4>
+                        <p class="small text-secondary mb-3">
+                            {{.Description}}
+                        </p>
+                        <div class="progress progress-retro mb-2">
+                            <div class="progress-bar bg-retro-bar" role="progressbar" style="width: {{.Progress}}%;" aria-valuenow="{{.Progress}}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="text-mono small text-secondary">
+                            {{range .Tags}}
+                            > {{.}}<br>
+                            {{end}}
+                        </div>
+                    </div>
+                </div>
+                {{end}}
+            </div>
+
+        </div>
+
+        <div class="col-lg-4">
+            <div class="sys-sticky-col">
+                
+                <div class="sys-card mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-mono text-success small">● ONLINE</span>
+                        <i class="bi bi-github fs-4 text-secondary"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Live Git Metrics</h5>
+                    
+                    <div class="row text-center g-2">
+                        <div class="col-6">
+                            <div class="p-2 rounded stats-box">
+                                <div class="display-6 fw-bold text-accent">{{.GithubStats.PublicRepos}}</div>
+                                <small class="text-mono text-secondary stats-label">REPOSITORIES</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-2 rounded stats-box h-100 d-flex flex-column justify-content-center align-items-center">
+                                <img src="{{.GithubStats.AvatarUrl}}" alt="GitHub Avatar" class="rounded-circle border border-secondary mb-1" style="width: 50px; height: 50px; object-fit: cover;">
+                                <small class="text-mono text-secondary stats-label">AVATAR</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 text-mono x-small text-secondary">
+                        Data fetched via GitHub API v3<br>
+                        User: {{.GithubStats.Login}}
+                    </div>
+                </div>
+
+                <div class="sys-card">
+                    <h5 class="fw-bold mb-3">Hardware Profile</h5>
+                    <ul class="list-unstyled text-mono small text-secondary">
+                        {{range .Hardware}}
+                        <li class="mb-2">> {{.Category}}: {{.Item}}</li>
+                        {{end}}
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

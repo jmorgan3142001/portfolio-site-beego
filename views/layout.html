@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/main.css">
 </head>
-<body data-bs-spy="scroll" data-bs-target="#navbarNav">
+<body class="{{if eq .Page "research"}}bg-grid{{end}}">
 
     <div id="hardware-bg">
         <div class="molded-shape shape-block" data-speed="0.05" style="top: 15%; left: 5%;"></div>
@@ -23,7 +23,7 @@
 
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
                 <span class="power-light"></span>
                 {{.Name}}
             </a>
@@ -32,10 +32,21 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="#about">Overview</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#experience">History</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#projects">Cartridges</a></li>
-                    <li class="nav-item ms-lg-4"><a class="btn btn-retro" href="#contact">Connect</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link {{if eq .Page "home"}}active{{end}}" href="/">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{if eq .Page "about"}}active{{end}}" href="/about">System Log</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{if eq .Page "library"}}active{{end}}" href="/library">Library</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{if eq .Page "research"}}active{{end}}" href="/research">Research</a>
+                    </li>
+                    <li class="nav-item ms-lg-4">
+                        <a class="btn btn-retro" href="#contact">Connect</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -43,7 +54,7 @@
 
     {{.LayoutContent}}
 
-    <section id="contact" class="py-5 text-center">
+    <section id="contact" class="py-5 text-center mt-5">
         <div class="container">
             <div class="sys-card d-inline-block px-5 py-4">
                 <h3 class="fw-bold mb-3">Initialize Connection?</h3>

@@ -6,7 +6,7 @@
             <section id="about" class="mb-5 pb-5 border-bottom border-2 border-theme">
                 
                 <div class="mb-2 text-mono text-uppercase text-accent-sub">
-                    {{.Career}} // <span class="text-lowercase">v.</span>1.0
+                    {{.Career}} // <span class="text-lowercase">v.</span>2.1
                 </div>
                 
                 <h1 class="display-3 fw-bold mb-3 lh-tight">
@@ -29,6 +29,7 @@
 
                 <div class="d-flex gap-3">
                     <a href="#projects" class="btn btn-retro-dark">View Work</a>
+                    <a href="/about" class="btn btn-retro">System Log</a>
                     <a href="{{.LinkedinLink}}" target="_blank" class="btn btn-retro">
                         <i class="bi bi-linkedin me-2"></i>LinkedIn
                     </a>
@@ -161,7 +162,7 @@
     </div>
 </section>
 
-<div class="modal fade modal-crt" id="techSpecsModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade modal-crt p-2" id="techSpecsModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header border-0 pb-0">
@@ -189,7 +190,7 @@
     </div>
 </div>
 
-<div class="modal fade modal-crt" id="personalInfoModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade modal-crt p-2" id="personalInfoModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header border-0 pb-0">
@@ -232,7 +233,7 @@
 </div>
 
 {{range .Projects}}
-<div class="modal fade modal-crt" id="modal-{{.ID}}" tabindex="-1" aria-hidden="true">
+<div class="modal fade modal-crt p-2" id="modal-{{.ID}}" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header border-0 pb-0">
@@ -242,13 +243,11 @@
                 <div class="d-flex align-items-center mb-3">
                     <i class="bi {{if .Icon}}{{.Icon}}{{else}}bi-folder{{end}} fs-3 text-accent me-3"></i>
                     <h2 class="h4 fw-bold mb-0">{{.Title}}</h2>
-                </div>
-                
+                </div>                
                 <div class="mb-4 p-3 bg-light rounded border border-theme">
                     <span class="text-mono small fw-bold text-uppercase text-secondary d-block mb-1">Description</span>
                     <p class="mb-0 text-secondary">{{.Description}}</p>
                 </div>
-
                 <div class="row align-items-end">
                     <div class="col-md-7">
                         <span class="text-mono small fw-bold text-uppercase text-secondary d-block mb-2">Tech Stack</span>

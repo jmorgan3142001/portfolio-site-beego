@@ -1,0 +1,95 @@
+<div class="container py-5 mt-3">
+    
+    <div class="row mb-5">
+        <div class="col-12">
+            <h1 class="display-4 fw-bold">Research <span class="text-accent">Lab</span></h1>
+            <p class="lead text-secondary">
+                MSCS coursework, distributed systems analysis, and algorithmic experiments.
+            </p>
+            
+            <div class="d-flex gap-3 text-mono small text-secondary mt-3">
+                {{range .Meta}}
+                <span class="d-inline-flex align-items-center">
+                    <i class="bi bi-circle-fill text-{{.Status}} meta-indicator"></i> 
+                    {{.Label}}: {{.Value}}
+                </span>
+                {{end}}
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-5">
+        
+        <div class="col-lg-7">
+            <h3 class="h4 fw-bold mb-4">
+                <i class="bi bi-journal-bookmark me-2 text-accent"></i>Literature Review
+            </h3>
+            
+            {{range .Papers}}
+            <div class="sys-card mb-4 paper-card p-5">
+                <div class="deco-vents deco-vents-left">
+                    <div class="vent-line"></div><div class="vent-line"></div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <span class="badge bg-secondary text-mono mb-2" style="opacity: 0.8;">PAPER</span>
+                        <h4 class="h5 fw-bold">{{.Title}}</h4>
+                    </div>
+                </div>
+                <div class="text-mono small text-accent fw-bold mt-1 mb-3">Topic: {{.Topic}}</div>
+                <p class="text-secondary mb-3">
+                    {{.Note}}
+                </p>
+                <div class="border-top border-cream pt-2 mt-2">
+                    <small class="text-mono text-secondary">STATUS: READ_COMPLETE</small>
+                </div>
+            </div>
+            {{end}}
+
+            <div class="sys-card border-dashed p-4 text-center">
+                <div class="text-secondary">
+                    <i class="bi bi-hourglass-split mb-2"></i>
+                    <div class="text-mono small">NEXT: {{.NextTopic}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="sys-sticky-col">
+                <h3 class="h4 fw-bold mb-4 text-end">
+                    Algorithmic Lab <i class="bi bi-code-square ms-2 text-accent"></i>
+                </h3>
+
+                {{range .Algos}}
+                <div class="sys-card card-algo mb-4 border-0">
+                    <div class="d-flex justify-content-between algo-header pb-2 mb-3">
+                        <span class="text-mono text-success small">./run_test.sh</span>
+                        <span class="text-mono text-secondary small">{{.Lang}}</span>
+                    </div>
+                    <h5 class="fw-bold">{{.Name}}</h5>
+                    <p class="small text-secondary mb-0">
+                        // {{.Desc}}
+                    </p>
+                </div>
+                {{end}}
+
+                <div class="sys-card">
+                    <h5 class="fw-bold mb-2">Complexity Focus</h5>
+                    <p class="text-secondary small mb-3">
+                        Current optimization targets for backend services.
+                    </p>
+                    <ul class="list-unstyled text-mono small">
+                        {{range .Complexity}}
+                        <li class="complexity-item">
+                            <span>{{.Operation}}</span>
+                            <span class="text-accent">{{.Complexity}}</span>
+                        </li>
+                        {{end}}
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
