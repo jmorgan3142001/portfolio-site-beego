@@ -1,340 +1,250 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{.Title}}</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/main.css">
-</head>
-<body data-bs-spy="scroll" data-bs-target="#navbarNav">
-
-    <!-- Hardware Parallax Background -->
-    <div id="hardware-bg">
-        <div class="molded-shape shape-block" data-speed="0.05" style="top: 15%; left: 5%;"></div>
-        <div class="molded-shape shape-circle" data-speed="0.1" style="top: 40%; right: 10%;"></div>
-        <div class="molded-shape shape-block" data-speed="0.02" style="bottom: 10%; left: 15%; width: 300px; height: 150px;"></div>
-        <div class="molded-shape shape-vent" data-speed="0.08" style="top: 25%; right: 25%;"></div>
-        <div class="molded-shape shape-vent" data-speed="0.08" style="top: 27%; right: 25%;"></div>
-        <div class="molded-shape shape-vent" data-speed="0.08" style="top: 29%; right: 25%;"></div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <span class="power-light"></span>
-                {{.Name}}
-            </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <i class="bi bi-grid-fill fs-3" style="color: var(--accent-primary);"></i>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="#about">Overview</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#experience">History</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#projects">Cartridges</a></li>
-                    <li class="nav-item ms-lg-4"><a class="btn btn-retro" href="#contact">Connect</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main Grid -->
-    <div class="container py-5 mt-3">
-        <div class="row g-5">
+<div class="container py-5 mt-3">
+    <div class="row g-5">
+        
+        <div class="col-lg-8">
             
-            <!-- Left: Main Documentation -->
-            <div class="col-lg-8">
+            <section id="about" class="mb-5 pb-5 border-bottom border-2" style="border-color: var(--border-color)!important;">
                 
-                <!-- Hero Section -->
-                <section id="about" class="mb-5 pb-5 border-bottom border-2" style="border-color: var(--border-color)!important;">
-                    
-                    <div class="mb-2 text-mono text-uppercase" style="color: var(--accent-secondary); font-weight: 700;">
-                        // {{.Career}} // V 1.0
-                    </div>
-                    
-                    <h1 class="display-3 fw-bold mb-3" style="line-height: 1.1;">
-                        Providing Scalable <br>
-                        <span style="color: var(--accent-primary);">Software Solutions</span>
-                    </h1>
-                    
-                    <!-- Dynamic Typewriter Text -->
-                    <div id="dynamic-text-container" class="h5">
-                        > Building <span id="typewriter-text"></span><span class="cursor-blink">_</span>
-                    </div>
+                <div class="mb-2 text-mono text-uppercase" style="color: var(--accent-secondary); font-weight: 700;">
+                    // {{.Career}} // V 1.0
+                </div>
+                
+                <h1 class="display-3 fw-bold mb-3" style="line-height: 1.1;">
+                    Providing Scalable <br>
+                    <span style="color: var(--accent-primary);">Software Solutions</span>
+                </h1>
+                
+                <div id="dynamic-text-container" class="h5">
+                    > Building <span id="typewriter-text"></span><span class="cursor-blink">_</span>
+                </div>
 
-                    <div class="sys-card mb-4 p-4" style="background: #fff;">
-                        <div class="deco-vents">
-                            <div class="vent-line"></div><div class="vent-line"></div><div class="vent-line"></div>
+                <div class="sys-card mb-4 p-4" style="background: #fff;">
+                    <div class="deco-vents">
+                        <div class="vent-line"></div><div class="vent-line"></div><div class="vent-line"></div>
+                    </div>
+                    <p class="lead mb-0 text-secondary">
+                        I am a {{.Career}}, with years of real world experience, dedicated to writing clean code, solving complex problems, and building efficient applications. Currently driving digital transformation in accessibility and nonprofit sectors.
+                    </p>
+                </div>
+
+                <div class="d-flex gap-3">
+                    <a href="#projects" class="btn btn-retro-dark">View Work</a>
+                    <a href="{{.LinkedinLink}}" target="_blank" class="btn btn-retro">
+                        <i class="bi bi-linkedin me-2"></i>LinkedIn
+                    </a>
+                    <a href="{{.GithubLink}}" target="_blank" class="btn btn-retro">
+                        <i class="bi bi-github me-2"></i>GitHub
+                    </a>
+                </div>
+            </section>
+
+            <section id="experience" class="mb-5">
+                <div class="d-flex align-items-center mb-4">
+                    <i class="bi bi-cpu fs-4 me-2" style="color: var(--accent-primary);"></i>
+                    <h3 class="mb-0">Operation History</h3>
+                </div>
+                
+                <div class="timeline-wrapper">
+                    <div class="timeline-line"></div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="d-flex justify-content-between align-items-baseline mb-1">
+                            <h4 class="h5 mb-0 fw-bold">{{.Career}}</h4>
+                            <span class="text-mono small" style="color: var(--accent-primary);">FEB 2025 - PRESENT</span>
                         </div>
-                        <p class="lead mb-0 text-secondary">
-                            I am a {{.Career}}, with over 3 years of real world experience, dedicated to writing clean code, solving complex problems, and building efficient applications. Currently driving digital transformation in accessibility and nonprofit sectors.
+                        <div class="text-secondary small fw-bold mb-2">NATIONAL CAPTIONING INSTITUTE</div>
+                        <p class="text-secondary mb-2">
+                            Engineered high-precision automated captioning solutions exceeding accessibility compliance standards. Re-architected testing infrastructure and optimized frontend performance.
                         </p>
-                    </div>
-
-                    <div class="d-flex gap-3">
-                        <a href="#projects" class="btn btn-retro-dark">View Work</a>
-                        <a href="{{.LinkedinLink}}" target="_blank" class="btn btn-retro">
-                            <i class="bi bi-linkedin me-2"></i>LinkedIn
-                        </a>
-                        <a href="{{.GithubLink}}" target="_blank" class="btn btn-retro">
-                            <i class="bi bi-github me-2"></i>GitHub
-                        </a>
-                    </div>
-                </section>
-
-                <!-- Experience -->
-                <section id="experience" class="mb-5">
-                    <div class="d-flex align-items-center mb-4">
-                        <i class="bi bi-cpu fs-4 me-2" style="color: var(--accent-primary);"></i>
-                        <h3 class="mb-0">Operation History</h3>
-                    </div>
-                    
-                    <div class="timeline-wrapper">
-                        <div class="timeline-line"></div>
-                        
-                        <!-- Role 1 -->
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="d-flex justify-content-between align-items-baseline mb-1">
-                                <h4 class="h5 mb-0 fw-bold">{{.Career}}</h4>
-                                <span class="text-mono small" style="color: var(--accent-primary);">FEB 2025 - PRESENT</span>
-                            </div>
-                            <div class="text-secondary small fw-bold mb-2">NATIONAL CAPTIONING INSTITUTE</div>
-                            <p class="text-secondary mb-2">
-                                Engineered high-precision automated captioning solutions exceeding accessibility compliance standards. Re-architected testing infrastructure and optimized frontend performance.
-                            </p>
-                            <div>
-                                <span class="tag-retro">Performance</span>
-                                <span class="tag-retro">Automation</span>
-                                <span class="tag-retro">DevOps</span>
-                            </div>
-                        </div>
-
-                        <!-- Role 2 -->
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="d-flex justify-content-between align-items-baseline mb-1">
-                                <h4 class="h5 mb-0 fw-bold">{{.Career}}</h4>
-                                <span class="text-mono small" style="color: var(--accent-primary);">2023 - PRESENT</span>
-                            </div>
-                            <div class="text-secondary small fw-bold mb-2">UNCOMMON GIVING</div>
-                            <p class="text-secondary mb-2">
-                                Architect of scalable web and mobile solutions using JS, Python (Django), and Flutter. Optimized CI/CD pipelines reducing build times by 50%.
-                            </p>
-                            <div>
-                                <span class="tag-retro">Python</span>
-                                <span class="tag-retro">Django</span>
-                            </div>
-                        </div>
-
-                        <!-- Role 3 -->
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="d-flex justify-content-between align-items-baseline mb-1">
-                                <h4 class="h5 mb-0 fw-bold">Systems Programmer II</h4>
-                                <span class="text-mono small" style="color: var(--accent-primary);">2023 - 2025</span>
-                            </div>
-                            <div class="text-secondary small fw-bold mb-2">MUSC</div>
-                            <p class="text-secondary mb-2">
-                                Spearheaded full-stack development of enterprise healthcare applications using C# and SQL. Modernized legacy applications to .NET Core.
-                            </p>
-                            <div>
-                                <span class="tag-retro">C# .NET</span>
-                                <span class="tag-retro">SQL</span>
-                                <span class="tag-retro">Flutter</span>
-                            </div>
-                        </div>
-
-                    </div>
-                </section>
-            </div>
-
-            <!-- Right: Specs / Stats -->
-            <div class="col-lg-4">
-                <div class="sys-sticky-col">
-                    
-                    <!-- Profile Card -->
-                    <div class="sys-card mb-4">
-                        <div class="text-center mb-3">
-                            <div style="width: 80px; height: 80px; background: var(--bg-panel); border-radius: 50%; margin: 0 auto; display: flex; align-items: center; justify-content: center; border: 2px solid var(--border-color);">
-                                <span class="fw-bold fs-2" style="color: var(--accent-primary);">JM</span>
-                            </div>
-                        </div>
-                        <h4 class="text-center fw-bold mb-1">{{.Name}}</h4>
-                        <div class="text-center text-mono small text-secondary mb-4">{{.Career}}</div>
-                        
-                        <div class="border-top border-2 pt-3" style="border-color: var(--border-color)!important;">
-                            <div class="d-flex justify-content-between mb-2 small">
-                                <span class="text-secondary fw-bold">LOCATION</span>
-                                <span>Charleston, SC</span>
-                            </div>
-                            <div class="d-flex justify-content-between mb-2 small">
-                                <span class="text-secondary fw-bold">EDUCATION</span>
-                                <span>MSCS (In Progress)</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tech Stack -->
-                    <div class="sys-card">
-                        <div class="deco-vents" style="left: 1.5rem; right: auto;">
-                            <div class="vent-line"></div><div class="vent-line"></div>
-                        </div>
-                        <h5 class="fw-bold mt-2 mb-3 text-end">Tech Specs</h5>
-                        
-                        <div class="mb-3">
-                            <small class="text-mono text-uppercase text-secondary d-block mb-2">Languages</small>
-                            <div class="d-flex flex-wrap gap-2">
-                                <span class="tag-retro">Python</span>
-                                <span class="tag-retro">C#</span>
-                                <span class="tag-retro">JavaScript</span>
-                                <span class="tag-retro">SQL</span>
-                                <span class="tag-retro">Go</span>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <small class="text-mono text-uppercase text-secondary d-block mb-2">Frameworks</small>
-                            <div class="d-flex flex-wrap gap-2">
-                                <span class="tag-retro">.NET Core</span>
-                                <span class="tag-retro">Django</span>
-                                <span class="tag-retro">Angular</span>
-                                <span class="tag-retro">Flutter</span>
-                                <span class="tag-retro">GoBee</span>
-                            </div>
-                        </div>
-                        
                         <div>
-                            <small class="text-mono text-uppercase text-secondary d-block mb-2">Infra</small>
-                            <div class="d-flex flex-wrap gap-2">
-                                <span class="tag-retro">AWS</span>
-                                <span class="tag-retro">Azure</span>
-                                <span class="tag-retro">Docker</span>
-                                <span class="tag-retro">Git</span>
-                            </div>
+                            <span class="tag-retro">Performance</span>
+                            <span class="tag-retro">Automation</span>
+                            <span class="tag-retro">DevOps</span>
                         </div>
                     </div>
 
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="d-flex justify-content-between align-items-baseline mb-1">
+                            <h4 class="h5 mb-0 fw-bold">{{.Career}}</h4>
+                            <span class="text-mono small" style="color: var(--accent-primary);">2023 - PRESENT</span>
+                        </div>
+                        <div class="text-secondary small fw-bold mb-2">UNCOMMON GIVING</div>
+                        <p class="text-secondary mb-2">
+                            Architect of scalable web and mobile solutions using JS, Python (Django), and Flutter. Optimized CI/CD pipelines reducing build times by 50%.
+                        </p>
+                        <div>
+                            <span class="tag-retro">Python</span>
+                            <span class="tag-retro">Django</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="d-flex justify-content-between align-items-baseline mb-1">
+                            <h4 class="h5 mb-0 fw-bold">Systems Programmer II</h4>
+                            <span class="text-mono small" style="color: var(--accent-primary);">2023 - 2025</span>
+                        </div>
+                        <div class="text-secondary small fw-bold mb-2">MUSC</div>
+                        <p class="text-secondary mb-2">
+                            Spearheaded full-stack development of enterprise healthcare applications using C# and SQL. Modernized legacy applications to .NET Core.
+                        </p>
+                        <div>
+                            <span class="tag-retro">C# .NET</span>
+                            <span class="tag-retro">SQL</span>
+                            <span class="tag-retro">Flutter</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="sys-sticky-col">
+                
+                <div class="sys-card mb-4">
+                    <div class="text-center mb-3">
+                        <div style="width: 80px; height: 80px; background: var(--bg-panel); border-radius: 50%; margin: 0 auto; display: flex; align-items: center; justify-content: center; border: 2px solid var(--border-color);">
+                            <span class="fw-bold fs-2" style="color: var(--accent-primary);">JM</span>
+                        </div>
+                    </div>
+                    <h4 class="text-center fw-bold mb-1">{{.Name}}</h4>
+                    <div class="text-center text-mono small text-secondary mb-4">{{.Career}}</div>
+                    
+                    <div class="border-top border-2 pt-3" style="border-color: var(--border-color)!important;">
+                        <div class="d-flex justify-content-between mb-2 small">
+                            <span class="text-secondary fw-bold">LOCATION</span>
+                            <span>Charleston, SC</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2 small">
+                            <span class="text-secondary fw-bold">EDUCATION</span>
+                            <span>MSCS (In Progress)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sys-card">
+                    <div class="deco-vents" style="left: 1.5rem; right: auto;">
+                        <div class="vent-line"></div><div class="vent-line"></div>
+                    </div>
+                    <h5 class="fw-bold mt-2 mb-3 text-end">Tech Specs</h5>
+                    
+                    <div class="mb-3">
+                        <small class="text-mono text-uppercase text-secondary d-block mb-2">Languages</small>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="tag-retro">Python</span>
+                            <span class="tag-retro">C#</span>
+                            <span class="tag-retro">JavaScript</span>
+                            <span class="tag-retro">SQL</span>
+                            <span class="tag-retro">Go</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-mono text-uppercase text-secondary d-block mb-2">Frameworks</small>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="tag-retro">.NET Core</span>
+                            <span class="tag-retro">Django</span>
+                            <span class="tag-retro">Angular</span>
+                            <span class="tag-retro">Flutter</span>
+                            <span class="tag-retro">GoBee</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <small class="text-mono text-uppercase text-secondary d-block mb-2">Infra</small>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="tag-retro">AWS</span>
+                            <span class="tag-retro">Azure</span>
+                            <span class="tag-retro">Docker</span>
+                            <span class="tag-retro">Git</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="projects" class="py-5" style="background: rgba(44, 44, 44, 0.03); border-top: 2px solid var(--border-color); border-bottom: 2px solid var(--border-color);">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-end mb-5">
+            <div>
+                <h2 class="display-5 fw-bold mb-0">Project <span style="color: var(--accent-primary);">Library</span></h2>
+                <p class="text-secondary mb-0 mt-2">Selected works and deployments, both personal and professional.</p>
+            </div>
+            <div class="text-mono small d-none d-md-block">
+                DIR: /public/projects/
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="sys-card h-100 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h4 class="h5 fw-bold">Lawless Lowcountry Living</h4>
+                        <a href="http://lawlesslowcountryliving.com" target="_blank" class="text-secondary"><i class="bi bi-box-arrow-up-right"></i></a>
+                    </div>
+                    <p class="text-secondary small mb-4 flex-grow-1">
+                        Production website hosted on cloud infrastructure. Demonstrates full-stack capabilities, responsive design, and efficient content delivery systems.
+                    </p>
+                    <div class="pt-3 border-top border-2" style="border-color: #EAE0D0 !important;">
+                        <span class="tag-retro">Cloud Hosting</span>
+                        <span class="tag-retro">Web Dev</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="sys-card h-100 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h4 class="h5 fw-bold">Auto-Caption Network</h4>
+                        <i class="bi bi-diagram-3 text-secondary"></i>
+                    </div>
+                    <p class="text-secondary small mb-4 flex-grow-1">
+                        Distributed node network providing low-latency captions with NCI. Implements high-precision automation logic for accessibility compliance.
+                    </p>
+                    <div class="pt-3 border-top border-2" style="border-color: #EAE0D0 !important;">
+                        <span class="tag-retro">Distributed Systems</span>
+                        <span class="tag-retro">Performance</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="sys-card h-100 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h4 class="h5 fw-bold">CRM Pipeline Opt.</h4>
+                        <i class="bi bi-gear-wide-connected text-secondary"></i>
+                    </div>
+                    <p class="text-secondary small mb-4 flex-grow-1">
+                        Engineered parallel execution strategies for CI/CD pipelines with Uncommon Giving. Successfully reduced build times by 50% for high-traffic nonprofit platform.
+                    </p>
+                    <div class="pt-3 border-top border-2" style="border-color: #EAE0D0 !important;">
+                        <span class="tag-retro">DevOps</span>
+                        <span class="tag-retro">CI/CD</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="sys-card h-100 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h4 class="h5 fw-bold">Patient Analytics</h4>
+                        <i class="bi bi-graph-up text-secondary"></i>
+                    </div>
+                    <p class="text-secondary small mb-4 flex-grow-1">
+                        Data analytics suite for monitoring patient outcomes with MUSC. Modernized legacy .NET Framework applications to .NET Core.
+                    </p>
+                    <div class="pt-3 border-top border-2" style="border-color: #EAE0D0 !important;">
+                        <span class="tag-retro">.NET Core</span>
+                        <span class="tag-retro">C#</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Projects Grid -->
-    <section id="projects" class="py-5" style="background: rgba(44, 44, 44, 0.03); border-top: 2px solid var(--border-color); border-bottom: 2px solid var(--border-color);">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-end mb-5">
-                <div>
-                    <h2 class="display-5 fw-bold mb-0">Project <span style="color: var(--accent-primary);">Library</span></h2>
-                    <p class="text-secondary mb-0 mt-2">Selected works and deployments, both personal and professional.</p>
-                </div>
-                <div class="text-mono small d-none d-md-block">
-                    DIR: /public/projects/
-                </div>
-            </div>
-            
-            <div class="row g-4">
-                <!-- Project 1 -->
-                <div class="col-md-6">
-                    <div class="sys-card h-100 d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <h4 class="h5 fw-bold">Lawless Lowcountry Living</h4>
-                            <a href="http://lawlesslowcountryliving.com" target="_blank" class="text-secondary"><i class="bi bi-box-arrow-up-right"></i></a>
-                        </div>
-                        <p class="text-secondary small mb-4 flex-grow-1">
-                            Production website hosted on cloud infrastructure. Demonstrates full-stack capabilities, responsive design, and efficient content delivery systems.
-                        </p>
-                        <div class="pt-3 border-top border-2" style="border-color: #EAE0D0 !important;">
-                            <span class="tag-retro">Cloud Hosting</span>
-                            <span class="tag-retro">Web Dev</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="col-md-6">
-                    <div class="sys-card h-100 d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <h4 class="h5 fw-bold">Auto-Caption Network</h4>
-                            <i class="bi bi-diagram-3 text-secondary"></i>
-                        </div>
-                        <p class="text-secondary small mb-4 flex-grow-1">
-                            Distributed node network providing low-latency captions with NCI. Implements high-precision automation logic for accessibility compliance.
-                        </p>
-                        <div class="pt-3 border-top border-2" style="border-color: #EAE0D0 !important;">
-                            <span class="tag-retro">Distributed Systems</span>
-                            <span class="tag-retro">Performance</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="col-md-6">
-                    <div class="sys-card h-100 d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <h4 class="h5 fw-bold">CRM Pipeline Opt.</h4>
-                            <i class="bi bi-gear-wide-connected text-secondary"></i>
-                        </div>
-                        <p class="text-secondary small mb-4 flex-grow-1">
-                            Engineered parallel execution strategies for CI/CD pipelines with Uncommon Giving. Successfully reduced build times by 50% for high-traffic nonprofit platform.
-                        </p>
-                        <div class="pt-3 border-top border-2" style="border-color: #EAE0D0 !important;">
-                            <span class="tag-retro">DevOps</span>
-                            <span class="tag-retro">CI/CD</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 4 -->
-                <div class="col-md-6">
-                    <div class="sys-card h-100 d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <h4 class="h5 fw-bold">Patient Analytics</h4>
-                            <i class="bi bi-graph-up text-secondary"></i>
-                        </div>
-                        <p class="text-secondary small mb-4 flex-grow-1">
-                            Data analytics suite for monitoring patient outcomes with MUSC. Modernized legacy .NET Framework applications to .NET Core.
-                        </p>
-                        <div class="pt-3 border-top border-2" style="border-color: #EAE0D0 !important;">
-                            <span class="tag-retro">.NET Core</span>
-                            <span class="tag-retro">C#</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <section id="contact" class="py-5 text-center">
-        <div class="container">
-            <div class="sys-card d-inline-block px-5 py-4">
-                <h3 class="fw-bold mb-3">Initialize Connection?</h3>
-                <p class="text-secondary mb-4">Open to discussing new projects and opportunities.</p>
-                <a href="mailto:{{.Email}}" class="btn btn-retro-dark btn-lg px-4 mb-4">Send Mail</a>
-                
-                <div class="d-flex justify-content-center gap-4 border-top border-2 pt-4" style="border-color: #EAE0D0 !important;">
-                    <a href="{{.LinkedinLink}}" target="_blank" class="text-secondary fs-4"><i class="bi bi-linkedin"></i></a>
-                    <a href="{{.GithubLink}}" target="_blank" class="text-secondary fs-4"><i class="bi bi-github"></i></a>
-                </div>
-            </div>
-            
-            <p class="mt-5 mb-0 text-secondary text-mono small">
-                © 2025 {{.Name}}. ALL RIGHTS RESERVED.
-            </p>
-        </div>
-    </section>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/static/js/main.js"></script>
-</body>
-
-</html>
+</section>

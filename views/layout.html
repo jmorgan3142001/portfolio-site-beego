@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <link rel="icon" type="image/x-icon" href="/static/img/computer-favicon.webp">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbarNav">
+
+    <div id="hardware-bg">
+        <div class="molded-shape shape-block" data-speed="0.05" style="top: 15%; left: 5%;"></div>
+        <div class="molded-shape shape-circle" data-speed="0.1" style="top: 40%; right: 10%;"></div>
+        <div class="molded-shape shape-block" data-speed="0.02" style="bottom: 10%; left: 15%; width: 300px; height: 150px;"></div>
+        <div class="molded-shape shape-vent" data-speed="0.08" style="top: 25%; right: 25%;"></div>
+        <div class="molded-shape shape-vent" data-speed="0.08" style="top: 27%; right: 25%;"></div>
+        <div class="molded-shape shape-vent" data-speed="0.08" style="top: 29%; right: 25%;"></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <span class="power-light"></span>
+                {{.Name}}
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-grid-fill fs-3" style="color: var(--accent-primary);"></i>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#about">Overview</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#experience">History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Cartridges</a></li>
+                    <li class="nav-item ms-lg-4"><a class="btn btn-retro" href="#contact">Connect</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {{.LayoutContent}}
+
+    <section id="contact" class="py-5 text-center">
+        <div class="container">
+            <div class="sys-card d-inline-block px-5 py-4">
+                <h3 class="fw-bold mb-3">Initialize Connection?</h3>
+                <p class="text-secondary mb-4">Open to discussing new projects and opportunities.</p>
+                <a href="mailto:{{.Email}}" class="btn btn-retro-dark btn-lg px-4 mb-4">Send Mail</a>
+                
+                <div class="d-flex justify-content-center gap-4 border-top border-2 pt-4" style="border-color: #EAE0D0 !important;">
+                    <a href="{{.LinkedinLink}}" target="_blank" class="text-secondary fs-4"><i class="bi bi-linkedin"></i></a>
+                    <a href="{{.GithubLink}}" target="_blank" class="text-secondary fs-4"><i class="bi bi-github"></i></a>
+                </div>
+            </div>
+            
+            <p class="mt-5 mb-0 text-secondary text-mono small">
+                © 2025 {{.Name}}. ALL RIGHTS RESERVED.
+            </p>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const phrases = [
         "Scalable Systems",
         "Cloud Architectures",
-        "Efficient Algorithms",
+        "Impactful Software",
         "Reliable Backends"
     ];
     let phraseIndex = 0;
