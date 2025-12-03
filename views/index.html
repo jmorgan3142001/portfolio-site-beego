@@ -6,7 +6,7 @@
             <section id="about" class="mb-5 pb-5 border-bottom border-2 border-theme">
                 
                 <div class="mb-2 text-mono text-uppercase text-accent-sub">
-                    {{.Career}} // V 1.0
+                    {{.Career}} // <span class="text-lowercase">v.</span>1.0
                 </div>
                 
                 <h1 class="display-3 fw-bold mb-3 lh-tight">
@@ -18,12 +18,12 @@
                     > Building <span id="typewriter-text"></span><span class="cursor-blink">_</span>
                 </div>
 
-                <div class="sys-card sys-card-light mb-4 p-4">
+                <div class="sys-card mb-4 p-4" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#personalInfoModal">
                     <div class="deco-vents">
                         <div class="vent-line"></div><div class="vent-line"></div><div class="vent-line"></div>
                     </div>
-                    <p class="lead mb-0 text-secondary">
-                        I am a {{.Career}}, with years of real world experience, dedicated to writing clean code, solving complex problems, and building efficient applications. Currently driving digital transformation in accessibility and nonprofit sectors.
+                    <p class="lead mb-0 text-secondary p-2">
+                        I am a {{.Career}} based in {{.Location}}, with years of real world experience, dedicated to writing clean code, solving complex problems, and building efficient applications. Currently driving digital transformation in accessibility and nonprofit sectors.
                     </p>
                 </div>
 
@@ -47,55 +47,22 @@
                 <div class="timeline-wrapper">
                     <div class="timeline-line"></div>
                     
+                    {{range .Experience}}
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
                         <div class="d-flex justify-content-between align-items-baseline mb-1">
-                            <h4 class="h5 mb-0 fw-bold">{{.Career}}</h4>
-                            <span class="text-mono small text-accent">FEB 2025 - PRESENT</span>
+                            <h4 class="h5 mb-0 fw-bold">{{.Role}}</h4>
+                            <span class="text-mono small text-accent">{{.Duration}}</span>
                         </div>
-                        <div class="text-secondary small fw-bold mb-2">NATIONAL CAPTIONING INSTITUTE</div>
-                        <p class="text-secondary mb-2">
-                            Engineered high-precision automated captioning solutions exceeding accessibility compliance standards. Re-architected testing infrastructure and optimized frontend performance.
-                        </p>
+                        <div class="text-secondary small fw-bold mb-2">{{.Company}}</div>
+                        <p class="text-secondary mb-2">{{.Desc}}</p>
                         <div>
-                            <span class="tag-retro">Performance</span>
-                            <span class="tag-retro">Automation</span>
-                            <span class="tag-retro">DevOps</span>
+                            {{range .Tags}}
+                            <span class="tag-retro">{{.}}</span>
+                            {{end}}
                         </div>
                     </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="d-flex justify-content-between align-items-baseline mb-1">
-                            <h4 class="h5 mb-0 fw-bold">{{.Career}}</h4>
-                            <span class="text-mono small text-accent">2023 - PRESENT</span>
-                        </div>
-                        <div class="text-secondary small fw-bold mb-2">UNCOMMON GIVING</div>
-                        <p class="text-secondary mb-2">
-                            Architect of scalable web and mobile solutions using JS, Python (Django), and Flutter. Optimized CI/CD pipelines reducing build times by 50%.
-                        </p>
-                        <div>
-                            <span class="tag-retro">Python</span>
-                            <span class="tag-retro">Django</span>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="d-flex justify-content-between align-items-baseline mb-1">
-                            <h4 class="h5 mb-0 fw-bold">Systems Programmer II</h4>
-                            <span class="text-mono small text-accent">2023 - 2025</span>
-                        </div>
-                        <div class="text-secondary small fw-bold mb-2">MUSC</div>
-                        <p class="text-secondary mb-2">
-                            Spearheaded full-stack development of enterprise healthcare applications using C# and SQL. Modernized legacy applications to .NET Core.
-                        </p>
-                        <div>
-                            <span class="tag-retro">C# .NET</span>
-                            <span class="tag-retro">SQL</span>
-                            <span class="tag-retro">Flutter</span>
-                        </div>
-                    </div>
+                    {{end}}
 
                 </div>
             </section>
@@ -104,7 +71,10 @@
         <div class="col-lg-4">
             <div class="sys-sticky-col">
                 
-                <div class="sys-card mb-4">
+                <div class="sys-card mb-4" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#personalInfoModal">
+                    <div class="deco-vents deco-vents-left">
+                        <div class="vent-line"></div><div class="vent-line"></div>
+                    </div>
                     <div class="text-center mb-3">
                         <div class="avatar-retro">
                             <span class="fw-bold fs-2 text-accent">JM</span>
@@ -116,7 +86,11 @@
                     <div class="border-top border-2 pt-3 border-theme">
                         <div class="d-flex justify-content-between mb-2 small">
                             <span class="text-secondary fw-bold">LOCATION</span>
-                            <span>Charleston, SC</span>
+                            <span>{{.Location}}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2 small">
+                            <span class="text-secondary fw-bold">COMPANY</span>
+                            <span>NCI and Uncommon Giving</span>
                         </div>
                         <div class="d-flex justify-content-between mb-2 small">
                             <span class="text-secondary fw-bold">EDUCATION</span>
@@ -125,43 +99,22 @@
                     </div>
                 </div>
 
-                <div class="sys-card">
+                <div class="sys-card" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#techSpecsModal">
                     <div class="deco-vents deco-vents-left">
                         <div class="vent-line"></div><div class="vent-line"></div>
                     </div>
                     <h5 class="fw-bold mt-2 mb-3 text-end">Tech Specs</h5>
                     
+                    {{range .TechSpecs}}
                     <div class="mb-3">
-                        <small class="text-mono text-uppercase text-secondary d-block mb-2">Languages</small>
+                        <small class="text-mono text-uppercase text-secondary d-block mb-2">{{.Category}}</small>
                         <div class="d-flex flex-wrap gap-2">
-                            <span class="tag-retro">Python</span>
-                            <span class="tag-retro">C#</span>
-                            <span class="tag-retro">JavaScript</span>
-                            <span class="tag-retro">SQL</span>
-                            <span class="tag-retro">Go</span>
+                            {{range .Items}}
+                            <span class="tag-retro">{{.}}</span>
+                            {{end}}
                         </div>
                     </div>
-
-                    <div class="mb-3">
-                        <small class="text-mono text-uppercase text-secondary d-block mb-2">Frameworks</small>
-                        <div class="d-flex flex-wrap gap-2">
-                            <span class="tag-retro">.NET Core</span>
-                            <span class="tag-retro">Django</span>
-                            <span class="tag-retro">Angular</span>
-                            <span class="tag-retro">Flutter</span>
-                            <span class="tag-retro">GoBee</span>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <small class="text-mono text-uppercase text-secondary d-block mb-2">Infra</small>
-                        <div class="d-flex flex-wrap gap-2">
-                            <span class="tag-retro">AWS</span>
-                            <span class="tag-retro">Azure</span>
-                            <span class="tag-retro">Docker</span>
-                            <span class="tag-retro">Git</span>
-                        </div>
-                    </div>
+                    {{end}}
                 </div>
 
             </div>
@@ -182,69 +135,143 @@
         </div>
         
         <div class="row g-4">
+            {{range .Projects}}
             <div class="col-md-6">
-                <div class="sys-card h-100 d-flex flex-column">
+                <div class="sys-card h-100 d-flex flex-column" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modal-{{.ID}}">
                     <div class="d-flex justify-content-between align-items-start mb-3">
-                        <h4 class="h5 fw-bold">Lawless Lowcountry Living</h4>
-                        <a href="http://lawlesslowcountryliving.com" target="_blank" class="text-secondary"><i class="bi bi-box-arrow-up-right"></i></a>
+                        <h4 class="h5 fw-bold">{{.Title}}</h4>
+                        {{if ne .Link "#"}}
+                        <a href="{{.Link}}" target="_blank" class="text-secondary" onclick="event.stopPropagation();"><i class="bi bi-box-arrow-up-right"></i></a>
+                        {{else}}
+                        <i class="bi {{.Icon}} text-secondary"></i>
+                        {{end}}
                     </div>
                     <p class="text-secondary small mb-4 flex-grow-1">
-                        Production website hosted on cloud infrastructure. Demonstrates full-stack capabilities, responsive design, and efficient content delivery systems.
+                        {{.Description}}
                     </p>
                     <div class="pt-3 border-top border-2 border-cream">
-                        <span class="tag-retro">Cloud Hosting</span>
-                        <span class="tag-retro">Web Dev</span>
+                        {{range .Tags}}
+                        <span class="tag-retro">{{.}}</span>
+                        {{end}}
                     </div>
                 </div>
             </div>
+            {{end}}
+        </div>
+    </div>
+</section>
 
-            <div class="col-md-6">
-                <div class="sys-card h-100 d-flex flex-column">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <h4 class="h5 fw-bold">Auto-Caption Network</h4>
-                        <i class="bi bi-diagram-3 text-secondary"></i>
+<div class="modal fade modal-crt" id="techSpecsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0 pb-0">
+                <span class="text-mono small text-secondary fw-bold">SYSTEM_INFO.SYS</span>
+            </div>
+            <div class="modal-body">
+                <h2 class="h4 fw-bold text-accent mb-4 border-bottom border-theme pb-2">Technical Specifications</h2>
+                <div class="row">
+                    {{range .TechSpecs}}
+                    <div class="col-md-6 mb-4">
+                        <div class="mb-2 text-secondary fw-bold small text-uppercase">{{.Category}}</div>
+                        <ul class="list-unstyled text-mono ps-3 border-start border-3 border-theme">
+                            {{range .Items}}
+                            <li class="mb-1 text-secondary">> {{.}}</li>
+                            {{end}}
+                        </ul>
                     </div>
-                    <p class="text-secondary small mb-4 flex-grow-1">
-                        Distributed node network providing low-latency captions with NCI. Implements high-precision automation logic for accessibility compliance.
-                    </p>
-                    <div class="pt-3 border-top border-2 border-cream">
-                        <span class="tag-retro">Distributed Systems</span>
-                        <span class="tag-retro">Performance</span>
-                    </div>
+                    {{end}}
+                </div>
+                <div class="mt-3 p-2 bg-light rounded text-center text-mono small text-secondary">
+                    STATUS: OPTIMIZED FOR FULL STACK OPERATIONS
                 </div>
             </div>
+        </div>
+    </div>
+</div>
 
-            <div class="col-md-6">
-                <div class="sys-card h-100 d-flex flex-column">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <h4 class="h5 fw-bold">CRM Pipeline Opt.</h4>
-                        <i class="bi bi-gear-wide-connected text-secondary"></i>
-                    </div>
-                    <p class="text-secondary small mb-4 flex-grow-1">
-                        Engineered parallel execution strategies for CI/CD pipelines with Uncommon Giving. Successfully reduced build times by 50% for high-traffic nonprofit platform.
-                    </p>
-                    <div class="pt-3 border-top border-2 border-cream">
-                        <span class="tag-retro">DevOps</span>
-                        <span class="tag-retro">CI/CD</span>
-                    </div>
-                </div>
+<div class="modal fade modal-crt" id="personalInfoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0 pb-0">
+                <span class="text-mono small text-secondary fw-bold">USER_PROFILE.DAT</span>
             </div>
-
-            <div class="col-md-6">
-                <div class="sys-card h-100 d-flex flex-column">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <h4 class="h5 fw-bold">Patient Analytics</h4>
-                        <i class="bi bi-graph-up text-secondary"></i>
+            <div class="modal-body">
+                <div class="row align-items-center">
+                    <div class="col-md-4 text-center mb-4 mb-md-0">
+                        <div style="width: 140px; height: 140px; border: 4px solid var(--border-shadow); background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 .5rem 1rem rgba(0,0,0,0.1);">
+                            <i class="bi bi-person-bounding-box fs-1 text-accent"></i>
+                        </div>
+                        <div class="mt-3 fw-bold fs-5">{{.Name}}</div>
+                        <div class="small text-secondary text-uppercase fw-bold">{{.Career}}</div>
                     </div>
-                    <p class="text-secondary small mb-4 flex-grow-1">
-                        Data analytics suite for monitoring patient outcomes with MUSC. Modernized legacy .NET Framework applications to .NET Core.
-                    </p>
-                    <div class="pt-3 border-top border-2 border-cream">
-                        <span class="tag-retro">.NET Core</span>
-                        <span class="tag-retro">C#</span>
+                    <div class="col-md-8">
+                        <h3 class="h5 fw-bold text-accent mb-3">About The Operator</h3>
+                        <p class="mb-4 text-secondary">
+                            I am a {{.Career}} based in {{.Location}}, with years of real world experience, dedicated to writing clean code, solving complex problems, and building efficient applications. Currently driving digital transformation in accessibility and nonprofit sectors.
+                        </p>
+                        
+                        <div class="p-3 rounded" style="background: rgba(139, 30, 36, 0.05); border: 1px solid rgba(139, 30, 36, 0.1);">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="bi bi-envelope me-2 text-accent"></i> 
+                                <span class="text-mono small">{{.Email}}</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="bi bi-linkedin me-2 text-accent"></i> 
+                                <a href="{{.LinkedinLink}}" target="_blank" class="text-secondary text-decoration-none fw-bold">LinkedIn Profile</a>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-github me-2 text-accent"></i> 
+                                <a href="{{.GithubLink}}" target="_blank" class="text-secondary text-decoration-none fw-bold">GitHub Profile</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
+
+{{range .Projects}}
+<div class="modal fade modal-crt" id="modal-{{.ID}}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0 pb-0">
+                <span class="text-mono small text-secondary fw-bold">PROJECT_LOG_{{.ID}}</span>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="bi {{if .Icon}}{{.Icon}}{{else}}bi-folder{{end}} fs-3 text-accent me-3"></i>
+                    <h2 class="h4 fw-bold mb-0">{{.Title}}</h2>
+                </div>
+                
+                <div class="mb-4 p-3 bg-light rounded border border-theme">
+                    <span class="text-mono small fw-bold text-uppercase text-secondary d-block mb-1">Description</span>
+                    <p class="mb-0 text-secondary">{{.Description}}</p>
+                </div>
+
+                <div class="row align-items-end">
+                    <div class="col-md-7">
+                        <span class="text-mono small fw-bold text-uppercase text-secondary d-block mb-2">Tech Stack</span>
+                        <div class="d-flex flex-wrap gap-2">
+                            {{range .Tags}}
+                            <span class="tag-retro">{{.}}</span>
+                            {{end}}
+                        </div>
+                    </div>
+                    <div class="col-md-5 text-end mt-4 mt-md-0">
+                        {{if ne .Link "#"}}
+                        <a href="{{.Link}}" target="_blank" class="btn btn-retro w-100">
+                            Access Terminal <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                        {{else}}
+                        <button class="btn btn-retro w-100" disabled style="opacity: 0.6;">
+                            Internal Access Only
+                        </button>
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}
