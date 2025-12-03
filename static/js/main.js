@@ -39,18 +39,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     typeWriter();
 
-    /* --- Hardware Parallax Effect --- */
-    // Move shapes slowly based on scroll position
+    /* --- Hardware Parallax Effect (Optimized) --- */
     const shapes = document.querySelectorAll('.molded-shape');
-    
-    window.addEventListener('scroll', () => {
-        const scrolled = window.scrollY;
-        
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    function updateParallax() {
         shapes.forEach(shape => {
             const speed = shape.getAttribute('data-speed');
-            const yPos = -(scrolled * speed);
-            // Apply subtle movement
-            shape.style.transform = `translateY(${yPos}px)`;
+            const yPos = -(lastScrollY * speed);
+            shape.style.transform = `translate3d(0, ${yPos}px, 0)`; // Use translate3d for hardware acceleration
         });
-    });
+        ticking = false;
+    }
+    
+    window.addEventListener('scroll', () => {
+        lastScrollY = window.scrollY;
+        if (!ticking) {
+            window.requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    }, { passive: true });
 });

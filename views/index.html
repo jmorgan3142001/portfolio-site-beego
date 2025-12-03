@@ -3,22 +3,22 @@
         
         <div class="col-lg-8">
             
-            <section id="about" class="mb-5 pb-5 border-bottom border-2" style="border-color: var(--border-color)!important;">
+            <section id="about" class="mb-5 pb-5 border-bottom border-2 border-theme">
                 
-                <div class="mb-2 text-mono text-uppercase" style="color: var(--accent-secondary); font-weight: 700;">
-                    // {{.Career}} // V 1.0
+                <div class="mb-2 text-mono text-uppercase text-accent-sub">
+                    {{.Career}} // V 1.0
                 </div>
                 
-                <h1 class="display-3 fw-bold mb-3" style="line-height: 1.1;">
+                <h1 class="display-3 fw-bold mb-3 lh-tight">
                     Providing Scalable <br>
-                    <span style="color: var(--accent-primary);">Software Solutions</span>
+                    <span class="text-accent">Software Solutions</span>
                 </h1>
                 
                 <div id="dynamic-text-container" class="h5">
                     > Building <span id="typewriter-text"></span><span class="cursor-blink">_</span>
                 </div>
 
-                <div class="sys-card mb-4 p-4" style="background: #fff;">
+                <div class="sys-card sys-card-light mb-4 p-4">
                     <div class="deco-vents">
                         <div class="vent-line"></div><div class="vent-line"></div><div class="vent-line"></div>
                     </div>
@@ -40,7 +40,7 @@
 
             <section id="experience" class="mb-5">
                 <div class="d-flex align-items-center mb-4">
-                    <i class="bi bi-cpu fs-4 me-2" style="color: var(--accent-primary);"></i>
+                    <i class="bi bi-cpu fs-4 me-2 text-accent"></i>
                     <h3 class="mb-0">Operation History</h3>
                 </div>
                 
@@ -51,7 +51,7 @@
                         <div class="timeline-dot"></div>
                         <div class="d-flex justify-content-between align-items-baseline mb-1">
                             <h4 class="h5 mb-0 fw-bold">{{.Career}}</h4>
-                            <span class="text-mono small" style="color: var(--accent-primary);">FEB 2025 - PRESENT</span>
+                            <span class="text-mono small text-accent">FEB 2025 - PRESENT</span>
                         </div>
                         <div class="text-secondary small fw-bold mb-2">NATIONAL CAPTIONING INSTITUTE</div>
                         <p class="text-secondary mb-2">
@@ -68,7 +68,7 @@
                         <div class="timeline-dot"></div>
                         <div class="d-flex justify-content-between align-items-baseline mb-1">
                             <h4 class="h5 mb-0 fw-bold">{{.Career}}</h4>
-                            <span class="text-mono small" style="color: var(--accent-primary);">2023 - PRESENT</span>
+                            <span class="text-mono small text-accent">2023 - PRESENT</span>
                         </div>
                         <div class="text-secondary small fw-bold mb-2">UNCOMMON GIVING</div>
                         <p class="text-secondary mb-2">
@@ -84,7 +84,7 @@
                         <div class="timeline-dot"></div>
                         <div class="d-flex justify-content-between align-items-baseline mb-1">
                             <h4 class="h5 mb-0 fw-bold">Systems Programmer II</h4>
-                            <span class="text-mono small" style="color: var(--accent-primary);">2023 - 2025</span>
+                            <span class="text-mono small text-accent">2023 - 2025</span>
                         </div>
                         <div class="text-secondary small fw-bold mb-2">MUSC</div>
                         <p class="text-secondary mb-2">
@@ -106,14 +106,14 @@
                 
                 <div class="sys-card mb-4">
                     <div class="text-center mb-3">
-                        <div style="width: 80px; height: 80px; background: var(--bg-panel); border-radius: 50%; margin: 0 auto; display: flex; align-items: center; justify-content: center; border: 2px solid var(--border-color);">
-                            <span class="fw-bold fs-2" style="color: var(--accent-primary);">JM</span>
+                        <div class="avatar-retro">
+                            <span class="fw-bold fs-2 text-accent">JM</span>
                         </div>
                     </div>
                     <h4 class="text-center fw-bold mb-1">{{.Name}}</h4>
                     <div class="text-center text-mono small text-secondary mb-4">{{.Career}}</div>
                     
-                    <div class="border-top border-2 pt-3" style="border-color: var(--border-color)!important;">
+                    <div class="border-top border-2 pt-3 border-theme">
                         <div class="d-flex justify-content-between mb-2 small">
                             <span class="text-secondary fw-bold">LOCATION</span>
                             <span>Charleston, SC</span>
@@ -126,7 +126,7 @@
                 </div>
 
                 <div class="sys-card">
-                    <div class="deco-vents" style="left: 1.5rem; right: auto;">
+                    <div class="deco-vents deco-vents-left">
                         <div class="vent-line"></div><div class="vent-line"></div>
                     </div>
                     <h5 class="fw-bold mt-2 mb-3 text-end">Tech Specs</h5>
@@ -169,11 +169,11 @@
     </div>
 </div>
 
-<section id="projects" class="py-5" style="background: rgba(44, 44, 44, 0.03); border-top: 2px solid var(--border-color); border-bottom: 2px solid var(--border-color);">
+<section id="projects" class="py-5">
     <div class="container">
         <div class="d-flex justify-content-between align-items-end mb-5">
             <div>
-                <h2 class="display-5 fw-bold mb-0">Project <span style="color: var(--accent-primary);">Library</span></h2>
+                <h2 class="display-5 fw-bold mb-0">Project <span class="text-accent">Library</span></h2>
                 <p class="text-secondary mb-0 mt-2">Selected works and deployments, both personal and professional.</p>
             </div>
             <div class="text-mono small d-none d-md-block">
@@ -191,7 +191,7 @@
                     <p class="text-secondary small mb-4 flex-grow-1">
                         Production website hosted on cloud infrastructure. Demonstrates full-stack capabilities, responsive design, and efficient content delivery systems.
                     </p>
-                    <div class="pt-3 border-top border-2" style="border-color: #EAE0D0 !important;">
+                    <div class="pt-3 border-top border-2 border-cream">
                         <span class="tag-retro">Cloud Hosting</span>
                         <span class="tag-retro">Web Dev</span>
                     </div>
@@ -207,7 +207,7 @@
                     <p class="text-secondary small mb-4 flex-grow-1">
                         Distributed node network providing low-latency captions with NCI. Implements high-precision automation logic for accessibility compliance.
                     </p>
-                    <div class="pt-3 border-top border-2" style="border-color: #EAE0D0 !important;">
+                    <div class="pt-3 border-top border-2 border-cream">
                         <span class="tag-retro">Distributed Systems</span>
                         <span class="tag-retro">Performance</span>
                     </div>
@@ -223,7 +223,7 @@
                     <p class="text-secondary small mb-4 flex-grow-1">
                         Engineered parallel execution strategies for CI/CD pipelines with Uncommon Giving. Successfully reduced build times by 50% for high-traffic nonprofit platform.
                     </p>
-                    <div class="pt-3 border-top border-2" style="border-color: #EAE0D0 !important;">
+                    <div class="pt-3 border-top border-2 border-cream">
                         <span class="tag-retro">DevOps</span>
                         <span class="tag-retro">CI/CD</span>
                     </div>
@@ -239,7 +239,7 @@
                     <p class="text-secondary small mb-4 flex-grow-1">
                         Data analytics suite for monitoring patient outcomes with MUSC. Modernized legacy .NET Framework applications to .NET Core.
                     </p>
-                    <div class="pt-3 border-top border-2" style="border-color: #EAE0D0 !important;">
+                    <div class="pt-3 border-top border-2 border-cream">
                         <span class="tag-retro">.NET Core</span>
                         <span class="tag-retro">C#</span>
                     </div>
