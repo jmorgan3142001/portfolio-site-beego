@@ -25,9 +25,23 @@ type Experience struct {
 }
 
 type GithubProfile struct {
-    PublicRepos int    `json:"public_repos"`
-    Login       string `json:"login"`
-    AvatarUrl   string `json:"avatar_url"`
+    PublicRepos     int    `json:"public_repos"`
+    Login           string `json:"login"`
+    LatestCommitMsg string `json:"latest_commit_msg"`
+    LatestCommitUrl string `json:"latest_commit_url"` 
+}
+
+type GithubEvent struct {
+    Type string `json:"type"`
+    Repo struct {
+        Name string `json:"name"`
+    } `json:"repo"`
+    Payload struct {
+        Head    string `json:"head"` 
+        Commits []struct {
+            Message string `json:"message"`
+        } `json:"commits"`
+    } `json:"payload"`
 }
 
 type SystemModule struct {

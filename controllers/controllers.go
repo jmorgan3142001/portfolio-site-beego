@@ -17,17 +17,61 @@ type PortfolioController struct {
 
 // --- Helper for GitHub API --- 
 func getGithubStats(username string) models.GithubProfile {
-    client := http.Client{
-        Timeout: 2 * time.Second,
-    }
-    resp, err := client.Get("https://api.github.com/users/" + username)
-    if err != nil {
-        return models.GithubProfile{PublicRepos: 0, Login: "System Offline"}
-    }
-    defer resp.Body.Close()
-
+    client := http.Client{Timeout: 2 * time.Second}
     var profile models.GithubProfile
-    json.NewDecoder(resp.Body).Decode(&profile)
+
+    // 1. Fetch User Profile (for Repo count)
+    resp, err := client.Get("https://api.github.com/users/" + username)
+    if err == nil {
+        defer resp.Body.Close()
+        json.NewDecoder(resp.Body).Decode(&profile)
+    } else {
+        profile.Login = "System Offline"
+    }
+
+    // 2. Fetch Public Events (for Latest Commit Link)
+    respEvents, errEvents := client.Get("https://api.github.com/users/" + username + "/events/public")
+    if errEvents == nil {
+        defer respEvents.Body.Close()
+        
+        var rawEvents []models.GithubEvent // Using the internal struct defined in models
+        
+        // We decode into the helper struct we defined
+        if json.NewDecoder(respEvents.Body).Decode(&rawEvents) == nil {
+            for _, event := range rawEvents {
+                // We only want PushEvents (commits)
+                if event.Type == "PushEvent" {
+                    
+                    // 1. Get the Message
+                    if len(event.Payload.Commits) > 0 {
+                        profile.LatestCommitMsg = event.Payload.Commits[0].Message
+                    } else {
+                        profile.LatestCommitMsg = "Update repository"
+                    }
+                    
+                    // Truncate message if it's too long
+                    if len(profile.LatestCommitMsg) > 50 {
+                        profile.LatestCommitMsg = profile.LatestCommitMsg[:47] + "..."
+                    }
+
+                    // 2. Construct the Public URL
+                    // Format: https://github.com/{Owner}/{Repo}/commit/{SHA}
+                    if event.Repo.Name != "" && event.Payload.Head != "" {
+                        profile.LatestCommitUrl = "https://github.com/" + event.Repo.Name + "/commit/" + event.Payload.Head
+                    }
+                    
+                    break // Stop after finding the most recent one
+                }
+            }
+        }
+    }
+
+    // Fallback if no public commits found
+    if profile.LatestCommitUrl == "" {
+        profile.LatestCommitMsg = "No recent public commits"
+        profile.LatestCommitUrl = "#"
+    }
+
     return profile
 }
 
