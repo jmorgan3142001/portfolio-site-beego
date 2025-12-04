@@ -58,8 +58,10 @@ func AddAccessLog(name, message, userAgent string) error {
     // Parse Terminal
     terminal := "Unknown/Term"
     if len(userAgent) > 0 {
-        if len(userAgent) > 15 {
-            terminal = "Remote_Client/v1.0" 
+        if len(userAgent) > 30 {
+            terminal = userAgent[:27] + "..."
+        } else {
+            terminal = userAgent
         }
     }
 
@@ -78,7 +80,6 @@ func AddAccessLog(name, message, userAgent string) error {
 func GetAccessLogs() []AccessLog {
     o := orm.NewOrm()
     var logs []AccessLog
-    // Fetch all entries, newest first
     o.QueryTable("access_log").OrderBy("-Created").All(&logs)
     return logs
 }
@@ -108,10 +109,10 @@ type Experience struct {
 }
 
 type GithubProfile struct {
-    PublicRepos     int    `json:"public_repos"`
-    Login           string `json:"login"`
+    PublicRepos      int    `json:"public_repos"`
+    Login            string `json:"login"`
     LatestCommitCode string `json:"latest_commit_code"`
-    LatestCommitUrl string `json:"latest_commit_url"`
+    LatestCommitUrl  string `json:"latest_commit_url"`
 }
 
 type GithubEvent struct {
@@ -166,7 +167,7 @@ type Algorithm struct {
 type ResearchMeta struct {
     Label  string
     Value  string
-    Status string // "success", "warning", or "accent" for color logic
+    Status string
 }
 
 type ComplexityStat struct {
@@ -198,28 +199,28 @@ func GetExperience() []Experience {
             Company:  "NATIONAL CAPTIONING INSTITUTE",
             Role:     "Software Engineer",
             Duration: "FEB 2025 - PRESENT",
-            Desc:     "Engineered high-precision automated captioning solutions exceeding accessibility compliance standards. Re-architected testing infrastructure and optimized frontend performance.",
+            Desc:     "Building automated captioning tools to meet strict accessibility standards. I also overhauled the testing infrastructure and improved frontend performance.",
             Tags:     []string{"Python", "Performance", "Automation", "DevOps", "SQL"},
         },
         {
             Company:  "UNCOMMON GIVING",
             Role:     "Software Engineer",
             Duration: "2023 - PRESENT",
-            Desc:     "Architect of scalable web and mobile solutions using JS, Python (Django), and Flutter. Optimized CI/CD pipelines reducing build times by 50%.",
+            Desc:     "Building web and mobile apps with JS, Python, and Flutter. I also tuned the CI/CD pipelines, cutting build times in half.",
             Tags:     []string{"Typescript", "Angular", "Python", "Django", "SQL"},
         },
         {
             Company:  "MUSC",
             Role:     "Systems Programmer II",
             Duration: "2023 - 2025",
-            Desc:     "Spearheaded full-stack development of enterprise healthcare applications using C# and SQL. Modernized legacy applications to .NET Core.",
+            Desc:     "Led full-stack development for healthcare apps using C# and SQL. I helped modernize legacy systems by moving them to .NET Core.",
             Tags:     []string{"C#", ".Net Core", "Flutter", "SQL", "jQuery"},
         },
-		{
+        {
             Company:  "District 186",
             Role:     "Computer Programmer and Software Developer",
             Duration: "2022 - 2023",
-            Desc:     "Developed robust student and staff management systems using PHP and Oracle SQL, streamlining administrative workflows.",
+            Desc:     "Built student and staff management tools using PHP and Oracle SQL to make administrative tasks easier.",
             Tags:     []string{"PHP", "Oracle SQL", "Javascript", "Bootstrap"},
         },
     }
@@ -227,18 +228,47 @@ func GetExperience() []Experience {
 
 func GetProjects() []Project {
     return []Project{
+        // Personal Projects
         {
             ID:          "proj1",
             Title:       "Lawless Lowcountry Living",
-            Description: "A comprehensive production website architected on modern cloud infrastructure. This project demonstrates end-to-end full-stack capabilities, featuring a responsive mobile-first design, optimized content delivery networks (CDN) for rapid asset loading, and a scalable backend system.",
+            Description: "A live production site running on modern cloud infrastructure. It showcases my full-stack work, focusing on mobile-first design and fast content delivery.",
             Tags:        []string{"Cloud Hosting", "Web Dev"},
             Link:        "http://lawlesslowcountryliving.com",
             Icon:        "bi-box-arrow-up-right",
         },
         {
+            ID:          "proj4",
+            Title:       "The \"OG\" Portfolio",
+            Description: "A blast from the past. This was my first portfolio site. It's a bit rough compared to my current work, but I keep it up to show how my frontend skills have evolved.",
+            Tags:        []string{"Legacy", "HTML/CSS", "Progress"},
+            Link:        "https://jmorgan3142001.github.io/portfolio-website/",
+            Icon:        "bi-clock-history",
+        },
+
+        // NCI Open Source Contributions
+        {
+            ID:          "nci_os_1",
+            Title:       "Django5 Forms Fieldset",
+            Description: "An open-source tool I forked and maintain at NCI. It extends Django 5 to let developers group form fields semantically, making UIs cleaner and more accessible.",
+            Tags:        []string{"Open Source", "Django", "Python", "NCI"},
+            Link:        "https://github.com/NCIAdmin/django5-forms-fieldset",
+            Icon:        "bi-github",
+        },
+        {
+            ID:          "nci_os_2",
+            Title:       "Django5 Scheduler",
+            Description: "A task scheduler I forked and contributed to NCI's open source repo. It helps manage background jobs and periodic tasks directly through the Django ORM.",
+            Tags:        []string{"Open Source", "Automation", "Django", "NCI"},
+            Link:        "https://github.com/NCIAdmin/django5-scheduler",
+            Icon:        "bi-calendar-check",
+        },
+
+        // Internal Achievements
+        {
             ID:          "proj2",
             Title:       "Auto-Caption Network",
-            Description: "A distributed node network designed to provide ultra-low-latency captions in partnership with NCI. The system implements high-precision automation logic to ensure strict accessibility compliance, handling complex data streams with high availability and minimal delay.",
+            Description: "A distributed network built for NCI to deliver low-latency captions. It handles complex data streams to ensure captions stay in sync and meet compliance rules.",
             Tags:        []string{"Distributed Systems", "Performance"},
             Link:        "#",
             Icon:        "bi-diagram-3",
@@ -246,18 +276,10 @@ func GetProjects() []Project {
         {
             ID:          "proj3",
             Title:       "CRM Pipeline Opt.",
-            Description: "Re-engineered CI/CD workflows for Uncommon Giving by implementing advanced parallel execution strategies. This optimization initiative streamlined the development lifecycle, successfully reducing build times by 50% and significantly increasing deployment velocity.",
+            Description: "I reworked the CI/CD workflows at Uncommon Giving to run tasks in parallel. This cut build times by 50% and helped us deploy features much faster.",
             Tags:        []string{"DevOps", "CI/CD"},
             Link:        "#",
             Icon:        "bi-gear-wide-connected",
-        },
-        {
-            ID:          "proj4",
-            Title:       "The \"OG\" Portfolio",
-            Description: "A fun blast from the past! This was my very first attempt at a portfolio site. While it's a little rough around the edges compared to my current work, I keep it online as a benchmark to highlight just how far my frontend skills and design sensibilities have evolved.",
-            Tags:        []string{"Legacy", "HTML/CSS", "Progress"},
-            Link:        "https://jmorgan3142001.github.io/portfolio-website/",
-            Icon:        "bi-clock-history",
         },
     }
 }
@@ -268,7 +290,7 @@ func GetSystemModules() []SystemModule {
             ID:          "MODULE_01",
             Title:       "Backend Architecture",
             Icon:        "bi-hdd-network",
-            Description: "High-availability server logic and API design.",
+            Description: "Server logic, API design, and keeping things online.",
             Progress:    90,
             Tags:        []string{"Python (Django)", "Go (Beego)", "PostgreSQL"},
         },
@@ -276,7 +298,7 @@ func GetSystemModules() []SystemModule {
             ID:          "MODULE_02",
             Title:       "Distributed Systems",
             Icon:        "bi-diagram-3",
-            Description: "Scalable infrastructure and consensus logic.",
+            Description: "Infrastructure scaling and consensus algorithms.",
             Progress:    45,
             Tags:        []string{"gRPC", "Docker", "AWS"},
         },
@@ -284,7 +306,7 @@ func GetSystemModules() []SystemModule {
             ID:          "MODULE_03",
             Title:       "Full Stack Integration",
             Icon:        "bi-window-stack",
-            Description: "Bridging complex backend logic with user interfaces.",
+            Description: "Connecting backend logic to user-friendly interfaces.",
             Progress:    67,
             Tags:        []string{"Angular", "TypeScript", "UI/UX"},
         },
@@ -292,7 +314,7 @@ func GetSystemModules() []SystemModule {
             ID:          "MODULE_04",
             Title:       "Data Management",
             Icon:        "bi-database-fill",
-            Description: "Architecting efficient schemas and handling large-scale datasets.",
+            Description: "Designing schemas and managing large datasets.",
             Progress:    100,
             Tags:        []string{"PostgreSQL", "SQL Server", "Optimization"},
         },
@@ -312,35 +334,35 @@ func GetBooks() []Book {
         {
             Title:  "Clean Code",
             Author: "Robert C. Martin",
-            Desc:   "The standard protocol for writing maintainable software.",
+            Desc:   "The go-to guide for writing code that is easy to read and maintain.",
             Type:   "CORE_LOGIC",
             Link:   "https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882",
         },
         {
             Title:  "Designing Data-Intensive Applications",
             Author: "Martin Kleppmann",
-            Desc:   "Essential for understanding distributed systems and scalability.",
+            Desc:   "A must-read for understanding how distributed systems actually work.",
             Type:   "DATABASE_SYS",
             Link:   "https://www.amazon.com/Designing-Data-Intensive-Applications-Reliable-Maintainable/dp/1449373321",
         },
         {
             Title:  "Operating Systems: Three Easy Pieces",
             Author: "Remzi & Andrea Arpaci-Dusseau",
-            Desc:   "Deep dive into virtualization, concurrency, and persistence.",
+            Desc:   "A great look at virtualization, concurrency, and file systems.",
             Type:   "KERNEL_OPS",
             Link:   "https://www.amazon.com/Operating-Systems-Three-Easy-Pieces/dp/198508659X",
         },
         {
             Title:  "Modern Operating Systems",
             Author: "Andrew S. Tanenbaum",
-            Desc:   "The definitive guide to underlying computer architecture.",
+            Desc:   "A classic textbook on how computer operating systems function.",
             Type:   "KERNEL_OPS",
             Link:   "https://www.amazon.com/Modern-Operating-Systems-Andrew-Tanenbaum/dp/013359162X",
         },
         {
             Title:  "Database Internals",
             Author: "Alex Petrov",
-            Desc:   "A deep dive into how distributed data systems work, covering storage engines and distributed components.",
+            Desc:   "Explains how databases work under the hood, from storage engines to distributed consensus.",
             Type:   "DATABASE_SYS",
             Link:   "https://www.amazon.com/Database-Internals-Deep-Distributed-Systems/dp/1492040347",
         },
@@ -352,7 +374,7 @@ func GetNextReads() []Book {
         {
             Title:  "TCP/IP Illustrated, Vol. 1",
             Author: "W. Richard Stevens",
-            Desc:   "The protocols: A detailed visual guide to how the TCP/IP protocols work.",
+            Desc:   "A visual guide to the protocols that run the internet.",
             Type:   "NETWORKING",
             Link:   "https://www.amazon.com/TCP-Illustrated-Vol-Protocols-Addison-Wesley/dp/0201633469",
         },
@@ -387,25 +409,25 @@ func GetResearchPapers() []ResearchPaper {
         {
             Title: "MapReduce: Simplified Data Processing",
             Topic: "Distributed Systems",
-            Note:  "Analysis of Google's implementation of map and reduce primitives for large clusters. Key focus on fault tolerance.",
+            Note:  "How Google processes massive datasets on commodity hardware with built-in fault tolerance.",
             Link:  "https://research.google.com/archive/mapreduce-osdi04.pdf",
         },
         {
             Title: "Time, Clocks, and Ordering",
             Topic: "Concurrency",
-            Note:  "Leslie Lamport's seminal work on partial ordering and logical clocks in distributed systems.",
+            Note:  "Lamport's classic paper on ordering events in distributed systems using logical clocks.",
             Link:  "https://lamport.azurewebsites.net/pubs/time-clocks.pdf",
         },
         {
             Title: "The Google File System",
             Topic: "Storage Systems",
-            Note:  "A scalable distributed file system for large distributed data-intensive applications.",
+            Note:  "The architecture behind Google's scalable file system for data-intensive apps.",
             Link:  "https://research.google.com/archive/gfs-sosp2003.pdf",
         },
         {
             Title: "In Search of an Understandable Consensus Algorithm (Raft)",
             Topic: "Consensus",
-            Note:  "A consensus algorithm designed to be easier to understand than Paxos, critical for modern distributed systems.",
+            Note:  "A consensus algorithm built to be easier to understand than Paxos. It's the backbone of many modern distributed systems.",
             Link:  "https://raft.github.io/raft.pdf",
         },
     }
@@ -416,14 +438,14 @@ func GetAlgorithms() []Algorithm {
         {
             Name: "Barrier Synchronization",
             Lang: "C++ / OpenMP",
-            Desc: "Implementing thread barriers without standard libraries to understand race conditions.",
-            Link: "https://github.com/OpenMP/examples", // Reference: Official OpenMP Examples
+            Desc: "Building thread barriers from scratch to better understand race conditions.",
+            Link: "https://github.com/OpenMP/examples", 
         },
         {
             Name: "gRPC Store",
             Lang: "C++",
-            Desc: "A distributed key-value store utilizing thread pools and custom replication logic.",
-            Link: "https://github.com/grpc/grpc/tree/master/examples/cpp", // Reference: Official gRPC C++ Examples
+            Desc: "A distributed key-value store I built using thread pools and custom replication.",
+            Link: "https://github.com/grpc/grpc/tree/master/examples/cpp", 
         },
     }
 }
