@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         'sudo': () => {
             window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank'); // Rick Rolled :D
-            return 'Access Denied: User is not in the sudoers file. This incident will be reported.';
+            return 'Access Denied: User is not in the sudoers file. Goodbye :D';
         },
 
         'exit': () => {

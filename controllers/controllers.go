@@ -127,7 +127,7 @@ func (c *PortfolioController) Library() {
 }
 
 func (c *PortfolioController) Research() {
-    c.Data["Title"] = "Research Lab | Jake Morgan"
+    c.Data["Title"] = "Research Lab"
     c.Data["Name"] = "Jake Morgan"
     c.Data["Page"] = "research"
     c.Data["Email"] = "jmorgan3142001@gmail.com"
@@ -144,7 +144,7 @@ func (c *PortfolioController) Research() {
 }
 
 func (c *PortfolioController) Terminal() {
-    c.Data["Title"] = "Interactive Shell | Jake Morgan"
+    c.Data["Title"] = "Interactive Shell"
     c.Data["Name"] = "Jake Morgan"
     c.Data["Page"] = "terminal"
     c.Data["Email"] = "jmorgan3142001@gmail.com"
