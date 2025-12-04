@@ -40,8 +40,8 @@
     --bg-panel: #423838;
     
     /* Text */
-    --text-primary: #e6dcca;
-    --text-secondary: #b0a89e;
+    --text-primary: #f2ede6; 
+    --text-secondary: #c9c3bc;
     
     /* Structure */
     --border-color: #5c4d4d;
@@ -335,6 +335,14 @@ h1, h2, h3, h4, h5 {
 
 [data-theme="dark"] .sys-card {
     background: rgba(54, 47, 47, 0.8);
+}
+
+[data-theme="dark"] .sys-card .text-secondary {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .timeline-item .text-secondary {
+    color: var(--text-primary) !important;
 }
 
 .sys-card:hover {
