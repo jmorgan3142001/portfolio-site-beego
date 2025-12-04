@@ -20,7 +20,7 @@ func getGithubStats(username string) models.GithubProfile {
     client := http.Client{Timeout: 2 * time.Second}
     var profile models.GithubProfile
 
-    // 1. Fetch User Profile (for Repo count)
+    // Fetch User Profile
     resp, err := client.Get("https://api.github.com/users/" + username)
     if err == nil {
         defer resp.Body.Close()
@@ -29,46 +29,41 @@ func getGithubStats(username string) models.GithubProfile {
         profile.Login = "System Offline"
     }
 
-    // 2. Fetch Public Events (for Latest Commit Link)
+    // Fetch Public Events
     respEvents, errEvents := client.Get("https://api.github.com/users/" + username + "/events/public")
     if errEvents == nil {
         defer respEvents.Body.Close()
         
-        var rawEvents []models.GithubEvent // Using the internal struct defined in models
+        var rawEvents []models.GithubEvent
         
-        // We decode into the helper struct we defined
         if json.NewDecoder(respEvents.Body).Decode(&rawEvents) == nil {
             for _, event := range rawEvents {
-                // We only want PushEvents (commits)
                 if event.Type == "PushEvent" {
                     
-                    // 1. Get the Message
-                    if len(event.Payload.Commits) > 0 {
-                        profile.LatestCommitMsg = event.Payload.Commits[0].Message
-                    } else {
-                        profile.LatestCommitMsg = "Update repository"
+                    // Get the Code
+                    if event.Payload.Head != "" {
+                        // Use the first 7 characters for the "Short SHA"
+                        if len(event.Payload.Head) >= 7 {
+                            profile.LatestCommitCode = event.Payload.Head[:7]
+                        } else {
+                            profile.LatestCommitCode = event.Payload.Head
+                        }
+                        
+                        // Construct URL
+                        if event.Repo.Name != "" {
+                            profile.LatestCommitUrl = "https://github.com/" + event.Repo.Name + "/commit/" + event.Payload.Head
+                        }
                     }
                     
-                    // Truncate message if it's too long
-                    if len(profile.LatestCommitMsg) > 50 {
-                        profile.LatestCommitMsg = profile.LatestCommitMsg[:47] + "..."
-                    }
-
-                    // 2. Construct the Public URL
-                    // Format: https://github.com/{Owner}/{Repo}/commit/{SHA}
-                    if event.Repo.Name != "" && event.Payload.Head != "" {
-                        profile.LatestCommitUrl = "https://github.com/" + event.Repo.Name + "/commit/" + event.Payload.Head
-                    }
-                    
-                    break // Stop after finding the most recent one
+                    break 
                 }
             }
         }
     }
 
-    // Fallback if no public commits found
+	// Fallback if nothing is returned
     if profile.LatestCommitUrl == "" {
-        profile.LatestCommitMsg = "No recent public commits"
+        profile.LatestCommitCode = "N/A"
         profile.LatestCommitUrl = "#"
     }
 
@@ -106,6 +101,7 @@ func (c *PortfolioController) About() {
     c.Data["Name"] = "Jake Morgan"
     c.Data["Page"] = "about"
     c.Data["Email"] = "jmorgan3142001@gmail.com"
+	c.Data["GithubLink"] = "https://github.com/jmorgan3142001"
     
     // Data from Models
     c.Data["GithubStats"] = getGithubStats("jmorgan3142001")

@@ -27,8 +27,8 @@ type Experience struct {
 type GithubProfile struct {
     PublicRepos     int    `json:"public_repos"`
     Login           string `json:"login"`
-    LatestCommitMsg string `json:"latest_commit_msg"`
-    LatestCommitUrl string `json:"latest_commit_url"` 
+    LatestCommitCode string `json:"latest_commit_code"`
+    LatestCommitUrl string `json:"latest_commit_url"`
 }
 
 type GithubEvent struct {
@@ -202,9 +202,8 @@ func GetSystemModules() []SystemModule {
 func GetHardwareProfile() []HardwareInfo {
     return []HardwareInfo{
         {Category: "Computer", Item: "MAC/WINDOWS/LINUX"},
-        {Category: "Monitor", Item: "INNOCN 24.5\" 240Hz"},
         {Category: "Input", Item: "Custom Ergo Keyboard"},
-        {Category: "Companions", Item: "1x Wife and 2x Staffordshire Terriers"},
+        {Category: "Pair Programmers", Item: "1x Wife and 2x Staffordshire Terriers"},
     }
 }
 

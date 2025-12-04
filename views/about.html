@@ -97,7 +97,9 @@
                     <div class="row text-center g-2">
                         <div class="col-6">
                             <div class="p-2 rounded stats-box">
-                                <div class="display-6 fw-bold text-accent">{{.GithubStats.PublicRepos}}</div>
+                                <a href="{{.GithubLink}}" target="_blank" class="text-decoration-none">
+                                    <div class="display-6 fw-bold text-accent">{{.GithubStats.PublicRepos}}</div>
+                                </a>
                                 <small class="text-mono text-secondary stats-label">REPOSITORIES</small>
                             </div>
                         </div>
@@ -106,16 +108,16 @@
                                 
                                 {{if ne .GithubStats.LatestCommitUrl "#"}}
                                     <a href="{{.GithubStats.LatestCommitUrl}}" target="_blank" class="text-decoration-none">
-                                        <div class="text-mono fw-bold text-accent commit-link" style="font-size: 0.8rem; line-height: 1.2;">
-                                            "{{.GithubStats.LatestCommitMsg}}"
+                                        <div class="text-mono fw-bold text-accent commit-link" style="font-size: 1.1rem; line-height: 1.2;">
+                                            #{{.GithubStats.LatestCommitCode}}
                                         </div>
                                         <div class="small text-secondary mt-1" style="font-size: 0.65rem;">
-                                            <i class="bi bi-box-arrow-up-right me-1"></i>VIEW COMMIT
+                                            <i class="bi bi-git me-1"></i>VIEW COMMIT
                                         </div>
                                     </a>
                                 {{else}}
                                     <div class="text-mono fw-bold text-secondary" style="font-size: 0.8rem;">
-                                        {{.GithubStats.LatestCommitMsg}}
+                                        --
                                     </div>
                                 {{end}}
                                 
