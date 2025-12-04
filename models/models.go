@@ -91,6 +91,13 @@ type ComplexityStat struct {
     Complexity string
 }
 
+type ResourceItem struct {
+    Title string
+    Desc  string
+    Link  string
+    Icon  string
+}
+
 // --- Data Retrieval Functions ---
 
 func GetTechSpecs() []TechItem {
@@ -258,6 +265,29 @@ func GetNextReads() []Book {
             Desc:   "The protocols: A detailed visual guide to how the TCP/IP protocols work.",
             Type:   "NETWORKING",
             Link:   "https://www.amazon.com/TCP-Illustrated-Vol-Protocols-Addison-Wesley/dp/0201633469",
+        },
+    }
+}
+
+func GetDigitalResources() []ResourceItem {
+    return []ResourceItem{
+        {
+            Title: "The Go Blog",
+            Desc: "Official news and insights from the Go team.",
+            Link: "https://go.dev/blog/",
+            Icon: "bi-google",
+        },
+        {
+            Title: "High Scalability",
+            Desc: "Building bigger, faster, more reliable websites.",
+            Link: "http://highscalability.com/",
+            Icon: "bi-graph-up-arrow",
+        },
+        {
+            Title: "Django Documentation",
+            Desc: "The Model layer and ORM deep dives.",
+            Link: "https://docs.djangoproject.com/en/stable/",
+            Icon: "bi-filetype-py",
         },
     }
 }

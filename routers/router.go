@@ -11,4 +11,5 @@ func init() {
     beego.Router("/about", &controllers.PortfolioController{}, "get:About")
     beego.Router("/library", &controllers.PortfolioController{}, "get:Library")
     beego.Router("/research", &controllers.PortfolioController{}, "get:Research")
+	beego.Router("/terminal", &controllers.PortfolioController{}, "get:Terminal")
 }

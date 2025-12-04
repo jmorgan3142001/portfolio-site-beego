@@ -53,23 +53,23 @@
         </div>
         {{end}}
     </div>
-    
+
     <div class="mt-5">
-        <div class="sys-card p-4">
-            <div class="card-terminal-retro border-0" style="height: 300px; overflow-y: auto; cursor: text;">
-                <div id="terminal-output">
-                    <div class="text-mono small mb-3 text-secondary">
-                        Welcome to Portfolio Shell v1.0. Type 'help' to see available commands.
+        <h3 class="h5 fw-bold mb-4 border-bottom border-cream pb-2">Digital Resources</h3>
+        <div class="row g-4">
+            {{range .Resources}}
+            <div class="col-md-4">
+                <a href="{{.Link}}" target="_blank" class="text-decoration-none text-reset">
+                    <div class="sys-card h-100 d-flex align-items-center p-3">
+                        <i class="bi {{.Icon}} fs-3 text-accent me-3"></i>
+                        <div>
+                            <div class="fw-bold">{{.Title}}</div>
+                            <small class="text-secondary">{{.Desc}}</small>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="d-flex align-items-center text-mono small">
-                    <span class="terminal-prompt text-nowrap me-2">user@portfolio:~/library$</span>
-                    <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" class="bg-transparent border-0 text-dark w-100 p-0" style="outline: none; font-family: var(--font-mono);">
-                </div>
+                </a>
             </div>
+            {{end}}
         </div>
     </div>
 </div>
-
-<script src="/static/js/terminal.js"></script>

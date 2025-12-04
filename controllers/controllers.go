@@ -120,6 +120,7 @@ func (c *PortfolioController) Library() {
 
     c.Data["Books"] = models.GetBooks()
 	c.Data["NextBooks"] = models.GetNextReads()
+	c.Data["Resources"] = models.GetDigitalResources()
 
     c.Layout = "layout.html"
     c.TplName = "library.html"
@@ -140,4 +141,14 @@ func (c *PortfolioController) Research() {
 
     c.Layout = "layout.html"
     c.TplName = "research.html"
+}
+
+func (c *PortfolioController) Terminal() {
+    c.Data["Title"] = "Interactive Shell | Jake Morgan"
+    c.Data["Name"] = "Jake Morgan"
+    c.Data["Page"] = "terminal"
+    c.Data["Email"] = "jmorgan3142001@gmail.com"
+
+    c.Layout = "layout.html"
+    c.TplName = "terminal.html"
 }
