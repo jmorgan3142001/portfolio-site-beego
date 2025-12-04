@@ -30,7 +30,7 @@ gcloud run deploy portfolio \
   --platform managed \
   --region us-east1 \
   --allow-unauthenticated \
-  --port 8080
+  --port 8080 \
   --memory 512Mi \
   --cpu-boost \
   --set-env-vars DATABASE_URL="$DATABASE_URL"
