@@ -291,7 +291,7 @@ func GetSystemModules() []SystemModule {
             Title:       "Backend Architecture",
             Icon:        "bi-hdd-network",
             Description: "Server logic, API design, and keeping things online.",
-            Progress:    90,
+            Progress:    100,
             Tags:        []string{"Python (Django)", "Go (Beego)", "PostgreSQL"},
         },
         {
@@ -299,7 +299,7 @@ func GetSystemModules() []SystemModule {
             Title:       "Distributed Systems",
             Icon:        "bi-diagram-3",
             Description: "Infrastructure scaling and consensus algorithms.",
-            Progress:    45,
+            Progress:    75,
             Tags:        []string{"gRPC", "Docker", "AWS"},
         },
         {
@@ -307,7 +307,7 @@ func GetSystemModules() []SystemModule {
             Title:       "Full Stack Integration",
             Icon:        "bi-window-stack",
             Description: "Connecting backend logic to user-friendly interfaces.",
-            Progress:    67,
+            Progress:    85,
             Tags:        []string{"Angular", "TypeScript", "UI/UX"},
         },
         {
