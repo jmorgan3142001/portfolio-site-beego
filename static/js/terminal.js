@@ -55,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const printLine = (text, isHtml = false) => {
         const line = document.createElement('div');
-        // Removed text-secondary/text-dark classes to allow theme color inheritance
         line.className = 'text-mono small mb-1'; 
         line.style.whiteSpace = 'pre-wrap';
         if (isHtml) line.innerHTML = text;
@@ -188,7 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 terminalBody.style.color = selected.color;
                 
                 // Force input colors (Text and Caret)
-                // We remove 'text-dark' class if it exists to allow inline style to take precedence cleanly
                 terminalInput.classList.remove('text-dark');
                 terminalInput.style.color = selected.input;
                 terminalInput.style.caretColor = selected.input;
@@ -214,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         'sudo': () => {
-            window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank'); 
+            window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank'); // Rick Rolled :D
             return 'Access Denied: User is not in the sudoers file. This incident will be reported.';
         },
 
