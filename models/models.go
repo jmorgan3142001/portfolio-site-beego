@@ -1,6 +1,89 @@
 package models
 
-// --- Data Structures ---
+import (
+	"crypto/sha1"
+	"fmt"
+	"math/rand"
+	"os"
+	"time"
+
+	"github.com/beego/beego/v2/client/orm"
+	_ "github.com/lib/pq"
+)
+
+// --- Database Models ---
+
+type AccessLog struct {
+    Id        int       `orm:"auto"`
+    Name      string    `orm:"size(50)"`
+    Message   string    `orm:"type(text)"`
+    Signature string    `orm:"size(10)"` 
+    Terminal  string    `orm:"size(30)"` 
+    ProcessID int       
+    Created   time.Time `orm:"auto_now_add;type(datetime)"`
+}
+
+func init() {
+    orm.RegisterModel(new(AccessLog))
+
+    orm.RegisterDriver("postgres", orm.DRPostgres)
+
+    dbUrl := os.Getenv("DATABASE_URL")
+
+    err := orm.RegisterDataBase("default", "postgres", dbUrl)
+    if err != nil {
+        panic(fmt.Errorf("failed to register database: %v", err))
+    }
+
+    err = orm.RunSyncdb("default", false, true)
+    if err != nil {
+        fmt.Println("Database Sync Error:", err)
+    }
+}
+
+// --- Logic for Access Logs ---
+
+func AddAccessLog(name, message, userAgent string) error {
+    o := orm.NewOrm()
+    
+    // Generate Signature (Pseudo-Git-SHA)
+    h := sha1.New()
+    h.Write([]byte(message + time.Now().String()))
+    bs := h.Sum(nil)
+    sig := fmt.Sprintf("%x", bs)[:7]
+
+    // Generate PID
+    pid := rand.Intn(8999) + 1000
+
+    // Parse Terminal
+    terminal := "Unknown/Term"
+    if len(userAgent) > 0 {
+        if len(userAgent) > 15 {
+            terminal = "Remote_Client/v1.0" 
+        }
+    }
+
+    log := AccessLog{
+        Name:      name,
+        Message:   message,
+        Signature: sig,
+        Terminal:  terminal,
+        ProcessID: pid,
+    }
+    
+    _, err := o.Insert(&log)
+    return err
+}
+
+func GetAccessLogs() []AccessLog {
+    o := orm.NewOrm()
+    var logs []AccessLog
+    // Fetch all entries, newest first
+    o.QueryTable("access_log").OrderBy("-Created").All(&logs)
+    return logs
+}
+
+// --- Static Data Structs ---
 
 type TechItem struct {
     Category string

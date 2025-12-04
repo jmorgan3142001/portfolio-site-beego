@@ -274,3 +274,79 @@
     </div>
 </div>
 {{end}}
+
+<section id="logs" class="py-5 border-top border-2 border-theme">
+    <div class="container">
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-6">
+                <h2 class="h3 fw-bold mb-0">Public Access <span class="text-accent">Ledger</span></h2>
+                <p class="text-secondary small mb-0">Immutable visitor signatures.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <span class="badge bg-secondary text-mono">MODE: READ_WRITE</span>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="sys-card p-4 h-100">
+                    <div class="d-flex justify-content-between mb-3 border-bottom border-cream pb-2">
+                        <span class="text-mono fw-bold small text-accent">NEW_ENTRY.SH</span>
+                        <i class="bi bi-terminal text-secondary"></i>
+                    </div>
+                    
+                    <form action="/logs/submit" method="post">
+                        <div class="mb-3">
+                            <label class="text-mono x-small text-secondary fw-bold mb-1">--AUTHOR</label>
+                            <input type="text" name="username" class="form-control bg-light border-0 text-mono" placeholder="guest_user" required maxlength="20">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="text-mono x-small text-secondary fw-bold mb-1">--MESSAGE</label>
+                            <textarea name="payload" rows="3" class="form-control bg-light border-0 text-mono" placeholder="echo 'Hello World'" required maxlength="140"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-retro w-100 text-mono small">
+                            EXECUTE WRITE
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="sys-card p-0 h-100 overflow-hidden d-flex flex-column">
+                    <div class="bg-light p-2 border-bottom border-cream d-flex justify-content-between">
+                        <span class="text-mono x-small fw-bold text-secondary">/var/log/visitors.log</span>
+                        <span class="text-mono x-small text-success">● STREAM_ACTIVE</span>
+                    </div>
+
+                    <div class="flex-grow-1 p-0" style="max-height: 400px; overflow-y: auto;">
+                        <table class="table table-hover mb-0 text-mono x-small" style="background: transparent;">
+                            <thead class="bg-white text-secondary" style="position: sticky; top: 0;">
+                                <tr>
+                                    <th class="p-2 border-bottom">HASH</th>
+                                    <th class="p-2 border-bottom">TIMESTAMP</th>
+                                    <th class="p-2 border-bottom">USER</th>
+                                    <th class="p-2 border-bottom">PAYLOAD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{range .Logs}}
+                                <tr>
+                                    <td class="p-2 border-bottom border-cream text-accent">{{.Signature}}</td>
+                                    <td class="p-2 border-bottom border-cream text-secondary">{{.Created.Format "01/02 15:04"}}</td>
+                                    <td class="p-2 border-bottom border-cream fw-bold">{{.Name}}</td>
+                                    <td class="p-2 border-bottom border-cream text-secondary">{{.Message}}</td>
+                                </tr>
+                                {{end}}
+                                {{if not .Logs}}
+                                <tr><td colspan="4" class="p-4 text-center text-secondary">Log buffer empty.</td></tr>
+                                {{end}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -89,10 +89,23 @@ func (c *PortfolioController) Get() {
     c.Data["TechSpecs"] = models.GetTechSpecs()
     c.Data["Experience"] = models.GetExperience()
     c.Data["Projects"] = models.GetProjects()
+    c.Data["Logs"] = models.GetAccessLogs()
 
     // Render Configuration
     c.Layout = "layout.html"
     c.TplName = "index.html"
+}
+
+func (c *PortfolioController) SubmitLog() {
+    name := c.GetString("username")
+    message := c.GetString("payload")
+    userAgent := c.Ctx.Input.UserAgent()
+
+    if name != "" && message != "" {
+        models.AddAccessLog(name, message, userAgent)
+    }
+
+    c.Redirect("/", 302)
 }
 
 // Sub page declarations

@@ -7,8 +7,9 @@
             "request": "launch",
             "mode": "auto",
             "program": "${workspaceFolder}",
-            "env": {},
-            "args": []
+            "envFile": "${workspaceFolder}/.env",
+            "args": [],
+            "console": "integratedTerminal"
         },
         {
             "name": "Launch Client",
@@ -21,7 +22,8 @@
     "compounds": [
         {
             "name": "Full Stack Launch",
-            "configurations": ["Launch Server", "Launch Client"]
+            "configurations": ["Launch Server", "Launch Client"],
+            "stopAll": true
         }
     ]
 }

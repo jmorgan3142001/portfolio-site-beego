@@ -1,22 +1,21 @@
-# Build
-FROM golang:1.25-alpine AS builder
+# Build the Go binary
+FROM golang:1.23-alpine AS builder
 RUN apk add --no-cache git
 WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
-# Build a static binary (easier for Cloud Run)
-RUN CGO_ENABLED=0 GOOS=linux go build -o main .
-
-# Run
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-w -s" -o main .
 FROM alpine:latest
-RUN apk --no-cache add ca-certificates
+# Install CA certificates 
+RUN apk add --no-cache ca-certificates
 WORKDIR /root/
+# Copy the binary from the builder
 COPY --from=builder /app/main .
-COPY --from=builder /app/conf ./conf
+# Copy static files and views
 COPY --from=builder /app/static ./static
 COPY --from=builder /app/views ./views
+COPY --from=builder /app/conf ./conf
 
-# Expose
 EXPOSE 8080
 CMD ["./main"]

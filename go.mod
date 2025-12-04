@@ -4,7 +4,10 @@ go 1.25
 
 require github.com/beego/beego/v2 v2.1.0
 
-require github.com/smartystreets/goconvey v1.6.4
+require (
+	github.com/mattn/go-sqlite3 v1.14.7
+	github.com/smartystreets/goconvey v1.6.4
+)
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
@@ -14,6 +17,7 @@ require (
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/jtolds/gls v4.20.0+incompatible // indirect
 	github.com/kr/text v0.2.0 // indirect
+	github.com/lib/pq v1.10.9 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
