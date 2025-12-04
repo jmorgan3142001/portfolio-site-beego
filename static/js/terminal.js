@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Command Logic ---
 
     const commands = {
-        'help': () => 'Commands: help, ls, cd [page], cat [file], tail [file], grep [term] [file], uptime, ping [host], theme [dark|light|matrix], clear, exit',
+        'help': () => 'Commands: help, ls, cd [page], cat [file], tail [file], grep [term] [file], uptime, ping [host], theme [dark|light|matrix], clear, exit\nNot root user. Do not attempt \'sudo\' commands.',
         
         'ls': () => Object.keys(fileSystem).join('  '),
                 
@@ -212,7 +212,9 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         'sudo': () => {
-            window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank'); // Rick Rolled :D
+            setTimeout(() => {
+                window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank'); 
+            }, 2000); // Rick Rolled :D
             return 'Access Denied: User is not in the sudoers file. Goodbye :D';
         },
 

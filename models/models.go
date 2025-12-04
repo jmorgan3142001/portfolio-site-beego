@@ -1,9 +1,13 @@
 package models
 
 import (
+	"bytes"
 	"crypto/sha1"
+	"encoding/json"
+	"errors"
 	"fmt"
 	"math/rand"
+	"net/http"
 	"os"
 	"time"
 
@@ -43,7 +47,18 @@ func init() {
 
 // --- Logic for Access Logs ---
 
+func GetAccessLogs() []AccessLog {
+    o := orm.NewOrm()
+    var logs []AccessLog
+    o.QueryTable("access_log").OrderBy("-Created").All(&logs)
+    return logs
+}
+
 func AddAccessLog(name, message, userAgent string) error {
+    if CheckToxicity(name) || CheckToxicity(message) {
+        return errors.New("input rejected: content detected as toxic or aggressive")
+    }
+
     o := orm.NewOrm()
     
     // Generate Signature (Pseudo-Git-SHA)
@@ -77,11 +92,45 @@ func AddAccessLog(name, message, userAgent string) error {
     return err
 }
 
-func GetAccessLogs() []AccessLog {
-    o := orm.NewOrm()
-    var logs []AccessLog
-    o.QueryTable("access_log").OrderBy("-Created").All(&logs)
-    return logs
+// Check for toxicity using the Perspective API
+func CheckToxicity(content string) bool {
+    apiKey := os.Getenv("PERSPECTIVE_API_KEY") 
+    url := "https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze?key=" + apiKey
+
+    requestBody, err := json.Marshal(map[string]interface{}{
+        "comment": map[string]string{
+            "text": content,
+        },
+        "requestedAttributes": map[string]interface{}{
+            "TOXICITY": map[string]interface{}{},
+        },
+    })
+
+    if err != nil {
+        return false // Handle JSON marshaling error
+    }
+
+    resp, err := http.Post(url, "application/json", bytes.NewBuffer(requestBody))
+    if err != nil {
+        return false
+    }
+    defer resp.Body.Close()
+
+    var result struct {
+        AttributeScores struct {
+            Toxicity struct {
+                SummaryScore struct {
+                    Value float64 `json:"value"`
+                } `json:"summaryScore"`
+            } `json:"TOXICITY"`
+        } `json:"attributeScores"`
+    }
+
+    if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+        return false
+    }
+
+    return result.AttributeScores.Toxicity.SummaryScore.Value > 0.75
 }
 
 // --- Static Data Structs ---

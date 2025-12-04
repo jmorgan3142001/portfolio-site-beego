@@ -19,6 +19,11 @@ if [ -z "$DATABASE_URL" ]; then
     exit 1
 fi
 
+if [ -z "$PERSPECTIVE_API_KEY" ]; then
+    echo "Error: PERSPECTIVE_API_KEY is empty. Check your .env file."
+    exit 1
+fi
+
 # Build the new container image using Dockerfile
 echo "Building Container..."
 gcloud builds submit --tag gcr.io/portfolio-site-480019/portfolio
@@ -33,7 +38,7 @@ gcloud run deploy portfolio \
   --port 8080 \
   --memory 512Mi \
   --cpu-boost \
-  --set-env-vars DATABASE_URL="$DATABASE_URL"
+  --set-env-vars DATABASE_URL="$DATABASE_URL",PERSPECTIVE_API_KEY="$PERSPECTIVE_API_KEY"
 
 echo "---------------------------------"
 echo "✅ Deployment Complete!"
