@@ -119,6 +119,7 @@ func (c *PortfolioController) Library() {
     c.Data["Email"] = "jmorgan3142001@gmail.com"
 
     c.Data["Books"] = models.GetBooks()
+	c.Data["NextBooks"] = models.GetNextReads()
 
     c.Layout = "layout.html"
     c.TplName = "library.html"

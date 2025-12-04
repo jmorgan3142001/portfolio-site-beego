@@ -3,25 +3,25 @@ package models
 // --- Data Structures ---
 
 type TechItem struct {
-	Category string
-	Items    []string
+    Category string
+    Items    []string
 }
 
 type Project struct {
-	ID          string
-	Title       string
-	Description string
-	Tags        []string
-	Link        string
-	Icon        string
+    ID          string
+    Title       string
+    Description string
+    Tags        []string
+    Link        string
+    Icon        string
 }
 
 type Experience struct {
-	Company  string
-	Role     string
-	Duration string
-	Desc     string
-	Tags     []string
+    Company  string
+    Role     string
+    Duration string
+    Desc     string
+    Tags     []string
 }
 
 type GithubProfile struct {
@@ -63,18 +63,21 @@ type Book struct {
     Author string
     Desc   string
     Type   string
+    Link   string
 }
 
 type ResearchPaper struct {
     Title string
     Topic string
     Note  string
+    Link  string
 }
 
 type Algorithm struct {
     Name string
     Lang string
     Desc string
+    Link string
 }
 
 type ResearchMeta struct {
@@ -91,38 +94,38 @@ type ComplexityStat struct {
 // --- Data Retrieval Functions ---
 
 func GetTechSpecs() []TechItem {
-	return []TechItem{
-		{Category: "Languages", Items: []string{"Python", "C#", "JavaScript", "SQL", "PHP", "C++", "Go"}},
-		{Category: "Frameworks", Items: []string{"Django", "Angular", ".NET Core", "Flutter", "Beego"}},
-		{Category: "Databases", Items: []string{"PostgreSQL", "Oracle", "MySQL", "SQLite", "Distributed DB"}},
-		{Category: "Infrastructure", Items: []string{"AWS", "Azure", "Google Cloud", "Docker", "Git", "gRPC"}},
-	}
+    return []TechItem{
+        {Category: "Languages", Items: []string{"Python", "C#", "JavaScript", "SQL", "PHP", "C++", "Go"}},
+        {Category: "Frameworks", Items: []string{"Django", "Angular", ".NET Core", "Flutter", "Beego"}},
+        {Category: "Databases", Items: []string{"PostgreSQL", "Oracle", "MySQL", "SQLite", "Distributed DB"}},
+        {Category: "Infrastructure", Items: []string{"AWS", "Azure", "Google Cloud", "Docker", "Git", "gRPC"}},
+    }
 }
 
 func GetExperience() []Experience {
-	return []Experience{
-		{
-			Company:  "NATIONAL CAPTIONING INSTITUTE",
-			Role:     "Software Engineer",
-			Duration: "FEB 2025 - PRESENT",
-			Desc:     "Engineered high-precision automated captioning solutions exceeding accessibility compliance standards. Re-architected testing infrastructure and optimized frontend performance.",
-			Tags:     []string{"Python", "Performance", "Automation", "DevOps", "SQL"},
-		},
-		{
-			Company:  "UNCOMMON GIVING",
-			Role:     "Software Engineer",
-			Duration: "2023 - PRESENT",
-			Desc:     "Architect of scalable web and mobile solutions using JS, Python (Django), and Flutter. Optimized CI/CD pipelines reducing build times by 50%.",
-			Tags:     []string{"Typescript", "Angular", "Python", "Django", "SQL"},
-		},
-		{
-			Company:  "MUSC",
-			Role:     "Systems Programmer II",
-			Duration: "2023 - 2025",
-			Desc:     "Spearheaded full-stack development of enterprise healthcare applications using C# and SQL. Modernized legacy applications to .NET Core.",
-			Tags:     []string{"C#", ".Net Core", "Flutter", "SQL"},
-		},
-	}
+    return []Experience{
+        {
+            Company:  "NATIONAL CAPTIONING INSTITUTE",
+            Role:     "Software Engineer",
+            Duration: "FEB 2025 - PRESENT",
+            Desc:     "Engineered high-precision automated captioning solutions exceeding accessibility compliance standards. Re-architected testing infrastructure and optimized frontend performance.",
+            Tags:     []string{"Python", "Performance", "Automation", "DevOps", "SQL"},
+        },
+        {
+            Company:  "UNCOMMON GIVING",
+            Role:     "Software Engineer",
+            Duration: "2023 - PRESENT",
+            Desc:     "Architect of scalable web and mobile solutions using JS, Python (Django), and Flutter. Optimized CI/CD pipelines reducing build times by 50%.",
+            Tags:     []string{"Typescript", "Angular", "Python", "Django", "SQL"},
+        },
+        {
+            Company:  "MUSC",
+            Role:     "Systems Programmer II",
+            Duration: "2023 - 2025",
+            Desc:     "Spearheaded full-stack development of enterprise healthcare applications using C# and SQL. Modernized legacy applications to .NET Core.",
+            Tags:     []string{"C#", ".Net Core", "Flutter", "SQL"},
+        },
+    }
 }
 
 func GetProjects() []Project {
@@ -188,13 +191,13 @@ func GetSystemModules() []SystemModule {
             Progress:    67,
             Tags:        []string{"Angular", "TypeScript", "UI/UX"},
         },
-		{
+        {
             ID:          "MODULE_04",
             Title:       "Data Management",
             Icon:        "bi-database-fill",
-            Description: "Architect of efficient schemas and handling large-scale datasets.",
+            Description: "Architecting efficient schemas and handling large-scale datasets.",
             Progress:    100,
-            Tags:        []string{"PostgreSQL", "SQL Server", "SQLite"},
+            Tags:        []string{"PostgreSQL", "SQL Server", "Optimization"},
         },
     }
 }
@@ -209,31 +212,106 @@ func GetHardwareProfile() []HardwareInfo {
 
 func GetBooks() []Book {
     return []Book{
-        {Title: "Clean Code", Author: "Robert C. Martin", Desc: "The standard protocol for writing maintainable software.", Type: "CORE_LOGIC"},
-        {Title: "Designing Data-Intensive Applications", Author: "Martin Kleppmann", Desc: "Essential for understanding distributed systems and scalability.", Type: "DATABASE_SYS"},
-        {Title: "Operating Systems: Three Easy Pieces", Author: "Remzi & Andrea Arpaci-Dusseau", Desc: "Deep dive into virtualization, concurrency, and persistence.", Type: "KERNEL_OPS"},
-        {Title: "Modern Operating Systems", Author: "Andrew S. Tanenbaum", Desc: "The definitive guide to underlying computer architecture.", Type: "KERNEL_OPS"},
+        {
+            Title:  "Clean Code",
+            Author: "Robert C. Martin",
+            Desc:   "The standard protocol for writing maintainable software.",
+            Type:   "CORE_LOGIC",
+            Link:   "https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882",
+        },
+        {
+            Title:  "Designing Data-Intensive Applications",
+            Author: "Martin Kleppmann",
+            Desc:   "Essential for understanding distributed systems and scalability.",
+            Type:   "DATABASE_SYS",
+            Link:   "https://www.amazon.com/Designing-Data-Intensive-Applications-Reliable-Maintainable/dp/1449373321",
+        },
+        {
+            Title:  "Operating Systems: Three Easy Pieces",
+            Author: "Remzi & Andrea Arpaci-Dusseau",
+            Desc:   "Deep dive into virtualization, concurrency, and persistence.",
+            Type:   "KERNEL_OPS",
+            Link:   "https://www.amazon.com/Operating-Systems-Three-Easy-Pieces/dp/198508659X",
+        },
+        {
+            Title:  "Modern Operating Systems",
+            Author: "Andrew S. Tanenbaum",
+            Desc:   "The definitive guide to underlying computer architecture.",
+            Type:   "KERNEL_OPS",
+            Link:   "https://www.amazon.com/Modern-Operating-Systems-Andrew-Tanenbaum/dp/013359162X",
+        },
+        {
+            Title:  "Database Internals",
+            Author: "Alex Petrov",
+            Desc:   "A deep dive into how distributed data systems work, covering storage engines and distributed components.",
+            Type:   "DATABASE_SYS",
+            Link:   "https://www.amazon.com/Database-Internals-Deep-Distributed-Systems/dp/1492040347",
+        },
+    }
+}
+
+func GetNextReads() []Book {
+    return []Book{
+        {
+            Title:  "TCP/IP Illustrated, Vol. 1",
+            Author: "W. Richard Stevens",
+            Desc:   "The protocols: A detailed visual guide to how the TCP/IP protocols work.",
+            Type:   "NETWORKING",
+            Link:   "https://www.amazon.com/TCP-Illustrated-Vol-Protocols-Addison-Wesley/dp/0201633469",
+        },
     }
 }
 
 func GetResearchPapers() []ResearchPaper {
     return []ResearchPaper{
-        {Title: "MapReduce: Simplified Data Processing", Topic: "Distributed Systems", Note: "Analysis of Google's implementation of map and reduce primitives for large clusters. Key focus on fault tolerance."},
-        {Title: "Time, Clocks, and Ordering", Topic: "Concurrency", Note: "Leslie Lamport's seminal work on partial ordering and logical clocks in distributed systems."},
+        {
+            Title: "MapReduce: Simplified Data Processing",
+            Topic: "Distributed Systems",
+            Note:  "Analysis of Google's implementation of map and reduce primitives for large clusters. Key focus on fault tolerance.",
+            Link:  "https://research.google.com/archive/mapreduce-osdi04.pdf",
+        },
+        {
+            Title: "Time, Clocks, and Ordering",
+            Topic: "Concurrency",
+            Note:  "Leslie Lamport's seminal work on partial ordering and logical clocks in distributed systems.",
+            Link:  "https://lamport.azurewebsites.net/pubs/time-clocks.pdf",
+        },
+        {
+            Title: "The Google File System",
+            Topic: "Storage Systems",
+            Note:  "A scalable distributed file system for large distributed data-intensive applications.",
+            Link:  "https://research.google.com/archive/gfs-sosp2003.pdf",
+        },
+        {
+            Title: "In Search of an Understandable Consensus Algorithm (Raft)",
+            Topic: "Consensus",
+            Note:  "A consensus algorithm designed to be easier to understand than Paxos, critical for modern distributed systems.",
+            Link:  "https://raft.github.io/raft.pdf",
+        },
     }
 }
 
 func GetAlgorithms() []Algorithm {
     return []Algorithm{
-        {Name: "Barrier Synchronization", Lang: "C++ / OpenMP", Desc: "Implementing thread barriers without standard libraries to understand race conditions."},
-        {Name: "gRPC Store", Lang: "C++", Desc: "A distributed key-value store utilizing thread pools and custom replication logic."},
+        {
+            Name: "Barrier Synchronization",
+            Lang: "C++ / OpenMP",
+            Desc: "Implementing thread barriers without standard libraries to understand race conditions.",
+            Link: "https://github.com/OpenMP/examples", // Reference: Official OpenMP Examples
+        },
+        {
+            Name: "gRPC Store",
+            Lang: "C++",
+            Desc: "A distributed key-value store utilizing thread pools and custom replication logic.",
+            Link: "https://github.com/grpc/grpc/tree/master/examples/cpp", // Reference: Official gRPC C++ Examples
+        },
     }
 }
 
 func GetResearchMeta() []ResearchMeta {
     return []ResearchMeta{
         {Label: "SYSTEM", Value: "ACTIVE", Status: "success"},
-        {Label: "THREADS", Value: "8", Status: "warning"},
+        {Label: "THREADS", Value: "16", Status: "warning"},
         {Label: "FOCUS", Value: "DISTRIBUTED", Status: "accent"},
     }
 }

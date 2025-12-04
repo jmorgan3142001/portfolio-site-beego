@@ -26,25 +26,28 @@
             </h3>
             
             {{range .Papers}}
-            <div class="sys-card mb-4 paper-card p-5">
-                <div class="deco-vents deco-vents-left">
-                    <div class="vent-line"></div><div class="vent-line"></div>
-                </div>
+            <a href="{{.Link}}" target="_blank" class="text-decoration-none text-reset d-block mb-4">
+                <div class="sys-card paper-card p-5">
+                    <div class="deco-vents deco-vents-left">
+                        <div class="vent-line"></div><div class="vent-line"></div>
+                    </div>
 
-                <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                        <span class="badge bg-secondary text-mono mb-2" style="opacity: 0.8;">PAPER</span>
-                        <h4 class="h5 fw-bold">{{.Title}}</h4>
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <span class="badge bg-secondary text-mono mb-2" style="opacity: 0.8;">PAPER</span>
+                            <h4 class="h5 fw-bold">{{.Title}}</h4>
+                        </div>
+                    </div>
+                    <div class="text-mono small text-accent fw-bold mt-1 mb-3">Topic: {{.Topic}}</div>
+                    <p class="text-secondary mb-3">
+                        {{.Note}}
+                    </p>
+                    <div class="border-top border-cream pt-2 mt-2 d-flex justify-content-between align-items-center">
+                        <small class="text-mono text-secondary">STATUS: READ_COMPLETE</small>
+                        <i class="bi bi-box-arrow-up-right text-secondary small"></i>
                     </div>
                 </div>
-                <div class="text-mono small text-accent fw-bold mt-1 mb-3">Topic: {{.Topic}}</div>
-                <p class="text-secondary mb-3">
-                    {{.Note}}
-                </p>
-                <div class="border-top border-cream pt-2 mt-2">
-                    <small class="text-mono text-secondary">STATUS: READ_COMPLETE</small>
-                </div>
-            </div>
+            </a>
             {{end}}
 
             <div class="sys-card border-dashed p-4 text-center">
@@ -62,16 +65,18 @@
                 </h3>
 
                 {{range .Algos}}
-                <div class="sys-card card-algo mb-4 border-0">
-                    <div class="d-flex justify-content-between algo-header pb-2 mb-3">
-                        <span class="text-mono text-success small">./run_test.sh</span>
-                        <span class="text-mono text-secondary small">{{.Lang}}</span>
+                <a href="{{.Link}}" target="_blank" class="text-decoration-none text-reset d-block mb-4">
+                    <div class="sys-card card-algo border-0">
+                        <div class="d-flex justify-content-between algo-header pb-2 mb-3">
+                            <span class="text-mono text-success small">./run_test.sh</span>
+                            <span class="text-mono text-secondary small">{{.Lang}}</span>
+                        </div>
+                        <h5 class="fw-bold">{{.Name}}</h5>
+                        <p class="small text-secondary mb-0">
+                            // {{.Desc}}
+                        </p>
                     </div>
-                    <h5 class="fw-bold">{{.Name}}</h5>
-                    <p class="small text-secondary mb-0">
-                        // {{.Desc}}
-                    </p>
-                </div>
+                </a>
                 {{end}}
 
                 <div class="sys-card">
