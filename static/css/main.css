@@ -3,7 +3,7 @@
    ========================================= */
 
 :root {
-    /* Core Palette */
+    /* Core Palette (Light - Default) */
     --bg-root: #F2E9D8;
     --bg-surface: #FCF8F0; 
     --bg-panel: #E6DCCA;
@@ -21,6 +21,8 @@
     --border-color: #D1C4B0;
     --border-shadow: #BFA98F;
     --border-highlight: #FDFBF7; 
+    
+    /* Effects */
     --radius-main: 0.75rem;
     --shadow-soft: 0.5rem 0.5rem 0rem rgba(139, 30, 36, 0.15);
     
@@ -28,6 +30,48 @@
     --font-head: 'Space Grotesk', sans-serif;
     --font-body: 'Inter', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Dark Mode Overrides */
+[data-theme="dark"] {
+    /* Core Palette (Dark) */
+    --bg-root: #2b2525;
+    --bg-surface: #362f2f;
+    --bg-panel: #423838;
+    
+    /* Text */
+    --text-primary: #e6dcca;
+    --text-secondary: #b0a89e;
+    
+    /* Structure */
+    --border-color: #5c4d4d;
+    --border-shadow: #1f1a1a;
+    --border-highlight: #4a4040;
+    
+    /* Accents (Adjusted for dark contrast) */
+    --accent-primary: #ff6b6b; /* Brighter Red */
+    --accent-secondary: #feca57; /* Brighter Yellow/Orange */
+    --shadow-soft: 0.5rem 0.5rem 0rem rgba(0, 0, 0, 0.5);
+}
+
+/* Fix Bootstrap utils in Dark Mode */
+[data-theme="dark"] .bg-light {
+    background-color: var(--bg-panel) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .text-dark {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .form-control {
+    background-color: #231e1e !important;
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .form-control::placeholder {
+    color: rgba(230, 220, 202, 0.4);
 }
 
 /* =========================================
@@ -43,6 +87,7 @@ body {
     overflow-x: hidden;
     padding-top: 6.25rem; 
     width: 100%;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 img {
@@ -126,6 +171,11 @@ h1, h2, h3, h4, h5 {
     backdrop-filter: blur(0.5rem);
     z-index: 1050;
     box-shadow: 0 0.375rem 0rem rgba(139, 30, 36, 0.05);
+    transition: background-color 0.3s ease;
+}
+
+[data-theme="dark"] .navbar {
+    background: rgba(43, 37, 37, 0.9);
 }
 
 .navbar-brand {
@@ -171,6 +221,16 @@ h1, h2, h3, h4, h5 {
     border-radius: 0.125rem;
 }
 
+/* Theme Toggle specific */
+#theme-toggle {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+#theme-toggle:hover {
+    color: var(--accent-secondary) !important;
+    opacity: 1;
+}
+
 /* Button Container Responsive */
 .btn-container-responsive {
     display: flex;
@@ -178,13 +238,13 @@ h1, h2, h3, h4, h5 {
     gap: 1rem;
 }
 
-/* Buttons */
+/* Buttons - Flexbox fixes alignment issues */
 .btn-retro {
     background: var(--bg-surface);
-    border-top: 0.125rem solid #FAF5EB;
-    border-left: 0.125rem solid #FAF5EB;
-    border-right: 0.25rem solid #bda88d;
-    border-bottom: 0.375rem solid #bda88d;
+    border-top: 0.125rem solid var(--border-highlight);
+    border-left: 0.125rem solid var(--border-highlight);
+    border-right: 0.25rem solid var(--border-color);
+    border-bottom: 0.375rem solid var(--border-color);
     color: var(--accent-primary);
     font-family: var(--font-head);
     font-weight: 700;
@@ -195,6 +255,10 @@ h1, h2, h3, h4, h5 {
     transform: translateY(0);
     position: relative;
     top: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
 }
 
 .btn-retro:hover {
@@ -203,6 +267,10 @@ h1, h2, h3, h4, h5 {
     transform: translateY(-0.125rem);
     border-color: var(--accent-primary);
     border-bottom-width: 0.5rem;
+}
+
+[data-theme="dark"] .btn-retro:hover {
+    background: #4a4040;
 }
 
 .btn-retro:active {
@@ -222,6 +290,13 @@ h1, h2, h3, h4, h5 {
     border-bottom: 0.375rem solid #5a1216;
     color: #fff;
     box-shadow: 0 0.375rem 0.9375rem rgba(139, 30, 36, 0.25);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    /* ADDED: Padding to match btn-retro */
+    padding: 0.6rem 1.5rem;
+    border-radius: 0.5rem;
 }
 
 .btn-retro-dark:hover {
@@ -251,16 +326,20 @@ h1, h2, h3, h4, h5 {
     border-bottom: 0.3125rem solid var(--border-shadow);
     border-radius: var(--radius-main);
     padding: 1.25rem;
-    box-shadow: 0.75rem 0.75rem 0rem rgba(139, 30, 36, 0.12);
+    box-shadow: 0.75rem 0.75rem 0rem var(--shadow-soft);
     transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease, border-color 0.2s ease;
     position: relative;
     overflow: hidden;
     z-index: 1;
 }
 
+[data-theme="dark"] .sys-card {
+    background: rgba(54, 47, 47, 0.8);
+}
+
 .sys-card:hover {
     transform: translateY(-0.25rem);
-    box-shadow: 1rem 1rem 0rem rgba(139, 30, 36, 0.2);
+    box-shadow: 1rem 1rem 0rem var(--shadow-soft);
     border-color: var(--accent-primary);
 }
 
@@ -295,6 +374,8 @@ h1, h2, h3, h4, h5 {
 
 .border-theme { border-color: var(--border-color) !important; }
 .border-cream { border-color: #EAE0D0 !important; }
+[data-theme="dark"] .border-cream { border-color: #4a4040 !important; }
+
 .border-dashed {
     border: 2px dashed var(--border-color) !important;
     background: transparent !important;
@@ -305,10 +386,81 @@ h1, h2, h3, h4, h5 {
    6. PAGE: HOME & MODALS
    ========================================= */
 
-#projects {
+#projects, #logs {
     background: rgba(44, 44, 44, 0.03); 
     border-top: 0.125rem solid var(--border-color); 
     border-bottom: 0.125rem solid var(--border-color);
+}
+
+[data-theme="dark"] #projects, 
+[data-theme="dark"] #logs {
+    background: rgba(0, 0, 0, 0.2); 
+}
+
+/* --- Log Table Theme Handling --- */
+
+/* Default Light Mode */
+.log-header-bg {
+    background-color: #ffffff;
+    color: var(--text-secondary);
+}
+
+.log-header-text, .log-body-text {
+    color: var(--text-secondary);
+}
+
+/* Dark Mode Overrides */
+[data-theme="dark"] .bg-light {
+    background-color: #0d0c0c !important; 
+    color: var(--text-primary) !important;
+    border-color: #2d2626 !important;
+}
+
+[data-theme="dark"] input.form-control, 
+[data-theme="dark"] textarea.form-control {
+    background-color: #1a1818 !important; 
+    color: #e6dcca !important;            
+    border: 1px solid #3d3333 !important;
+}
+
+[data-theme="dark"] .form-control::placeholder {
+    color: rgba(176, 168, 158, 0.2); 
+}
+
+[data-theme="dark"] .log-table {
+    background-color: #141111; 
+}
+
+[data-theme="dark"] .log-header-bg {
+    background-color: #1f1a1a !important; 
+    border-bottom: 1px solid #3d3333;
+    color: #8f8680; 
+}
+
+[data-theme="dark"] .border-cream {
+    border-color: #2b2525 !important; 
+}
+
+[data-theme="dark"] .log-body-text {
+    color: #d6cdc1; 
+}
+
+[data-theme="dark"] .log-table > :not(caption) > * > * {
+    background-color: #141111 !important; 
+    color: #d6cdc1 !important;             
+    border-bottom-color: #2b2525 !important; 
+}
+
+[data-theme="dark"] .log-table .log-header-bg th {
+    background-color: #1f1a1a !important; 
+    color: #8f8680 !important;            
+    border-bottom-color: #3d3333 !important;
+}
+
+[data-theme="dark"] .log-table.table-hover > tbody > tr:hover > * {
+    background-color: rgba(255, 255, 255, 0.05) !important; 
+    color: #ffffff !important;
+    box-shadow: inset 0 0 0 9999px rgba(255, 255, 255, 0.05) !important; 
 }
 
 /* Avatar */
@@ -360,6 +512,17 @@ h1, h2, h3, h4, h5 {
     padding: 2rem 2rem 0.5rem 3.5rem; 
 }
 
+[data-theme="dark"] .timeline-wrapper {
+    background-color: rgba(54, 47, 47, 0.6);
+    background-image: repeating-linear-gradient(
+        transparent,
+        transparent 1.5rem, 
+        rgba(255, 255, 255, 0.05) 1.5rem,   
+        rgba(255, 255, 255, 0.05) 1.5625rem 
+    );
+    border-color: var(--border-color);
+}
+
 .timeline-line { display: none; }
 
 .timeline-item { position: relative; margin-bottom: 3rem; }
@@ -391,6 +554,11 @@ h1, h2, h3, h4, h5 {
     padding: 1rem;
 }
 
+[data-theme="dark"] .modal-crt .modal-content {
+    background-color: var(--bg-surface);
+    border-color: var(--border-color);
+}
+
 .modal-crt .modal-body {
     background-color: #FCF8F0;
     border: 0.125rem solid var(--border-color);
@@ -399,6 +567,10 @@ h1, h2, h3, h4, h5 {
     padding: 2rem;
     font-family: var(--font-body);
     box-shadow: inset 0.125rem 0.125rem 0.5rem rgba(0,0,0,0.05);
+}
+
+[data-theme="dark"] .modal-crt .modal-body {
+    background-color: var(--bg-root);
 }
 
 .modal-crt h2 {
@@ -414,6 +586,11 @@ h1, h2, h3, h4, h5 {
     padding: 0.5rem;
     transition: all 0.2s;
 }
+
+[data-theme="dark"] .modal-crt .btn-close {
+    filter: invert(1);
+}
+
 .modal-crt .btn-close:hover {
     background-color: rgba(139, 30, 36, 0.1);
 }
@@ -508,6 +685,11 @@ h1, h2, h3, h4, h5 {
     box-shadow: inset 1px 1px 0 #000; 
 }
 
+[data-theme="dark"] .progress-retro {
+    background-color: #231e1e;
+    border-color: #5c4d4d;
+}
+
 .bg-retro-bar {
     background-color: transparent !important; 
     
@@ -530,6 +712,10 @@ h1, h2, h3, h4, h5 {
     border: 1px solid var(--border-color);
 }
 
+[data-theme="dark"] .stats-box {
+    background: rgba(255, 255, 255, 0.05);
+}
+
 .stats-label {
     font-size: 0.7em;
 }
@@ -546,7 +732,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* =========================================
-   8. PAGE: LIBRARY & RESEARCH
+   8. PAGE: LIBRARY, RESEARCH & TERMINAL
    ========================================= */
 
 /* Library */
@@ -574,6 +760,15 @@ h1, h2, h3, h4, h5 {
     padding: 1rem;
     color: var(--text-primary);
     font-family: var(--font-mono);
+    height: 500px; 
+    overflow-y: auto; 
+    cursor: text;
+}
+
+[data-theme="dark"] .card-terminal-retro {
+    background-color: #231e1e;
+    color: #e6dcca;
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5);
 }
 
 .terminal-prompt {
@@ -582,10 +777,20 @@ h1, h2, h3, h4, h5 {
     margin-right: 0.5rem;
 }
 
-/* Ensure input text matches the retro font */
+.terminal-line {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+}
+
 #terminal-input {
+    font-family: var(--font-mono);
     font-weight: 500;
     caret-color: var(--accent-primary);
+    outline: none;
+    background: transparent;
+    border: 0;
+    width: 100%;
+    padding: 0;
 }
 
 /* Research */
@@ -602,6 +807,10 @@ h1, h2, h3, h4, h5 {
     background-color: #EAE0D0;
     border: 1px solid var(--border-shadow);
     color: var(--text-primary);
+}
+
+[data-theme="dark"] .card-algo {
+    background-color: #362f2f;
 }
 
 .algo-header {

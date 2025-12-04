@@ -1,4 +1,34 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Dark Mode Logic ---
+    const toggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+    
+    // Check Local Storage for Preference
+    const savedTheme = localStorage.getItem('jake-morgan-dev-theme');
+    if (savedTheme === 'dark') {
+        body.setAttribute('data-theme', 'dark');
+        if (toggleBtn) toggleBtn.innerHTML = '<i class="bi bi-sun-fill"></i>'; // Switch icon
+    }
+
+    // 2. Handle Toggle Click
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            if (body.hasAttribute('data-theme')) {
+                // Switch to Light
+                body.removeAttribute('data-theme');
+                localStorage.setItem('jake-morgan-dev-theme', 'light');
+                toggleBtn.innerHTML = '<i class="bi bi-moon-fill"></i>';
+            } else {
+                // Switch to Dark
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('jake-morgan-dev-theme', 'dark');
+                toggleBtn.innerHTML = '<i class="bi bi-sun-fill"></i>';
+            }
+        });
+    }
+
     /* --- Typewriter Effect --- */
     const textElement = document.getElementById('typewriter-text');
     const phrases = [
