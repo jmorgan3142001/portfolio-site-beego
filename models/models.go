@@ -130,7 +130,14 @@ func GetExperience() []Experience {
             Role:     "Systems Programmer II",
             Duration: "2023 - 2025",
             Desc:     "Spearheaded full-stack development of enterprise healthcare applications using C# and SQL. Modernized legacy applications to .NET Core.",
-            Tags:     []string{"C#", ".Net Core", "Flutter", "SQL"},
+            Tags:     []string{"C#", ".Net Core", "Flutter", "SQL", "jQuery"},
+        },
+		{
+            Company:  "District 186",
+            Role:     "Computer Programmer and Software Developer",
+            Duration: "2022 - 2023",
+            Desc:     "Developed robust student and staff management systems using PHP and Oracle SQL, streamlining administrative workflows.",
+            Tags:     []string{"PHP", "Oracle SQL", "Javascript", "Bootstrap"},
         },
     }
 }
