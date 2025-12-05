@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let historyIndex = -1;
 
     // Help Text Constant
-    const WELCOME_TEXT = "Welcome to Portfolio Shell v1.0. Type 'help' to see available commands.";
+    const WELCOME_TEXT = "Welcome to Portfolio Shell v1.0. Type 'help' to see available commands.\nWarning: User is not privileged. Do not attempt 'sudo' commands.";
 
     // Simulated File System
     const fileSystem = {
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Command Logic ---
 
     const commands = {
-        'help': () => 'Commands: help, ls, cd [page], cat [file], tail [file], grep [term] [file], uptime, ping [host], theme [dark|light|matrix], clear, exit\nNot root user. Do not attempt \'sudo\' commands.',
+        'help': () => 'Commands: help, ls, cd [page], cat [file], tail [file], grep [term] [file], uptime, ping [host], theme [dark|light|matrix], clear, exit (with hidden commands)\nWarning: User is not privileged. Do not attempt \'sudo\' commands.',
         
         'ls': () => Object.keys(fileSystem).join('  '),
                 
