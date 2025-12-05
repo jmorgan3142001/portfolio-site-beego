@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'sys_log.log': `[INFO] System initialized at ${startTime.toISOString()}.\n` +
                         `[WARN] Caffeine levels critical.\n` +
                         `[INFO] Portfolio v2.1 loaded.\n`
-        };
+    };
 
 
     // --- Helper Functions ---
@@ -154,6 +154,80 @@ document.addEventListener('DOMContentLoaded', () => {
         terminalBody.scrollTop = terminalBody.scrollHeight;
     };
 
+    const asciiArt = {
+        cat: `
+            .: :=:             .-=..                                             
+            :. ::=:::=====--:=+:.=                                              
+            :=. . . :== =. ..::.+.                                              
+                --.   .+:...:    .=.                                               
+            .:.  :....=.:=-.    =                                               
+            .:..:.=*-:.  :==- ::  .                                              
+            :=:-. ..:=   :::..=+-.:                                              
+            .-:.::=. .  .  ::..  .:                                              
+            .:- .::.:** -===-  .:::                                             
+                :-:--: :::.:==-::: :  .:::.                                        
+            .::=-=-.      :=-=:.=:   ::=-==:                                     
+            ::=:::  .::   :::+:  := + =*:::=:                                   
+            .::*.:*+.    :=+==   :+ .: :+..-:--                                  
+                *:.            .::   *..--  :=.+=                                 
+                =.=:-=-     .:::   .=::+=-  .:.::-                                
+                .:.    :::.       ::.:-:::   . =.:.                               
+                =-:    :.:*.   ..  =:   :       ::                               
+                ..:.... -===.           .   :. -.-.                              
+                .:.-  .  .====-.  .-=.  :.  .:= .==.                             
+                .-:         .=.      .-+::::::-::.=.                            
+                    + :    ::     .:..  .:#:+  ++   :=                            
+                    + .    =.           ::#:+.    .:::                           
+                    ::-    :     .:.   .#-=      :-=-                           
+                    :::        .   -.  ++:::.  :::::=.                          
+                    .::::-=. : ...    ::    .*=-:   .*.                         
+                        ::     :+           =       ..   *.                        
+                        =.-   :: : .. .:     .. .==..:.:.:                        
+                        +-..:#:=::. :.      .      .:: :=                        
+                        : . .=+:   .=::         .:*.:: .+                        
+                        =.  # .   .=:--... .   :+: :-...=.                       
+                        - . .. .:. :=:=--:::...+:.:::.:===                        
+                    .::.. -.      .. .:   .::..::-: :=.                         
+                        :::-:*.     .:- =.:-=-:..:-  ==:                           
+                            + :: -      .-:.:.   ==.                             
+                                .         .=-::-=:                                 
+        `, 
+        dog: `
+                    :=*#***+-.                         .-=*##**=:.                           
+                -#-         :*=:.                  :%*.         :#*:                        
+                *%*        :.     :%*             =%.                **                      
+                .#=@+       :          +*        :%=.                    =%                    
+            :+  .-              ..=  .-:=#=::+.                        .#                   
+            =:-.*=-=+:          :+.     .=.:==  ::                        ::                 
+            .%-.**%    .=       =%%@=    .:.+:+..                           #:                
+            :=  :==...@* := :      ::     :  .-=   .                         :*                
+        :*    #--:.*%**   +:      .    +   *+    .+.  .                    *                
+        +:.    =%=+*#+     +    =:   .=.:.. *      ==  *.                  *                
+        +      :.          =:        :%.%  :.       :=                    +=                
+        :%#*::::*.    .:            .*.=    :        .           .       :+                 
+            ==     :*.   .           .*-*                          -    + *=                  
+            -+.     =*.       *   .+: #      -                   %.  -=:==                   
+                -*:     :+*+++*= -==  .%:     #                   *. .:=.=*                    
+                    :=*%=     =:     -:      :#                 .%*      *                     
+                    .%:                  .%.                ** =+:::  =-                    
+                        *.                :#                :%.    :=-:=:*                    
+                        .#               :                :@:      .@:*:%:                    
+                        =:                             ++.          :::                      
+                        -#                          +=                                      
+                            :*+                     .*                                        
+                            :=:=:               .*:                                         
+                            :=     %-*#@##%:   :%=                                          
+                            *:     %.  :#.      #.                                          
+                            *.      *.   :-     .%                                           
+                            %*   *: *=    ::     :#                                           
+                            :=-::::*.     *      --                                           
+                            :=--        **.     *:                                           
+                                        *  * :.-#                                            
+                                        *-= .**-                                             
+                                            ...                                                
+        `  
+    };
+
     // --- Command Logic ---
 
     const commands = {
@@ -178,9 +252,23 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         'cat': (args) => {
-            if (!args[0]) return 'Usage: cat [filename]';
+            if (!args[0]) {
+                return `Usage: cat [filename]\n${asciiArt.cat}`;
+            }
             if (fileSystem[args[0]]) return fileSystem[args[0]];
             return `cat: ${args[0]}: No such file or directory`;
+        },
+
+        'dog': () => {
+            return `Usage: Woof and whine!\n${asciiArt.dog}`;
+        },
+
+        'pit': () => {
+            return `Usage: Pitbulls are banned in 12 countries! (but not this terminal)\n${asciiArt.dog}`;
+        },
+
+        'staff': () => {
+            return `Usage: This Staffy's tail is a registered weapon!\n${asciiArt.dog}`;
         },
 
         'grep': (args) => {
