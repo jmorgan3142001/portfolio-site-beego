@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let historyIndex = -1;
 
     // Help Text Constant
-    const WELCOME_TEXT = "Welcome to Portfolio Shell v1.0. Type 'help' to see available commands.\nWarning: User is not privileged. Do not attempt 'sudo' commands.";
+    const WELCOME_TEXT = "Welcome to Portfolio Shell v1.0. Type 'help' to see available commands.<br />Warning: User is not privileged. Do not attempt 'sudo' commands.";
 
     // Simulated File System
     const fileSystem = {
@@ -57,8 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const line = document.createElement('div');
         line.className = 'text-mono small mb-1'; 
         line.style.whiteSpace = 'pre-wrap';
-        if (isHtml) line.innerHTML = text;
-        else line.textContent = text;
+        line.innerHTML = text;
         terminalOutput.appendChild(line);
         terminalBody.scrollTop = terminalBody.scrollHeight;
     };
@@ -66,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Command Logic ---
 
     const commands = {
-        'help': () => 'Commands: help, ls, cd [page], cat [file], tail [file], grep [term] [file], uptime, ping [host], theme [dark|light|matrix], clear, exit (with hidden commands)\nWarning: User is not privileged. Do not attempt \'sudo\' commands.',
+        'help': () => 'Commands: help, ls, cd [page], cat [file], grep [term] [file], uptime, ping [host], theme [dark|light|matrix], clear, exit (some hidden)\nWarning: User <i>really</i> is not privileged. <u>Do not</u> attempt \'sudo\' commands.',
         
         'ls': () => Object.keys(fileSystem).join('  '),
                 
@@ -81,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Redisplay welcome text after clear
             const welcomeLine = document.createElement('div');
             welcomeLine.className = 'text-mono small mb-3 text-secondary';
-            welcomeLine.textContent = WELCOME_TEXT;
+            welcomeLine.innerHTML = WELCOME_TEXT;
             terminalOutput.appendChild(welcomeLine);
             return ''; 
         },
@@ -90,15 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!args[0]) return 'Usage: cat [filename]';
             if (fileSystem[args[0]]) return fileSystem[args[0]];
             return `cat: ${args[0]}: No such file or directory`;
-        },
-
-        'tail': (args) => {
-            if (!args[0]) return 'Usage: tail [filename]';
-            if (fileSystem[args[0]]) {
-                const lines = fileSystem[args[0]].split('\n');
-                return lines[lines.length - 1];
-            }
-            return `tail: ${args[0]}: No such file or directory`;
         },
 
         'grep': (args) => {
@@ -214,8 +204,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'sudo': () => {
             setTimeout(() => {
                 window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank'); 
-            }, 2000); // Rick Rolled :D
-            return 'Access Denied: User is not in the sudoers file. Goodbye :D';
+            }, 1500); // Rick Rolled :D
+            return 'Access Denied: User is not in the sudoers file. Should have listened! Goodbye :)';
         },
 
         'exit': () => {
