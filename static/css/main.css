@@ -801,6 +801,13 @@ h1, h2, h3, h4, h5 {
     padding: 0;
 }
 
+.ascii-art {
+    font-size: 0.6rem;   
+    line-height: 0.8rem; 
+    white-space: pre;    
+    font-family: monospace;
+}
+
 /* Research */
 .paper-card:hover {
     box-shadow: 1rem 1rem 0rem rgba(139, 30, 36, 0.2);
