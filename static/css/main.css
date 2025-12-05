@@ -854,7 +854,8 @@ h1, h2, h3, h4, h5 {
 }
 
 @media (max-width: 991.98px) {
-    .deco-vents, .vent-line {
+    /* Hide elements that do not display well on small screens */
+    .deco-vents, .vent-line, .timeline-dot {
         display: none;
     }
 

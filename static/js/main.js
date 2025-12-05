@@ -1,41 +1,50 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Dark Mode Logic ---
-    const toggleBtn = document.getElementById('theme-toggle');
+    const toggles = document.querySelectorAll('.theme-toggle');
     const body = document.body;
-    
+
+    // Helper to update both toggle button icons on click
+    const updateIcons = (isDark) => {
+        toggles.forEach(btn => {
+            if (isDark) {
+                btn.innerHTML = '<i class="bi bi-sun-fill"></i>';
+            } else {
+                btn.innerHTML = '<i class="bi bi-moon-fill"></i>';
+            }
+        });
+    };
+
     // Check Local Storage for Preference
     const savedTheme = localStorage.getItem('jake-morgan-dev-theme');
     if (savedTheme === 'dark') {
         body.setAttribute('data-theme', 'dark');
-        if (toggleBtn) toggleBtn.innerHTML = '<i class="bi bi-sun-fill"></i>'; // Switch icon
+        updateIcons(true); // Set initial state for all buttons
     }
 
-    // 2. Handle Toggle Click
-    if (toggleBtn) {
+    toggles.forEach(toggleBtn => {
         toggleBtn.addEventListener('click', (e) => {
             e.preventDefault();
             
             if (body.hasAttribute('data-theme')) {
-                // Switch to Light
                 body.removeAttribute('data-theme');
                 localStorage.setItem('jake-morgan-dev-theme', 'light');
-                toggleBtn.innerHTML = '<i class="bi bi-moon-fill"></i>';
+                updateIcons(false); 
             } else {
-                // Switch to Dark
                 body.setAttribute('data-theme', 'dark');
                 localStorage.setItem('jake-morgan-dev-theme', 'dark');
-                toggleBtn.innerHTML = '<i class="bi bi-sun-fill"></i>';
+                updateIcons(true); 
             }
         });
-    }
+    });
 
     /* --- Typewriter Effect --- */
     const textElement = document.getElementById('typewriter-text');
     const phrases = [
+        "Impactful Software",
+        "Reliable Backends",
+        "Clean UI/UX",
         "Scalable Systems",
         "Cloud Architectures",
-        "Impactful Software",
-        "Reliable Backends"
     ];
     let phraseIndex = 0;
     let charIndex = 0;

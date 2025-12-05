@@ -1,7 +1,7 @@
-<div class="container py-5 mt-2 mt-md-3">
+<div class="container py-2 py-md-5 mt-md-3">
     <div class="text-center mb-5">
         <h1 class="display-4 fw-bold">Knowledge <span class="text-accent">Base</span></h1>
-        <p class="lead text-secondary">Required reading for system optimization and architectural understanding.</p>
+        <p class="lead text-secondary">Required reading and references I rely on for system optimization, architecture, and practical engineering decisions.</p>
     </div>
 
     <div class="row g-4">
@@ -21,7 +21,7 @@
                         <div class="text-mono small text-accent mb-3">By {{.Author}}</div>
                         
                         <p class="text-secondary small mb-0">
-                            {{.Desc}}
+                            {{.Description}}
                         </p>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                         <div class="text-mono small text-secondary mb-3">By {{.Author}}</div>
                         
                         <p class="text-secondary small mb-0 fst-italic">
-                            {{.Desc}}
+                            {{.Description}}
                         </p>
                     </div>
                 </div>
@@ -54,8 +54,10 @@
         {{end}}
     </div>
 
-    <div class="mt-5">
-        <h3 class="h5 fw-bold mb-4 border-bottom border-cream pb-2">Digital Resources</h3>
+    <div class="mt-2">
+        <h3 class="fw-bold border-bottom border-cream pb-2">Digital Resources</h3>
+        <p class="text-secondary mb-4">A curated set of online resources that inform my decisions in system design, optimization, and engineering best practices.</p>
+
         <div class="row g-4">
             {{range .Resources}}
             <div class="col-md-4">
@@ -64,7 +66,7 @@
                         <i class="bi {{.Icon}} fs-3 text-accent me-3"></i>
                         <div>
                             <div class="fw-bold">{{.Title}}</div>
-                            <small class="text-secondary">{{.Desc}}</small>
+                            <small class="text-secondary">{{.Description}}</small>
                         </div>
                     </div>
                 </a>

@@ -80,7 +80,7 @@ func (c *PortfolioController) Get() {
     c.Data["Location"] = "Charleston, SC"
     c.Data["Email"] = "jmorgan3142001@gmail.com"
     c.Data["GithubLink"] = "https://github.com/jmorgan3142001"
-    c.Data["LinkedinLink"] = "https://www.linkedin.com/in/jmorgan3142001"
+    c.Data["LinkedinLink"] = "https://www.linkedin.com/in/jake-morgan-/"
     
     // Page Context
     c.Data["Page"] = "home"
@@ -114,7 +114,8 @@ func (c *PortfolioController) About() {
     c.Data["Name"] = "Jake Morgan"
     c.Data["Page"] = "about"
     c.Data["Email"] = "jmorgan3142001@gmail.com"
-	c.Data["GithubLink"] = "https://github.com/jmorgan3142001"
+    c.Data["GithubLink"] = "https://github.com/jmorgan3142001"
+    c.Data["LinkedinLink"] = "https://www.linkedin.com/in/jake-morgan-/"
     
     // Data from Models
     c.Data["GithubStats"] = getGithubStats("jmorgan3142001")
@@ -130,6 +131,8 @@ func (c *PortfolioController) Library() {
     c.Data["Name"] = "Jake Morgan"
     c.Data["Page"] = "library"
     c.Data["Email"] = "jmorgan3142001@gmail.com"
+    c.Data["GithubLink"] = "https://github.com/jmorgan3142001"
+    c.Data["LinkedinLink"] = "https://www.linkedin.com/in/jake-morgan-/"
 
     c.Data["Books"] = models.GetBooks()
 	c.Data["NextBooks"] = models.GetNextReads()
@@ -144,12 +147,13 @@ func (c *PortfolioController) Research() {
     c.Data["Name"] = "Jake Morgan"
     c.Data["Page"] = "research"
     c.Data["Email"] = "jmorgan3142001@gmail.com"
+    c.Data["GithubLink"] = "https://github.com/jmorgan3142001"
+    c.Data["LinkedinLink"] = "https://www.linkedin.com/in/jake-morgan-/"
 
     // Data from Models
     c.Data["Papers"] = models.GetResearchPapers()
     c.Data["Algos"] = models.GetAlgorithms()
     c.Data["Meta"] = models.GetResearchMeta()
-    c.Data["Complexity"] = models.GetComplexityStats()
     c.Data["NextTopic"] = "BYZANTINE FAULT TOLERANCE"
 
     c.Layout = "layout.html"
@@ -161,6 +165,8 @@ func (c *PortfolioController) Terminal() {
     c.Data["Name"] = "Jake Morgan"
     c.Data["Page"] = "terminal"
     c.Data["Email"] = "jmorgan3142001@gmail.com"
+    c.Data["GithubLink"] = "https://github.com/jmorgan3142001"
+    c.Data["LinkedinLink"] = "https://www.linkedin.com/in/jake-morgan-/"
 
     c.Layout = "layout.html"
     c.TplName = "terminal.html"

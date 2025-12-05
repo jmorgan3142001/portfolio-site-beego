@@ -1,10 +1,10 @@
-<div class="container py-5 mt-2 mt-md-3">
+<div class="container py-2 py-md-5 mt-md-3">
     
     <div class="row mb-5">
         <div class="col-12">
             <h1 class="display-4 fw-bold">Research <span class="text-accent">Lab</span></h1>
             <p class="lead text-secondary">
-                MSCS coursework, distributed systems analysis, and algorithmic experiments.
+                Graduate-level systems research, distributed computing analysis, and practical algorithm experimentation.
             </p>
             
             <div class="d-flex gap-3 text-mono small text-secondary mt-3">
@@ -21,9 +21,13 @@
     <div class="row g-5">
         
         <div class="col-lg-7">
-            <h3 class="h4 fw-bold mb-4">
+            <h3 class="h4 fw-bold mb-2">
                 <i class="bi bi-journal-bookmark me-2 text-accent"></i>Literature Review
             </h3>
+            <p class="text-secondary mb-4">
+                Influential publications I reference when studying distributed systems, fault tolerance, and modern infrastructure design.
+            </p>
+
             
             {{range .Papers}}
             <a href="{{.Link}}" target="_blank" class="text-decoration-none text-reset d-block mb-4">
@@ -60,9 +64,12 @@
 
         <div class="col-lg-5">
             <div class="sys-sticky-col">
-                <h3 class="h4 fw-bold mb-4 text-end">
+                <h3 class="h4 fw-bold mb-2 text-end">
                     Algorithmic Lab <i class="bi bi-code-square ms-2 text-accent"></i>
                 </h3>
+                <p class="text-secondary mb-2 text-end">
+                    Practical experience building distributed algorithms that improve system reliability, performance, and scalability.
+                </p>
 
                 {{range .Algos}}
                 <a href="{{.Link}}" target="_blank" class="text-decoration-none text-reset d-block mb-4">
@@ -73,26 +80,11 @@
                         </div>
                         <h5 class="fw-bold">{{.Name}}</h5>
                         <p class="small text-secondary mb-0">
-                            // {{.Desc}}
+                            // {{.Description}}
                         </p>
                     </div>
                 </a>
                 {{end}}
-
-                <div class="sys-card">
-                    <h5 class="fw-bold mb-2">Complexity Focus</h5>
-                    <p class="text-secondary small mb-3">
-                        Current optimization targets for backend services.
-                    </p>
-                    <ul class="list-unstyled text-mono small">
-                        {{range .Complexity}}
-                        <li class="complexity-item">
-                            <span>{{.Operation}}</span>
-                            <span class="text-accent">{{.Complexity}}</span>
-                        </li>
-                        {{end}}
-                    </ul>
-                </div>
 
             </div>
         </div>

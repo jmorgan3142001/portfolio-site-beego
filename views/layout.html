@@ -27,9 +27,15 @@
                 <span class="power-light"></span>
                 {{.Name}}
             </a>
+
+            <a href="#" class="nav-link d-lg-none ms-auto me-3 theme-toggle" title="Toggle Dark Mode">
+                <i class="bi bi-moon-fill"></i>
+            </a>
+
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <i class="bi bi-grid-fill fs-3 text-accent"></i>
             </button>
+
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item">
@@ -47,11 +53,13 @@
                     <li class="nav-item">
                         <a class="nav-link {{if eq .Page "terminal"}}active{{end}}" href="/terminal">Terminal</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" id="theme-toggle" class="nav-link" title="Toggle Dark Mode">
+
+                    <li class="nav-item d-none d-lg-block">
+                        <a href="#" class="nav-link theme-toggle" title="Toggle Dark Mode">
                             <i class="bi bi-moon-fill"></i>
                         </a>
                     </li>
+
                     <li class="nav-item ms-lg-4">
                         <a class="btn btn-retro" href="#contact">Connect</a>
                     </li>
@@ -70,12 +78,12 @@
                 <a href="mailto:{{.Email}}" class="btn btn-retro-dark btn-lg px-4 mb-4">Send Mail</a>
                 
                 <div class="d-flex justify-content-center gap-4 border-top border-2 py-4 border-cream">
-                    <a href="{{.LinkedinLink}}" target="_blank" class="text-secondary fs-4"><i class="bi bi-linkedin"></i></a>
-                    <a href="{{.GithubLink}}" target="_blank" class="text-secondary fs-4"><i class="bi bi-github"></i></a>
+                    <a href="{{.LinkedinLink}}" target="_blank" class="text-secondary fs-1"><i class="bi bi-linkedin"></i></a>
+                    <a href="{{.GithubLink}}" target="_blank" class="text-secondary fs-1"><i class="bi bi-github"></i></a>
                 </div>
 
                 <div class="justify-content-center gap-4 border-top border-2 py-4 border-cream">
-                    <a href="https://github.com/jmorgan3142001/portfolio-site-beego" target="_blank" class="btn btn-sm btn-retro-dark border-secondary text-secondary mb-2">
+                    <a href="https://github.com/jmorgan3142001/portfolio-site-beego" target="_blank" class="btn btn-sm btn-retro-dark mb-2">
                         <i class="bi bi-code-slash me-2"></i>View Site's Source Code
                     </a>
                     <div class="small text-secondary mt-2 opacity-75" style="font-size: 0.8rem;">

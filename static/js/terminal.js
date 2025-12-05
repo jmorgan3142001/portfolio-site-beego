@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         'make': (args) => {
-            if (args[0] === 'coffee') return 'make: *** No rule to make target `coffee`. Stop.\n(Hint: Error 418 I\'m a teapot)';
+            if (args[0] === 'coffee') return 'make: *** No rule to make target `coffee`. Stop.\n(Hint: Make it yourself!)';
             return 'make: *** No targets specified and no makefile found. Stop.';
         },
 
