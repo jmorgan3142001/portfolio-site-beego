@@ -15,11 +15,103 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Simulated File System
     const fileSystem = {
-        'contact.txt': 'Email: jmorgan3142001@gmail.com\nLinkedIn: linkedin.com/in/jmorgan3142001',
-        'projects.txt': '- Auto-Caption Network\n- Lawless Lowcountry Living\n- CRM Pipeline Opt.',
-        'skills.txt': '- Python (Django)\n- Go (Golang)\n- Typescript\n- SQL\n- Distributed Systems\n- C++',
-        'sys_log.log': `[INFO] System initialized at ${startTime.toISOString()}.\n[WARN] Caffeine levels critical.\n[INFO] Portfolio v2.1 loaded.`
-    };
+        'contact.txt':
+            'Email: jmorgan3142001@gmail.com\n' +
+            'LinkedIn: https://www.linkedin.com/in/jake-morgan-\n' +
+            'Resume (PDF): https://docs.google.com/document/d/1qCF9Oe2GXS9ayBZgxiA9xq1ZOHGdxF9deOKG7T9Cwvg/export?format=pdf\n' +
+            'Note: Email is best for quick questions; LinkedIn is best for professional outreach.',
+
+        'projects.txt':
+            '- Auto-Caption Network: distributed, low-latency captioning system for synchronized multi-endpoint workflows.\n' +
+            '- Lawless Lowcountry Living: production content site with a mobile-first, accessibility-minded front end.\n' +
+            '- CRM Pipeline Optimization: refactored CI/CD and pipeline orchestration to shorten build and deploy times.\n' +
+            '- Portfolio Website: this site; a small interactive CLI and static site demonstrating full-stack work.\n' +
+            '- Open Source (NCI): Django5 Forms Fieldset and Django5 Scheduler contributions focused on accessibility and scheduling.',
+
+        'skills.txt':
+            'Languages: Python, Go, TypeScript, C++, C#, SQL\n' +
+            'Backend: Django, .NET Core, REST APIs, gRPC\n' +
+            'Frontend: TypeScript, Angular, Bootstrap, Vite\n' +
+            'Databases and Infra: PostgreSQL, SQL Server, Azure, Docker\n' +
+            'Areas: distributed systems, performance, testing, CI/CD, observability',
+
+        'about.txt':
+            "Hi, I'm Jake Morgan, a full-stack engineer focused on building pragmatic, reliable software that scales. " +
+            "I prefer clean, testable code and practical solutions that help teams move faster. " +
+            "Recent work has centered on captioning automation, modernizing legacy systems, and improving developer workflows.\n\n" +
+            "Outside of work I stay active, tinker with tech, and live with two pocket pitties (see pets.txt).",
+
+        'experience.txt':
+            'NATIONAL CAPTIONING INSTITUTE - Software Engineer (Feb 2025 - Present)\n' +
+            '  - Building automated captioning systems that meet accessibility and broadcast standards; redesigned testing and improved frontend performance.\n\n' +
+            'UNCOMMON GIVING - Software Engineer (2023 - Present)\n' +
+            '  - Full-stack development (TypeScript, Python, Flutter); optimized CI/CD to parallelize tasks and reduce deployment time.\n\n' +
+            'MUSC - Systems Programmer II (2023 - 2025)\n' +
+            '  - Led full-stack modernization to .NET Core and improved data workflows and maintainability.\n\n' +
+            'DISTRICT 186 - Computer Programmer (2022 - 2023)\n' +
+            '  - Built admin tools using PHP and Oracle SQL to streamline staff and student workflows.',
+
+        'education.txt':
+            'B.S. Computer Science\n' +
+            'MSCS - in progress\n' +
+            'Relevant coursework and project details available on LinkedIn and resume.',
+
+        'resume.txt':
+            'Full resume (latest): https://docs.google.com/document/d/1qCF9Oe2GXS9ayBZgxiA9xq1ZOHGdxF9deOKG7T9Cwvg/edit?usp=sharing\n' +
+            'PDF export available via the Resume (PDF) link in contact.txt',
+
+        'links.txt':
+            'LinkedIn: https://www.linkedin.com/in/jake-morgan-\n' +
+            'Portfolio: /\n' +
+            'GitHub: https://github.com/jmorgan3142001\n' +
+            'Email: jmorgan3142001@gmail.com',
+
+        'pets.txt':
+            'Ashe & Rhaenyra - the Staffies!\n' +
+            '  - Ashe: blue-gray, muscular, affectionate, and convinced he is the main character.\n' +
+            '  - Rhaenyra (Rainy): tan, lean, energetic, and loves sunbeams and snacks.\n' +
+            'Both are affectionate and a big part of life outside work.',
+
+        'hobbies.txt':
+            'Hobbies and interests:\n' +
+            '  - Tech and coding: always tinkering with small tools or side projects\n' +
+            '  - Gaming: competitive, co-op, and strategy play\n' +
+            '  - Hiking and biking: exploring trails and moving fast\n' +
+            '  - Singing: I love to sing, especially in musicals, and always have\n' +
+            '  - Chess: slow, strategic play that sharpens thinking\n' +
+            '  - Building and crafting: miniatures, models, and hands-on projects\n' +
+            '  - Working out: consistency and progression for mental clarity\n' +
+            '  - Rock climbing: body-centered problem solving\n' +
+            '  - Diving: calm, focused resets',
+
+        'games.txt':
+            'Gaming preferences:\n' +
+            '  - Genres: sci-fi, fantasy, strategy, co-op, competitive\n' +
+            '  - Favorite games: Hearts of Iron IV, Total War, ESO, Battlefield, Holdfast\n' +
+            '  - Playstyle: I enjoy meaningful decision-making, teamwork, and games that reward planning and skill.',
+
+        'movies.txt':
+            'Movies and genres I like:\n' +
+            '  - Science fiction\n' +
+            '  - Fantasy\n' +
+            '  - Westerns\n' +
+            '  - War movies\n' +
+            '  - Horror\n' +
+            '  - Musicals\n' +
+            '  - Favorites: Star Wars, Lord of the Rings, Tangled, Evil Dead Rising',
+
+        'personal.txt':
+            'Personal notes:\n' +
+            '  - Based near Charleston\n' +
+            '  - I value clean design and clean code\n' +
+            '  - I balance tech, fitness, and life with two staffies\n' +
+            '  - Always open to learning or building something new',
+
+        'sys_log.log': `[INFO] System initialized at ${startTime.toISOString()}.\n` +
+                        `[WARN] Caffeine levels critical.\n` +
+                        `[INFO] Portfolio v2.1 loaded.\n`
+        };
+
 
     // --- Helper Functions ---
 
