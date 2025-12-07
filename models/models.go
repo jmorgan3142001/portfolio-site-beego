@@ -279,7 +279,7 @@ func GetProjects() []Project {
 			Title:       "Lawless Lowcountry Living",
 			Description: "A production site hosted on modern cloud infrastructure that demonstrates my full-stack work. Mobile-first design and optimized delivery are core priorities, with attention to accessibility and performance.",
 			Tags:        []string{"Cloud Hosting", "Web Dev"},
-			Link:        "http://lawlesslowcountryliving.com",
+			Link:        "https://lawlesslowcountryliving.com",
 			Icon:        "bi-box-arrow-up-right",
 		},
 		{
@@ -437,7 +437,7 @@ func GetDigitalResources() []ResourceItem {
 		{
 			Title:       "High Scalability",
 			Description: "Building bigger, faster, more reliable websites.",
-			Link:        "http://highscalability.com/",
+			Link:        "https://highscalability.com/",
 			Icon:        "bi-graph-up-arrow",
 		},
 		{

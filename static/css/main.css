@@ -4,54 +4,66 @@
 
 :root {
     /* Core Palette (Light - Default) */
-    --bg-root: #F2E9D8;
-    --bg-surface: #FCF8F0; 
-    --bg-panel: #E6DCCA;
+    --bg-root: #F2E9D8 !important;
+    --bg-surface: #FCF8F0 !important; 
+    --bg-panel: #E6DCCA !important;
     
     /* Accents */
-    --accent-primary: #8B1E24;
-    --accent-secondary: #E0A045;
+    --accent-primary: #8B1E24 !important;
+    --accent-secondary: #E0A045 !important;
     
     /* Text */
-    --text-primary: #2C2C2C;
-    --text-secondary: #595959;
+    --text-primary: #2C2C2C !important;
+    --text-secondary: #595959 !important;
     
     /* Structure */
-    --border-width: 0.125rem;
-    --border-color: #D1C4B0;
-    --border-shadow: #BFA98F;
-    --border-highlight: #FDFBF7; 
+    --border-width: 0.125rem !important;
+    --border-color: #D1C4B0 !important;
+    --border-shadow: #BFA98F !important;
+    --border-highlight: #FDFBF7 !important; 
     
     /* Effects */
-    --radius-main: 0.75rem;
-    --shadow-soft: 0.5rem 0.5rem 0rem rgba(139, 30, 36, 0.15);
+    --radius-main: 0.75rem !important;
+    --shadow-soft: 0.5rem 0.5rem 0rem rgba(139, 30, 36, 0.15) !important;
     
     /* Fonts */
-    --font-head: 'Space Grotesk', sans-serif;
-    --font-body: 'Inter', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
+    --font-head: 'Space Grotesk', sans-serif !important;
+    --font-body: 'Inter', sans-serif !important;
+    --font-mono: 'JetBrains Mono', monospace !important;
+
+    /* Boostrap Overrides */
+    --bs-body-bg: var(--bg-root) !important;
+    --bs-body-color: var(--text-primary) !important;
+    --bs-secondary-rgb: 89, 89, 89 !important; 
+    --bs-primary: #8B1E24 !important;
 }
 
 /* Dark Mode Overrides */
 [data-theme="dark"] {
     /* Core Palette (Dark) */
-    --bg-root: #2b2525;
-    --bg-surface: #362f2f;
-    --bg-panel: #423838;
+    --bg-root: #2b2525 !important;
+    --bg-surface: #362f2f !important;
+    --bg-panel: #423838 !important;
     
     /* Text */
-    --text-primary: #f2ede6; 
-    --text-secondary: #c9c3bc;
+    --text-primary: #f2ede6 !important; 
+    --text-secondary: #e0e3d3 !important;
     
     /* Structure */
-    --border-color: #5c4d4d;
-    --border-shadow: #1f1a1a;
-    --border-highlight: #4a4040;
+    --border-color: #5c4d4d !important;
+    --border-shadow: #1f1a1a !important;
+    --border-highlight: #4a4040 !important;
     
     /* Accents (Adjusted for dark contrast) */
-    --accent-primary: #ff6b6b; /* Brighter Red */
-    --accent-secondary: #feca57; /* Brighter Yellow/Orange */
-    --shadow-soft: 0.5rem 0.5rem 0rem rgba(0, 0, 0, 0.5);
+    --accent-primary: #ff6b6b !important; /* Brighter Red */
+    --accent-secondary: #feca57 !important; /* Brighter Yellow/Orange */
+    --shadow-soft: 0.5rem 0.5rem 0rem rgba(0, 0, 0, 0.5) !important;
+
+    /* Bootstrp Overrides */
+    --bs-body-bg: var(--bg-root) !important;
+    --bs-body-color: var(--text-primary) !important;
+    --bs-secondary-rgb: 240, 230, 220 !important;
+    --bs-primary: #ff6b6b !important;
 }
 
 /* Fix Bootstrap utils in Dark Mode */
@@ -66,12 +78,12 @@
 
 [data-theme="dark"] .form-control {
     background-color: #231e1e !important;
-    border-color: var(--border-color);
-    color: var(--text-primary);
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
 }
 
 [data-theme="dark"] .form-control::placeholder {
-    color: rgba(230, 220, 202, 0.4);
+    color: rgba(230, 220, 202, 0.4) !important;
 }
 
 /* =========================================
@@ -335,14 +347,6 @@ h1, h2, h3, h4, h5 {
 
 [data-theme="dark"] .sys-card {
     background: rgba(54, 47, 47, 0.8);
-}
-
-[data-theme="dark"] .sys-card .text-secondary {
-    color: var(--text-primary) !important;
-}
-
-[data-theme="dark"] .timeline-item .text-secondary {
-    color: var(--text-primary) !important;
 }
 
 .sys-card:hover {
