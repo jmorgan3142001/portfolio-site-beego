@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/main.css">
 </head>
-<body class="{{if eq .Page "research"}}bg-grid{{end}}">
+<body class="{{if eq .Page "directory"}}bg-grid{{end}}">
 
     <div id="hardware-bg">
         <div class="molded-shape shape-block" data-speed="0.05" style="top: 15%; left: 5%;"></div>
@@ -45,16 +45,13 @@
                         <a class="nav-link {{if eq .Page "about"}}active{{end}}" href="/about">System Log</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{if eq .Page "library"}}active{{end}}" href="/library">Library</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{if eq .Page "research"}}active{{end}}" href="/research">Research</a>
+                        <a class="nav-link {{if eq .Page "directory"}}active{{end}}" href="/directory">Directory</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{if eq .Page "terminal"}}active{{end}}" href="/terminal">Terminal</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{if eq .Page "terminal"}}active{{end}}" href="/challenges">Coding Challenges</a>
+                        <a class="nav-link {{if eq .Page "challenges"}}active{{end}}" href="/challenges">Coding Challenges</a>
                     </li>
 
                     <li class="nav-item d-none d-lg-block">

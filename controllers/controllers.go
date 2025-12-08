@@ -130,38 +130,27 @@ func (c *PortfolioController) About() {
     c.TplName = "about.html"
 }
 
-func (c *PortfolioController) Library() {
-    c.Data["Title"] = "Data Archive"
+func (c *PortfolioController) Directory() {
+    c.Data["Title"] = "File Server"
     c.Data["Name"] = "Jake Morgan"
-    c.Data["Page"] = "library"
+    c.Data["Page"] = "directory"
     c.Data["Email"] = "jmorgan3142001@gmail.com"
     c.Data["GithubLink"] = "https://github.com/jmorgan3142001"
     c.Data["LinkedinLink"] = "https://www.linkedin.com/in/jake-morgan-/"
 
+    // Library Data
     c.Data["Books"] = models.GetBooks()
-	c.Data["NextBooks"] = models.GetNextReads()
-	c.Data["Resources"] = models.GetDigitalResources()
+    c.Data["NextBooks"] = models.GetNextReads()
+    c.Data["Resources"] = models.GetDigitalResources()
 
-    c.Layout = "layout.html"
-    c.TplName = "library.html"
-}
-
-func (c *PortfolioController) Research() {
-    c.Data["Title"] = "Research Lab"
-    c.Data["Name"] = "Jake Morgan"
-    c.Data["Page"] = "research"
-    c.Data["Email"] = "jmorgan3142001@gmail.com"
-    c.Data["GithubLink"] = "https://github.com/jmorgan3142001"
-    c.Data["LinkedinLink"] = "https://www.linkedin.com/in/jake-morgan-/"
-
-    // Data from Models
+    // Research Data
     c.Data["Papers"] = models.GetResearchPapers()
     c.Data["Algos"] = models.GetAlgorithms()
     c.Data["Meta"] = models.GetResearchMeta()
     c.Data["NextTopic"] = "BYZANTINE FAULT TOLERANCE"
 
     c.Layout = "layout.html"
-    c.TplName = "research.html"
+    c.TplName = "directory.html"
 }
 
 func (c *PortfolioController) Terminal() {
