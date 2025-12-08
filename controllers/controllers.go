@@ -114,7 +114,7 @@ func (c *PortfolioController) SubmitLog() {
 
 // Sub page declarations
 func (c *PortfolioController) About() {
-    c.Data["Title"] = "System Log"
+    c.Data["Title"] = "User Log"
     c.Data["Name"] = "Jake Morgan"
     c.Data["Page"] = "about"
     c.Data["Email"] = "jmorgan3142001@gmail.com"

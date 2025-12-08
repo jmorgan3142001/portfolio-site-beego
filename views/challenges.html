@@ -3,11 +3,12 @@
     <div class="row mb-3">
         <div class="col-12">
             <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-3">
-                <div>
+                <div id="coding-challege-header">
                     <div class="text-mono text-uppercase text-accent-sub x-small">
                         MODULE: SKILL_CHECK // <span class="text-lowercase">interactive</span>
                     </div>
-                    <h1 class="h3 fw-bold mb-0">Engineering <span class="text-accent">Simulation</span></h1>
+                    <h1 class="h2 fw-bold mb-1">Engineering <span class="text-accent">Simulation</span></h1>
+                    <p class="text-secondary small">'Leet Code' style questions related to real world problems I have faced on the job. What solutions can you come to?</p>
                 </div>
                 
                 <button class="btn btn-retro btn-sm d-flex align-items-center gap-2" 
@@ -37,7 +38,7 @@
                                     {{if eq .Difficulty "Easy"}}
                                         <span class="badge bg-success bg-opacity-10 text-success text-mono x-small">EASY</span>
                                     {{else if eq .Difficulty "Medium"}}
-                                        <span class="badge bg-warning bg-opacity-10 text-warning text-mono x-small">MED</span>
+                                        <span class="badge bg-warning bg-opacity-10 text-warning text-mono x-small">MEDIUM</span>
                                     {{else}}
                                         <span class="badge bg-danger bg-opacity-10 text-danger text-mono x-small">HARD</span>
                                     {{end}}
