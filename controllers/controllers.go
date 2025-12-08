@@ -193,7 +193,17 @@ func (c *PortfolioController) RunCode() {
         return
     }
 
-    // 2. Fetch Test Cases
+    // 2. Fetch Challenge & Test Cases
+    challenge, err := models.GetChallengeById(req.ChallengeID) // FETCHED HERE
+    if err != nil {
+        c.Data["json"] = map[string]interface{}{
+            "passed": false, 
+            "output": "System Error: Challenge ID not found in database.",
+        }
+        c.ServeJSON()
+        return
+    }
+
     testCases := models.GetTestCases(req.ChallengeID)
     if len(testCases) == 0 {
         c.Data["json"] = map[string]interface{}{"passed": false, "output": "System Error: No test cases found in DB."}
@@ -206,16 +216,22 @@ func (c *PortfolioController) RunCode() {
     allPassed := true
     var outputLog strings.Builder
 
+    // Default to 'solve' if database field is empty for some reason
+    funcName := challenge.FunctionName
+    if funcName == "" {
+        funcName = "solve"
+    }
+
     // 4. Execution Loop
     for i, tc := range testCases {
         
         // --- RATE LIMIT FIX ---
-        // Sleep 250ms between requests to respect Piston's 5 req/sec limit
         if i > 0 {
             time.Sleep(250 * time.Millisecond)
         }
 
-        fullCode := fmt.Sprintf("%s\n\nprint(solve(%s))", req.UserCode, tc.InputArgs)
+        // DYNAMIC FUNCTION CALL: Uses the DB function name
+        fullCode := fmt.Sprintf("%s\n\nprint(%s(%s))", req.UserCode, funcName, tc.InputArgs)
 
         pistonReq := models.PistonRequest{
             Language: "python",
@@ -245,7 +261,7 @@ func (c *PortfolioController) RunCode() {
             bodyBytes, _ = io.ReadAll(resp.Body)
         }
 
-        // Check for API errors (like 429 Too Many Requests)
+        // Check for API errors
         if resp.StatusCode != 200 {
             outputLog.WriteString(fmt.Sprintf("API Error (Case %d): %s\n", i+1, string(bodyBytes)))
             allPassed = false

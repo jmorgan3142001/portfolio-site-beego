@@ -35,17 +35,19 @@ func (u *AccessLog) TableName() string {
 }
 
 // --- Challenge Model ---
+// --- Challenge Model ---
 type Challenge struct {
-    Id          int         `orm:"auto"`
-    Title       string      `orm:"size(255)"`
-    Description string      `orm:"type(text)"`
-	InputHint   string      `orm:"size(255)"`
-    Difficulty  string      `orm:"size(50)"`
-    Category    string      `orm:"size(50)"`
-    Type        string      `orm:"size(50)"`
-    Language    string      `orm:"size(50);null"`
-    StarterCode string      `orm:"type(text);null"`
-    TestCases   []*TestCase `orm:"reverse(many)"`
+    Id           int         `orm:"auto"`
+    Title        string      `orm:"size(255)"`
+    Description  string      `orm:"type(text)"`
+    InputHint    string      `orm:"size(255)"`
+    FunctionName string      `orm:"size(100)"` // <--- NEW: Stores "convert_time", etc.
+    Difficulty   string      `orm:"size(50)"`
+    Category     string      `orm:"size(50)"`
+    Type         string      `orm:"size(50)"`
+    Language     string      `orm:"size(50);null"`
+    StarterCode  string      `orm:"type(text);null"`
+    TestCases    []*TestCase `orm:"reverse(many)"`
 }
 
 // Force table name to singular 'challenge' to match DB creation default
@@ -71,27 +73,20 @@ func (u *TestCase) TableName() string {
 // ===================================================================================
 
 func init() {
-    // 1. Register Models
     orm.RegisterModel(new(AccessLog), new(Challenge), new(TestCase))
-
-    // 2. Register Driver
     orm.RegisterDriver("postgres", orm.DRPostgres)
 
-    // 3. Connect to Database
     dbUrl := os.Getenv("DATABASE_URL")
     err := orm.RegisterDataBase("default", "postgres", dbUrl)
     if err != nil {
         panic(fmt.Errorf("failed to register database: %v", err))
     }
 
-    // 4. Run Synchronize (Create tables if they don't exist)
-    // force=false (do not drop tables), verbose=true
     err = orm.RunSyncdb("default", false, true)
     if err != nil {
         fmt.Println("Database Sync Error:", err)
     }
 
-    // 5. Seed Initial Data
     SeedChallenges()
 }
 
@@ -105,21 +100,19 @@ func SeedChallenges() {
 
     // Definition struct to keep the loop clean
     type SeedData struct {
-        Title       string
-        Desc        string
-        Diff        string
-        Cat         string
-        Code        string
-        Tests       []TestCase
+        Title, Desc, Hint, FuncName, Diff, Cat, Code string
+        Tests []TestCase
     }
 
     seeds := []SeedData{
-        // --- 1. EASY (BUG FIX) - NCI ---
+        // 1. EASY
         {
-            Title: "Legacy Timestamp Bug",
-            Diff:  "Easy",
-            Cat:   "NCI / Debugging",
-            Desc:  "In my work at NCI, we process legacy CEA-608 caption files. For these files, and any caption file, correct timing and time formatting is of paramount importance.\n\nThe output and logic of this code is incorrect. Find the bug and fix the output.",
+            Title:    "Legacy Timestamp Bug",
+            Diff:     "Easy",
+            Cat:      "NCI / Debugging",
+            Hint:     "Integer (Total Milliseconds)",
+            FuncName: "convert_time",
+            Desc:     "In my work at NCI, we process legacy CEA-608 caption files. For these files, and any caption file, correct timing and time formatting is of paramount importance.\n\nThe output and logic of this code is incorrect. Find the bug and fix the output.",
             Code:  `def convert_time(ms):
     """
     Converts milliseconds to formatted string MM:SS:mmm
@@ -135,17 +128,19 @@ func SeedChallenges() {
     
     return f"{minutes:02}:{seconds:02}:{rem_ms:03}"`,
             Tests: []TestCase{
+                // FIX: Removed single quotes. Python print() outputs raw strings.
                 {InputArgs: "65000", ExpectedOutput: "01:05:000"}, 
                 {InputArgs: "125500", ExpectedOutput: "02:05:500"}, 
             },
         },
-
-        // --- 2. EASY (VALIDATION) - UG ---
+        // 2. EASY
         {
-            Title: "Payment Input Validator",
-            Diff:  "Easy",
-            Cat:   "UG / Validation",
-            Desc:  "At Uncommon Giving, ensuring data integrity before hitting the payment gateway is critical. If not careful at our work, bad data can cause downstream API failures and reconciliation issues.\n\nThe current validator is too permissive. Update the logic to reject negative numbers, non-numeric characters, and excessive decimal precision.",
+            Title:    "Payment Input Validator",
+            Diff:     "Easy",
+            Cat:      "UG / Validation",
+            Hint:     "String (Currency Amount)",
+            FuncName: "validate_currency",
+            Desc:     "At Uncommon Giving, ensuring data integrity before hitting the payment gateway is critical. If not careful at our work, bad data can cause downstream API failures and reconciliation issues.\n\nThe current validator is too permissive. Update the logic to reject negative numbers, non-numeric characters, and excessive decimal precision.",
             Code:  `def validate_currency(amount_str):
     """
     Validates if a string is a valid currency amount.
@@ -157,7 +152,7 @@ func SeedChallenges() {
     Args: amount_str (str)
     Returns: bool
     """
-    # TODO: Implement proper validation of value.
+    # BUG: Current validation is insufficient.
     return False`,
             Tests: []TestCase{
                 {InputArgs: "'10.50'", ExpectedOutput: "True"},
@@ -166,13 +161,14 @@ func SeedChallenges() {
                 {InputArgs: "'abc'", ExpectedOutput: "False"},
             },
         },
-
-        // --- 3. MEDIUM (BUG FIX) - NCI ---
+        // 3. MEDIUM
         {
-            Title: "FCC Compliance Splitter",
-            Diff:  "Medium",
-            Cat:   "NCI / Strings",
-            Desc:  "At NCI, broadcast captions for many of our clients must adhere to strict FCC regulations (max 32 characters per line). Accessibility compliance is non-negotiable and must always be accounted and tested for.\n\nThe current implementation occasionally breaks words in half to force a fit or miscalculates line length. Fix the logic to ensure cleaner line breaks.",
+            Title:    "FCC Compliance Splitter",
+            Diff:     "Medium",
+            Cat:      "NCI / Strings",
+            Hint:     "String (Raw Caption Text)",
+            FuncName: "wrap_text_lines",
+            Desc:     "At NCI, broadcast captions for many of our clients must adhere to strict FCC regulations (max 32 characters per line). Accessibility compliance is non-negotiable and must always be accounted and tested for.\n\nThe current implementation occasionally breaks words in half to force a fit or miscalculates line length. Fix the logic to ensure cleaner line breaks.",
             Code:  `def wrap_text_lines(text):
     """
     Splits text into lines of max 32 chars without cutting words.
@@ -198,13 +194,14 @@ func SeedChallenges() {
                 {InputArgs: "'A short line'", ExpectedOutput: "['A short line']"},
             },
         },
-
-        // --- 4. MEDIUM (ALGO) - UG ---
+        // 4. MEDIUM
         {
-            Title: "The 'Lost Penny' Problem",
-            Diff:  "Medium",
-            Cat:   "UG / FinTech",
-            Desc:  "At Uncommon Giving, bundled donations can be split among multiple charities as specified by the user. Financial accuracy must always be kept, and standard division can result in 'lost pennies' (e.g., $100 / 3).\n\nImplement a distribution algorithm that splits `total_cents` among `n` recipients, ensuring every penny is accounted for.",
+            Title:    "The 'Lost Penny' Problem",
+            Diff:     "Medium",
+            Cat:      "UG / FinTech",
+            Hint:     "Int (Total Cents), Int (Recipients)",
+            FuncName: "distribute_pennies",
+            Desc:     "At Uncommon Giving, bundled donations can be split among multiple charities as specified by the user. Financial accuracy must always be kept, and standard division can result in 'lost pennies' (e.g., $100 / 3).\n\nImplement a distribution algorithm that splits `total_cents` among `n` recipients, ensuring every penny is accounted for.",
             Code:  `def distribute_pennies(total_cents, n_charities):
     """
     Splits total_cents among n_charities.
@@ -222,13 +219,14 @@ func SeedChallenges() {
                 {InputArgs: "100, 6", ExpectedOutput: "[17, 17, 17, 17, 16, 16]"},
             },
         },
-
-        // --- 5. HARD (GRAPH) - Scheduler ---
+        // 5. HARD
         {
-            Title: "Job Dependency Cascade",
-            Diff:  "Hard",
-            Cat:   "Systems / Graph",
-            Desc:  "We contribute to the open-source Django5 Scheduler used by NCI. Preventing zombie processes and handling cascading failures is critical for system stability.\n\nImplement a dependency resolver that identifies all downstream jobs that must be cancelled when a parent job fails.",
+            Title:    "Job Dependency Cascade",
+            Diff:     "Hard",
+            Cat:      "Systems / Graph",
+            Hint:     "Dict {Job: [Dependencies]}, String (Failed Job)",
+            FuncName: "find_impacted_jobs",
+            Desc:     "We contribute to the open-source Django5 Scheduler used by NCI. Preventing zombie processes and handling cascading failures is critical for system stability.\n\nImplement a dependency resolver that identifies all downstream jobs that must be cancelled when a parent job fails.",
             Code:  `def find_impacted_jobs(deps, failed_job):
     """
     Finds all downstream jobs affected by a failure.
@@ -246,13 +244,14 @@ func SeedChallenges() {
                 {InputArgs: "{'A': ['B', 'C'], 'B': [], 'C': ['D'], 'D': []}, 'A'", ExpectedOutput: "['A', 'B', 'C', 'D']"},
             },
         },
-
-        // --- 6. HARD (DATA) - UG ---
+        // 6. HARD
         {
-            Title: "Async Ledger Reconciliation",
-            Diff:  "Hard",
-            Cat:   "UG / Distributed",
-            Desc:  "At Uncommon Giving, we process asynchronous webhooks from payment processors. Ledger accuracy must be kept at all times with no errors, but events can often arrive out of order (e.g., REVERSE before DEPOSIT).\n\nImplement reconciliation logic that calculates the correct final balance regardless of event arrival order.",
+            Title:    "Async Ledger Reconciliation",
+            Diff:     "Hard",
+            Cat:      "UG / Distributed",
+            Hint:     "List[Dict] (Events Stream)",
+            FuncName: "reconcile_ledger",
+            Desc:     "At Uncommon Giving, we process asynchronous webhooks from payment processors. Ledger accuracy must be kept at all times with no errors, but events can often arrive out of order (e.g., REVERSE before DEPOSIT).\n\nImplement reconciliation logic that calculates the correct final balance regardless of event arrival order.",
             Code:  `def reconcile_ledger(events):
     """
     Calculates final balance from out-of-order stream.
@@ -281,6 +280,8 @@ func SeedChallenges() {
 
         // 2. Set/Update fields
         c.Description = s.Desc
+        c.InputHint = s.Hint
+        c.FunctionName = s.FuncName // Save the function name
         c.Difficulty = s.Diff
         c.Category = s.Cat
         c.Type = "CODE"
@@ -311,7 +312,7 @@ func SeedChallenges() {
         o.InsertMulti(len(newTests), newTests)
     }
     
-    fmt.Println("Seed Complete.")
+    fmt.Println("Smart Seed Complete.")
 }
 
 // ===================================================================================
