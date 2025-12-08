@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"portfolio-site/models"
 	"strings"
@@ -191,49 +192,42 @@ func (c *PortfolioController) Challenge() {
 
 // RunCode sends the user's submission to the Piston Execution Engine
 func (c *PortfolioController) RunCode() {
-    // Parse the incoming JSON payload
+    // 1. Parse Payload
     var req struct {
         ChallengeID int    `json:"challenge_id"`
         UserCode    string `json:"user_code"`
     }
     
     if err := json.Unmarshal(c.Ctx.Input.RequestBody, &req); err != nil {
-        c.Data["json"] = map[string]interface{}{"passed": false, "output": "System Error: Malformed JSON."}
+        c.Data["json"] = map[string]interface{}{"passed": false, "output": "System Error: Bad JSON"}
         c.ServeJSON()
         return
     }
 
-    // Validate Challenge Existence
-    if _, err := models.GetChallengeById(req.ChallengeID); err != nil {
-        c.Data["json"] = map[string]interface{}{
-            "passed": false, 
-            "output": "System Error: Challenge ID not found in database.",
-        }
-        c.ServeJSON()
-        return
-    }
-
-    // Fetch Test Cases
+    // 2. Fetch Test Cases
     testCases := models.GetTestCases(req.ChallengeID)
     if len(testCases) == 0 {
-        c.Data["json"] = map[string]interface{}{"passed": false, "output": "System Error: No test cases found for this challenge."}
+        c.Data["json"] = map[string]interface{}{"passed": false, "output": "System Error: No test cases found in DB."}
         c.ServeJSON()
         return
     }
 
-    // Configuration - using Python 3.10 via Piston API
+    // 3. Prepare Execution
     version := "3.10.0" 
-    
     allPassed := true
     var outputLog strings.Builder
 
-    for _, tc := range testCases {
+    // 4. Execution Loop
+    for i, tc := range testCases {
         
-        // Wrap User Code - append a print statement that calls their function with our hidden input
-        // Expected format - print(solve(ARGUMENTS))
+        // --- RATE LIMIT FIX ---
+        // Sleep 250ms between requests to respect Piston's 5 req/sec limit
+        if i > 0 {
+            time.Sleep(250 * time.Millisecond)
+        }
+
         fullCode := fmt.Sprintf("%s\n\nprint(solve(%s))", req.UserCode, tc.InputArgs)
 
-        // Construct Piston Payload
         pistonReq := models.PistonRequest{
             Language: "python",
             Version:  version,
@@ -244,37 +238,48 @@ func (c *PortfolioController) RunCode() {
 
         reqBody, _ := json.Marshal(pistonReq)
         
-        // Execute Request
-        resp, err := http.Post("https://emkc.org/api/v2/piston/execute", "application/json", bytes.NewBuffer(reqBody))
+        client := &http.Client{Timeout: 10 * time.Second}
+        r, _ := http.NewRequest("POST", "https://emkc.org/api/v2/piston/execute", bytes.NewBuffer(reqBody))
+        r.Header.Set("Content-Type", "application/json")
+
+        resp, err := client.Do(r)
+        
         if err != nil {
-            c.Data["json"] = map[string]interface{}{"error": "External Execution Engine (Piston) is unreachable."}
+            c.Data["json"] = map[string]interface{}{"error": "Execution Engine Offline"}
             c.ServeJSON()
             return
         }
         defer resp.Body.Close()
 
-        // Parse Response
-        var pistonResp models.PistonResponse
-        if err := json.NewDecoder(resp.Body).Decode(&pistonResp); err != nil {
-            outputLog.WriteString("Error parsing execution response.\n")
+        var bodyBytes []byte
+        if resp.Body != nil {
+            bodyBytes, _ = io.ReadAll(resp.Body)
+        }
+
+        // Check for API errors (like 429 Too Many Requests)
+        if resp.StatusCode != 200 {
+            outputLog.WriteString(fmt.Sprintf("API Error (Case %d): %s\n", i+1, string(bodyBytes)))
             allPassed = false
+            break 
+        }
+
+        var pistonResp models.PistonResponse
+        if err := json.Unmarshal(bodyBytes, &pistonResp); err != nil {
+            allPassed = false
+            outputLog.WriteString("Error parsing execution response.\n")
             continue
         }
 
-        // Clean Output Strings
         actualOutput := strings.TrimSpace(pistonResp.Run.Stdout)
         expected := strings.TrimSpace(tc.ExpectedOutput)
 
-        // Check for Runtime/Syntax Errors
         if pistonResp.Run.Stderr != "" {
             allPassed = false
-            // Remove Piston's internal file paths to make the error cleaner for the user
             cleanErr := strings.Replace(pistonResp.Run.Stderr, "/piston/jobs/", "", -1)
-            outputLog.WriteString(fmt.Sprintf("Runtime Error on input (%s):\n%s\n", tc.InputArgs, cleanErr))
-            break // Stop on first error to prevent log spam
+            outputLog.WriteString(fmt.Sprintf("ERROR on input (%s):\n%s\n", tc.InputArgs, cleanErr))
+            break 
         }
 
-        // Compare Results
         if actualOutput == expected {
             outputLog.WriteString(fmt.Sprintf("✓ PASS: Input(%s) -> Output(%s)\n", tc.InputArgs, actualOutput))
         } else {
@@ -283,7 +288,6 @@ func (c *PortfolioController) RunCode() {
         }
     }
 
-    // Return Result
     c.Data["json"] = map[string]interface{}{
         "passed": allPassed,
         "output": outputLog.String(),
