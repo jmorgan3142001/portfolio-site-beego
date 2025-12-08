@@ -27,8 +27,246 @@ type AccessLog struct {
 	Created   time.Time `orm:"auto_now_add;type(datetime)"`
 }
 
+type Challenge struct {
+    Id          int       `orm:"auto"`
+    Title       string    `orm:"size(255)"`
+    Description string    `orm:"type(text)"`
+    Difficulty  string    `orm:"size(50)"` 
+    Category    string    `orm:"size(50)"` 
+    Type        string    `orm:"size(50)"` 
+    Language    string    `orm:"size(50);null"` 
+    StarterCode string    `orm:"type(text);null"` 
+    TestCases   []*TestCase `orm:"reverse(many)"`
+}
+
+func (u *Challenge) TableName() string {
+    return "challenge"
+}
+
+type TestCase struct {
+    Id             int        `orm:"auto"`
+    Challenge      *Challenge `orm:"rel(fk);on_delete(cascade)"`
+    InputArgs      string     `orm:"type(text)"`
+    ExpectedOutput string     `orm:"type(text)"`
+}
+
+func (u *TestCase) TableName() string {
+    return "test_case"
+}
+
+func SeedChallenges() {
+    o := orm.NewOrm()
+    
+    // Check if data exists
+    cnt, _ := o.QueryTable("challenge").Count()
+    if cnt > 0 {
+        fmt.Println("Skipping seed: Challenges already exist.")
+        return
+    }
+
+    fmt.Println("Seeding Real-World Portfolio Challenges...")
+
+    // =========================================================
+    // 1. EASY (BUG FIX) - NCI: Legacy Timestamp Logic
+    // =========================================================
+    c1 := Challenge{
+        Title:       "Legacy Timestamp Bug",
+        Description: "At **National Captioning Institute**, we process legacy CEA-608 caption files. I discovered a bug in our ingestion pipeline where timestamps formatted as `MM:SS:mmm` were calculating incorrectly for durations over 1 minute.\n\nThe math logic below has an error - it's dividing by 60 instead of 60000 to get minutes. **Fix the math logic** so `65000ms` becomes `'01:05:000'`.",
+        Difficulty:  "Easy",
+        Category:    "NCI / Debugging",
+        Type:        "CODE",
+        Language:    "python",
+        StarterCode: `def solve(ms):
+    """
+    Converts milliseconds to formatted string MM:SS:mmm
+    Args:
+        ms (int): Total milliseconds (e.g., 61500)
+    Returns:
+        str: Formatted string (e.g., "01:05:000")
+    """
+    # BUG: I found this logic in a legacy module. 
+    # It fails when ms > 60000.
+    minutes = ms // 60
+    seconds = (ms // 1000) % 60
+    rem_ms = ms % 1000
+    
+    return f"{minutes:02}:{seconds:02}:{rem_ms:03}"`,
+    }
+    id1, _ := o.Insert(&c1)
+
+    t1_1 := TestCase{Challenge: &Challenge{Id: int(id1)}, InputArgs: "65000", ExpectedOutput: "'01:05:000'"}
+    t1_2 := TestCase{Challenge: &Challenge{Id: int(id1)}, InputArgs: "125500", ExpectedOutput: "'02:05:500'"}
+    o.InsertMulti(2, []TestCase{t1_1, t1_2})
+
+    // =========================================================
+    // 2. EASY (VALIDATION) - UG: Donation Input Sanitizer
+    // =========================================================
+    c2 := Challenge{
+        Title:       "Payment Input Validator",
+        Description: "At **Uncommon Giving**, ensuring data integrity before hitting the payment gateway is critical. We noticed users could bypass frontend checks and submit negative amounts or amounts with excessive decimal precision (e.g., `$10.555`), which caused downstream API failures.\n\nWrite a function that validates if a string is a valid positive money amount (max 2 decimal places). Return `True` or `False`.",
+        Difficulty:  "Easy",
+        Category:    "UG / Validation",
+        Type:        "CODE",
+        Language:    "python",
+        StarterCode: `def solve(amount_str):
+    """
+    Validates if a string is a valid currency amount.
+    Rules:
+    1. Must be a positive number.
+    2. No more than 2 decimal places.
+    3. No currency symbols ($).
+    
+    Args: amount_str (str)
+    Returns: bool
+    """
+    # TODO: Validate the string format.
+    
+    return False`,
+    }
+    id2, _ := o.Insert(&c2)
+
+    t2_1 := TestCase{Challenge: &Challenge{Id: int(id2)}, InputArgs: "'10.50'", ExpectedOutput: "True"}
+    t2_2 := TestCase{Challenge: &Challenge{Id: int(id2)}, InputArgs: "'-5.00'", ExpectedOutput: "False"}
+    t2_3 := TestCase{Challenge: &Challenge{Id: int(id2)}, InputArgs: "'10.555'", ExpectedOutput: "False"}
+    o.InsertMulti(3, []TestCase{t2_1, t2_2, t2_3})
+
+    // =========================================================
+    // 3. MEDIUM (BUG FIX) - NCI: Compliance Splitter
+    // =========================================================
+    c3 := Challenge{
+        Title:       "FCC Compliance Splitter",
+        Description: "Strict FCC regulations require broadcast captions to never exceed 32 characters per line. The existing library used at **NCI** would sometimes chop words in half to force a fit, violating accessibility standards.\n\nI rewrote the logic to ensure we only split on spaces. **Fix the bug** in the loop below to ensure no line exceeds 32 chars and no words are cut.",
+        Difficulty:  "Medium",
+        Category:    "NCI / Strings",
+        Type:        "CODE",
+        Language:    "python",
+        StarterCode: `def solve(text):
+    """
+    Splits text into lines of max 32 chars without cutting words.
+    Args: text (str)
+    Returns: List[str]
+    """
+    words = text.split()
+    lines = []
+    current_line = ""
+
+    for word in words:
+        # BUG: This logic crashes or produces bad output on edge cases.
+        # It fails to account for the added space character length.
+        if len(current_line) + len(word) > 32:
+            lines.append(current_line)
+            current_line = word
+        else:
+            current_line += word
+            
+    lines.append(current_line)
+    return lines`,
+    }
+    id3, _ := o.Insert(&c3)
+
+    t3_1 := TestCase{Challenge: &Challenge{Id: int(id3)}, InputArgs: "'This is a test of the emergency broadcast system'", ExpectedOutput: "['This is a test of the emergency', 'broadcast system']"} 
+    t3_2 := TestCase{Challenge: &Challenge{Id: int(id3)}, InputArgs: "'A short line'", ExpectedOutput: "['A short line']"}
+    o.InsertMulti(2, []TestCase{t3_1, t3_2})
+
+    // =========================================================
+    // 4. MEDIUM (ALGO) - UG: The "Lost Penny" Problem
+    // =========================================================
+    c4 := Challenge{
+        Title:       "The 'Lost Penny' Problem",
+        Description: "In the **Uncommon Giving** workplace platform, employees can donate a bundle (e.g., $100) split across 3 charities. Since `$100 / 3 = $33.333...`, simply dividing results in a 'lost penny' ($99.99 total).\n\nI implemented a distribution algorithm to handle this. You need to split `total_cents` among `n` recipients. The remainder pennies must be distributed to the first `r` recipients so the sum matches exactly.",
+        Difficulty:  "Medium",
+        Category:    "UG / FinTech",
+        Type:        "CODE",
+        Language:    "python",
+        StarterCode: `def solve(total_cents, n_charities):
+    """
+    Splits total_cents among n_charities.
+    Args:
+        total_cents (int): Total amount (e.g. 10000)
+        n_charities (int): Number of recipients (e.g. 3)
+    Returns:
+        List[int]: List of amounts that sum exactly to total_cents.
+                   (e.g. [3334, 3333, 3333])
+    """
+    # TODO: Calculate base amount and remainder.
+    # Distribute remainder to the first few items.
+    
+    return []`,
+    }
+    id4, _ := o.Insert(&c4)
+
+    t4_1 := TestCase{Challenge: &Challenge{Id: int(id4)}, InputArgs: "10000, 3", ExpectedOutput: "[3334, 3333, 3333]"}
+    t4_2 := TestCase{Challenge: &Challenge{Id: int(id4)}, InputArgs: "100, 6", ExpectedOutput: "[17, 17, 17, 17, 16, 16]"}
+    o.InsertMulti(2, []TestCase{t4_1, t4_2})
+
+    // =========================================================
+    // 5. HARD (GRAPH) - Scheduler: Cascading Cancellation
+    // =========================================================
+    c5 := Challenge{
+        Title:       "Job Dependency Cascade",
+        Description: "I contribute to the open-source **Django Scheduler** used at NCI. We had an issue where if a parent job failed, dependent child jobs would sit in a 'Pending' state forever.\n\nI implemented a graph traversal to identify downstream impacts. Given a dependency graph `{'A': ['B']}` (B depends on A) and a failed job, return a **sorted list** of all jobs that must be cancelled.",
+        Difficulty:  "Hard",
+        Category:    "Systems / Graph",
+        Type:        "CODE",
+        Language:    "python",
+        StarterCode: `def solve(deps, failed_job):
+    """
+    Finds all downstream jobs affected by a failure.
+    Args:
+        deps (Dict[str, List[str]]): Key is a job, value is list of jobs that depend on it.
+                                     e.g. {'A': ['B'], 'B': ['C']} means A -> B -> C
+        failed_job (str): The ID of the job that crashed.
+    Returns:
+        List[str]: Sorted list of all impacted jobs (including failed_job).
+    """
+    # TODO: Perform a BFS or DFS starting at failed_job
+    # to find everything downstream.
+    
+    impacted = []
+    return impacted`,
+    }
+    id5, _ := o.Insert(&c5)
+
+    t5_1 := TestCase{Challenge: &Challenge{Id: int(id5)}, InputArgs: "{'A': ['B'], 'B': ['C'], 'C': []}, 'A'", ExpectedOutput: "['A', 'B', 'C']"}
+    t5_2 := TestCase{Challenge: &Challenge{Id: int(id5)}, InputArgs: "{'A': ['B', 'C'], 'B': [], 'C': ['D'], 'D': []}, 'A'", ExpectedOutput: "['A', 'B', 'C', 'D']"}
+    o.InsertMulti(2, []TestCase{t5_1, t5_2})
+
+    // =========================================================
+    // 6. HARD (DATA) - UG: Distributed Ledger Fix
+    // =========================================================
+    c6 := Challenge{
+        Title:       "Async Ledger Reconciliation",
+        Description: "At **Uncommon Giving**, we rely on webhooks from payment processors. Due to distributed system lag, events often arrive out of order (e.g., a 'REVERSE' event arriving before the 'DEPOSIT' it reverses).\n\nTo ensure our ledger is accurate, we need to calculate the final balance regardless of event order. `REVERSE` events contain a `ref_id` pointing to the transaction they cancel out.",
+        Difficulty:  "Hard",
+        Category:    "UG / Distributed",
+        Type:        "CODE",
+        Language:    "python",
+        StarterCode: `def solve(events):
+    """
+    Calculates final balance from out-of-order stream.
+    Args:
+        events (List[Dict]): List of dicts. 
+            e.g. {"id": 1, "type": "DEPOSIT", "amount": 100}
+                 {"id": 2, "type": "REVERSE", "ref_id": 1}
+    Returns:
+        int: Final Balance
+    """
+    # TODO: Process the events. 
+    # Hint: Maybe two passes? Or use a map to track valid transaction IDs?
+    
+    return 0`,
+    }
+    id6, _ := o.Insert(&c6)
+
+    t6_1 := TestCase{Challenge: &Challenge{Id: int(id6)}, InputArgs: "[{'id':1, 'type':'DEPOSIT', 'amount':100}, {'id':2, 'type':'WITHDRAW', 'amount':50}]", ExpectedOutput: "50"}
+    t6_2 := TestCase{Challenge: &Challenge{Id: int(id6)}, InputArgs: "[{'id':2, 'type':'REVERSE', 'ref_id':1}, {'id':1, 'type':'DEPOSIT', 'amount':100}]", ExpectedOutput: "0"}
+    o.InsertMulti(2, []TestCase{t6_1, t6_2})
+
+    fmt.Println("Seeding complete.")
+}
+
 func init() {
-	orm.RegisterModel(new(AccessLog))
+	orm.RegisterModel(new(AccessLog), new(Challenge), new(TestCase))
 
 	orm.RegisterDriver("postgres", orm.DRPostgres)
 
@@ -43,6 +281,8 @@ func init() {
 	if err != nil {
 		fmt.Println("Database Sync Error:", err)
 	}
+
+	SeedChallenges()
 }
 
 // --- Logic for Access Logs ---
@@ -525,4 +765,48 @@ func GetResearchMeta() []ResearchMeta {
 		{Label: "THREADS", Value: "16", Status: "warning"},
 		{Label: "FOCUS", Value: "DISTRIBUTED", Status: "accent"},
 	}
+}
+
+func GetChallenges() []Challenge {
+    o := orm.NewOrm()
+    var challenges []Challenge
+    o.QueryTable("challenge").All(&challenges)
+    return challenges
+}
+
+func GetChallengeById(id int) (Challenge, error) {
+    o := orm.NewOrm()
+    var challenge Challenge
+    err := o.QueryTable("challenge").Filter("Id", id).One(&challenge)
+    return challenge, err
+}
+
+func GetTestCases(challengeId int) []TestCase {
+    o := orm.NewOrm()
+    var cases []TestCase
+    o.QueryTable("test_cases").Filter("challenge_id", challengeId).All(&cases)
+    return cases
+}
+
+// --- Piston API Payloads ---
+
+type PistonRequest struct {
+    Language string        `json:"language"`
+    Version  string        `json:"version"`
+    Files    []PistonFile  `json:"files"`
+    Stdin    string        `json:"stdin"`
+    Args     []string      `json:"args"`
+}
+
+type PistonFile struct {
+    Name    string `json:"name"`
+    Content string `json:"content"`
+}
+
+type PistonResponse struct {
+    Run struct {
+        Stdout string `json:"stdout"`
+        Stderr string `json:"stderr"`
+        Code   int    `json:"code"`
+    } `json:"run"`
 }

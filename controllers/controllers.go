@@ -1,9 +1,12 @@
 package controllers
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"portfolio-site/models"
+	"strings"
 	"time"
 
 	"github.com/beego/beego/v2/server/web"
@@ -170,4 +173,120 @@ func (c *PortfolioController) Terminal() {
 
     c.Layout = "layout.html"
     c.TplName = "terminal.html"
+}
+
+func (c *PortfolioController) Challenge() {
+    c.Data["Title"] = "Skill Check"
+    c.Data["Name"] = "Jake Morgan"
+    c.Data["Page"] = "challenges"
+    c.Data["Email"] = "jmorgan3142001@gmail.com"
+    c.Data["GithubLink"] = "https://github.com/jmorgan3142001"
+    c.Data["LinkedinLink"] = "https://www.linkedin.com/in/jake-morgan-/"
+
+    c.Data["Challenges"] = models.GetChallenges()
+    
+    c.Layout = "layout.html"
+    c.TplName = "challenges.html"
+}
+
+// RunCode sends the user's submission to the Piston Execution Engine
+func (c *PortfolioController) RunCode() {
+    // Parse the incoming JSON payload
+    var req struct {
+        ChallengeID int    `json:"challenge_id"`
+        UserCode    string `json:"user_code"`
+    }
+    
+    if err := json.Unmarshal(c.Ctx.Input.RequestBody, &req); err != nil {
+        c.Data["json"] = map[string]interface{}{"passed": false, "output": "System Error: Malformed JSON."}
+        c.ServeJSON()
+        return
+    }
+
+    // Validate Challenge Existence
+    if _, err := models.GetChallengeById(req.ChallengeID); err != nil {
+        c.Data["json"] = map[string]interface{}{
+            "passed": false, 
+            "output": "System Error: Challenge ID not found in database.",
+        }
+        c.ServeJSON()
+        return
+    }
+
+    // Fetch Test Cases
+    testCases := models.GetTestCases(req.ChallengeID)
+    if len(testCases) == 0 {
+        c.Data["json"] = map[string]interface{}{"passed": false, "output": "System Error: No test cases found for this challenge."}
+        c.ServeJSON()
+        return
+    }
+
+    // Configuration - using Python 3.10 via Piston API
+    version := "3.10.0" 
+    
+    allPassed := true
+    var outputLog strings.Builder
+
+    for _, tc := range testCases {
+        
+        // Wrap User Code - append a print statement that calls their function with our hidden input
+        // Expected format - print(solve(ARGUMENTS))
+        fullCode := fmt.Sprintf("%s\n\nprint(solve(%s))", req.UserCode, tc.InputArgs)
+
+        // Construct Piston Payload
+        pistonReq := models.PistonRequest{
+            Language: "python",
+            Version:  version,
+            Files: []models.PistonFile{
+                {Name: "main.py", Content: fullCode},
+            },
+        }
+
+        reqBody, _ := json.Marshal(pistonReq)
+        
+        // Execute Request
+        resp, err := http.Post("https://emkc.org/api/v2/piston/execute", "application/json", bytes.NewBuffer(reqBody))
+        if err != nil {
+            c.Data["json"] = map[string]interface{}{"error": "External Execution Engine (Piston) is unreachable."}
+            c.ServeJSON()
+            return
+        }
+        defer resp.Body.Close()
+
+        // Parse Response
+        var pistonResp models.PistonResponse
+        if err := json.NewDecoder(resp.Body).Decode(&pistonResp); err != nil {
+            outputLog.WriteString("Error parsing execution response.\n")
+            allPassed = false
+            continue
+        }
+
+        // Clean Output Strings
+        actualOutput := strings.TrimSpace(pistonResp.Run.Stdout)
+        expected := strings.TrimSpace(tc.ExpectedOutput)
+
+        // Check for Runtime/Syntax Errors
+        if pistonResp.Run.Stderr != "" {
+            allPassed = false
+            // Remove Piston's internal file paths to make the error cleaner for the user
+            cleanErr := strings.Replace(pistonResp.Run.Stderr, "/piston/jobs/", "", -1)
+            outputLog.WriteString(fmt.Sprintf("Runtime Error on input (%s):\n%s\n", tc.InputArgs, cleanErr))
+            break // Stop on first error to prevent log spam
+        }
+
+        // Compare Results
+        if actualOutput == expected {
+            outputLog.WriteString(fmt.Sprintf("✓ PASS: Input(%s) -> Output(%s)\n", tc.InputArgs, actualOutput))
+        } else {
+            allPassed = false
+            outputLog.WriteString(fmt.Sprintf("✗ FAIL: Input(%s)\n  Expected: %s\n  Got:      %s\n", tc.InputArgs, expected, actualOutput))
+        }
+    }
+
+    // Return Result
+    c.Data["json"] = map[string]interface{}{
+        "passed": allPassed,
+        "output": outputLog.String(),
+    }
+    c.ServeJSON()
 }
