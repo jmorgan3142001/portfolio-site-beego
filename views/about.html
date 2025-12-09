@@ -12,7 +12,7 @@
     <div class="row g-5">
         <div class="col-lg-8">
             
-            <div class="sys-card mb-5 p-4 p-md-5">
+            <div class="sys-card mb-5 p-4 p-md-5" style="transform: translateY(0);box-shadow: none;">
                 <div class="deco-vents deco-vents-left">
                     <div class="vent-line"></div><div class="vent-line"></div>
                 </div>
@@ -64,7 +64,7 @@
             <div class="row g-4 mb-5">
                 {{range .SystemModules}}
                 <div class="col-md-6">
-                    <div class="sys-card h-100">
+                    <div class="sys-card h-100" style="transform: translateY(0);box-shadow: none;">
                         <div class="d-flex justify-content-between mb-2">
                             <span class="text-mono fw-bold text-accent">{{.ID}}</span>
                             <i class="bi {{.Icon}}"></i>
@@ -88,7 +88,7 @@
 
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-lg-4 mb-5">
             <div class="sys-sticky-col">
                 
                 <div class="sys-card mb-4">
@@ -135,7 +135,7 @@
                     </div>
                 </div>
 
-                <div class="sys-card">
+                <div class="sys-card" style="transform: translateY(0);box-shadow: none;">
                     <h5 class="fw-bold mb-3">Hardware Profile</h5>
                     <ul class="list-unstyled text-mono small text-secondary">
                         {{range .Hardware}}
