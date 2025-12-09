@@ -112,7 +112,9 @@ func SeedChallenges() {
             Cat:      "NCI / Debugging",
             Hint:     "Integer (Total Milliseconds)",
             FuncName: "convert_time",
-            Desc:     "In my work at NCI, we process legacy CEA-608 caption files. For these files, and any caption file, correct timing and time formatting is of paramount importance.\n\nThe output and logic of this code is incorrect. Find the bug and fix the output.",
+            Desc: `At NCI we work with large volumes of caption files, many of which use older CEA-608 timing formats. Accurate timestamps are critical because even small miscalculations can throw off caption sync during broadcast.
+
+            This function is meant to convert a raw millisecond count into a standard MM:SS:mmm format, but the current implementation produces incorrect results for values over one minute. Identify the logic bug and fix the output.`,
             Code:  `def convert_time(ms):
     """
     Converts milliseconds to formatted string MM:SS:mmm
@@ -140,7 +142,9 @@ func SeedChallenges() {
             Cat:      "UG / Validation",
             Hint:     "String (Currency Amount)",
             FuncName: "validate_currency",
-            Desc:     "At Uncommon Giving, ensuring data integrity before hitting the payment gateway is critical. If not careful at our work, bad data can cause downstream API failures and reconciliation issues.\n\nThe current validator is too permissive. Update the logic to reject negative numbers, non-numeric characters, and excessive decimal precision.",
+            Desc: `At Uncommon Giving, every payment request must be validated before being recorded in the database. Even a small data mistake, like stray characters or improperly formatted decimals, can cause a downstream API failure or ledger mismatch, so validation needs to be strict and fast.
+
+            In this validator function, add the logic to reject negative numbers, non-numeric characters, currency symbols, and values with more than two decimal places.`,
             Code:  `def validate_currency(amount_str):
     """
     Validates if a string is a valid currency amount.
@@ -152,7 +156,7 @@ func SeedChallenges() {
     Args: amount_str (str)
     Returns: bool
     """
-    # BUG: Current validation is insufficient.
+    # TODO: Implement the input validation.
     return False`,
             Tests: []TestCase{
                 {InputArgs: "'10.50'", ExpectedOutput: "True"},
@@ -168,7 +172,9 @@ func SeedChallenges() {
             Cat:      "NCI / Strings",
             Hint:     "String (Raw Caption Text)",
             FuncName: "wrap_text_lines",
-            Desc:     "At NCI, broadcast captions for many of our clients must adhere to strict FCC regulations (max 32 characters per line). Accessibility compliance is non-negotiable and must always be accounted and tested for.\n\nThe current implementation occasionally breaks words in half to force a fit or miscalculates line length. Fix the logic to ensure cleaner line breaks.",
+            Desc: `At NCI we generate caption lines for clients that must adhere to strict FCC rules, including the 32-character line limit. If line wrapping is off by even a few characters, captions can fail QA or break accessibility requirements, so text layout must be predictable and efficient.
+
+            The current implementation sometimes exceeds the character limit or splits words incorrectly. Fix the wrapping logic so lines stay within the limit without breaking words.`,
             Code:  `def wrap_text_lines(text):
     """
     Splits text into lines of max 32 chars without cutting words.
@@ -201,7 +207,9 @@ func SeedChallenges() {
             Cat:      "UG / FinTech",
             Hint:     "Int (Total Cents), Int (Recipients)",
             FuncName: "distribute_pennies",
-            Desc:     "At Uncommon Giving, bundled donations can be split among multiple charities as specified by the user. Financial accuracy must always be kept, and standard division can result in 'lost pennies' (e.g., $100 / 3).\n\nImplement a distribution algorithm that splits `total_cents` among `n` recipients, ensuring every penny is accounted for.",
+            Desc: `At Uncommon Giving, users can distribute a single donation across multiple nonprofits. Behind the scenes, we must ensure every penny is allocated correctly. Because whole cents don't always divide evenly, naïve division can cause rounding errors and “lost pennies,” which is unacceptable in strict financial systems.
+
+            Implement a distribution algorithm that splits total_cents among n recipients so that all pennies are accounted for and the final allocations sum exactly to the original amount.`,
             Code:  `def distribute_pennies(total_cents, n_charities):
     """
     Splits total_cents among n_charities.
@@ -226,7 +234,9 @@ func SeedChallenges() {
             Cat:      "Systems / Graph",
             Hint:     "Dict {Job: [Dependencies]}, String (Failed Job)",
             FuncName: "find_impacted_jobs",
-            Desc:     "We contribute to the open-source Django5 Scheduler used by NCI. Preventing zombie processes and handling cascading failures is critical for system stability.\n\nImplement a dependency resolver that identifies all downstream jobs that must be cancelled when a parent job fails.",
+            Desc: `At NCI we contribute to the Django5 Scheduler, which helps us to run and monitor thousands of recurring and dependent jobs. When a job fails, we must cancel all jobs downstream from it to avoid zombie processes, partial updates, and resource leaks. That requires a dependable way to trace dependency chains quickly.
+
+            Implement a resolver that walks the dependency graph and returns all jobs that should be cancelled when a specific parent job fails.`,
             Code:  `def find_impacted_jobs(deps, failed_job):
     """
     Finds all downstream jobs affected by a failure.
@@ -251,7 +261,9 @@ func SeedChallenges() {
             Cat:      "UG / Distributed",
             Hint:     "List[Dict] (Events Stream)",
             FuncName: "reconcile_ledger",
-            Desc:     "At Uncommon Giving, we process asynchronous webhooks from payment processors. Ledger accuracy must be kept at all times with no errors, but events can often arrive out of order (e.g., REVERSE before DEPOSIT).\n\nImplement reconciliation logic that calculates the correct final balance regardless of event arrival order.",
+            Desc: `At Uncommon Giving we process asynchronous webhook streams from payment processors. Events can arrive out of order, like a reversal before the deposit it references, so the ledger must reconcile itself based on the meaning of the events, not just their arrival order. Balances must always be correct, even under heavy load.
+
+            Implement reconciliation logic that computes the final balance from an unordered event stream, correctly handling deposits, withdrawals, and reversals.`,
             Code:  `def reconcile_ledger(events):
     """
     Calculates final balance from out-of-order stream.
@@ -281,7 +293,7 @@ func SeedChallenges() {
         // 2. Set/Update fields
         c.Description = s.Desc
         c.InputHint = s.Hint
-        c.FunctionName = s.FuncName // Save the function name
+        c.FunctionName = s.FuncName 
         c.Difficulty = s.Diff
         c.Category = s.Cat
         c.Type = "CODE"
@@ -554,9 +566,9 @@ type ResourceItem struct {
 
 func GetTechSpecs() []TechItem {
     return []TechItem{
-        {Category: "Languages", Items: []string{"Python", "C#", "JavaScript", "SQL", "PHP", "C++", "Go"}},
-        {Category: "Frameworks", Items: []string{"Django", "Angular", ".NET Core", "Flutter", "Beego"}},
-        {Category: "Databases", Items: []string{"PostgreSQL", "Oracle", "MySQL", "SQLite", "Distributed DB"}},
+        {Category: "Languages", Items: []string{"Python", "C#", "TypeScript", "SQL", "Go"}},
+        {Category: "Frameworks", Items: []string{"Django", ".NET Core", "Angular", "Flutter", "Beego"}},
+        {Category: "Databases", Items: []string{"PostgreSQL", "Oracle", "MySQL", "SQLite"}},
         {Category: "Infrastructure", Items: []string{"AWS", "Azure", "Google Cloud", "Docker", "Git", "gRPC"}},
     }
 }
@@ -662,7 +674,7 @@ func GetSystemModules() []SystemModule {
             Title:       "Full Stack Integration",
             Icon:        "bi-window-stack",
             Description: "Bridging backend services with user-facing interfaces, focusing on reliable data flows, performance, and usable UI/UX.",
-            Progress:    85,
+            Progress:    100,
             Tags:        []string{"Angular", "TypeScript", "UI/UX"},
         },
         {
@@ -678,7 +690,7 @@ func GetSystemModules() []SystemModule {
             Title:       "Distributed and Cloud Systems",
             Icon:        "bi-diagram-3",
             Description: "Designing scalable infrastructure, replication, and fault-tolerance strategies for resilient distributed systems.",
-            Progress:    75,
+            Progress:    100,
             Tags:        []string{"gRPC", "Docker", "AWS"},
         },
     }
@@ -686,8 +698,8 @@ func GetSystemModules() []SystemModule {
 
 func GetHardwareProfile() []HardwareInfo {
     return []HardwareInfo{
-        {Category: "Computer", Item: "MAC/WINDOWS/LINUX"},
-        {Category: "Input", Item: "Custom Ergo Keyboard"},
+        {Category: "Operating Systems", Item: "MAC/WINDOWS/LINUX"},
+        {Category: "std::cin", Item: "Custom Ergo Keyboard"},
         {Category: "Pair Programmers", Item: "1x Wife and 2x Staffordshire Terriers"},
     }
 }
@@ -747,10 +759,28 @@ func GetNextReads() []Book {
 func GetDigitalResources() []ResourceItem {
     return []ResourceItem{
         {
-            Title:       "The Go Blog",
-            Description: "Official news and insights from the Go team.",
-            Link:        "https://go.dev/blog/",
-            Icon:        "bi-google",
+            Title:       "Django Documentation",
+            Description: "The Model layer and ORM deep dives.",
+            Link:        "https://docs.djangoproject.com/en/stable/",
+            Icon:        "bi-filetype-py",
+        },
+        {
+            Title:       "ASP.NET Core Home",
+            Description: "Official docs for ASP.NET Core - middleware, hosting, controllers, and performance guidance.",
+            Link:        "https://learn.microsoft.com/aspnet/core/",
+            Icon:        "bi-file-earmark-code",
+        },
+        {
+            Title:       "Angular Guide",
+            Description: "Angular guides, API reference, and best practices for building web apps.",
+            Link:        "https://angular.io/docs",
+            Icon:        "bi-code-slash",
+        },
+                {
+            Title:       "The Internals of PostgreSQL",
+            Description: "Exploring Postgres architecture, query planning, and storage engine internals.",
+            Link:        "https://www.interdb.jp/pg/",
+            Icon:        "bi-database",
         },
         {
             Title:       "High Scalability",
@@ -759,10 +789,10 @@ func GetDigitalResources() []ResourceItem {
             Icon:        "bi-graph-up-arrow",
         },
         {
-            Title:       "Django Documentation",
-            Description: "The Model layer and ORM deep dives.",
-            Link:        "https://docs.djangoproject.com/en/stable/",
-            Icon:        "bi-filetype-py",
+            Title:       "The Go Blog",
+            Description: "Official news and insights from the Go team.",
+            Link:        "https://go.dev/blog/",
+            Icon:        "bi-google",
         },
     }
 }

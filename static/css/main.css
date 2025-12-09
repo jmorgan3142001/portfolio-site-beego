@@ -1047,11 +1047,6 @@ h1, h2, h3, h4, h5 {
 [data-theme="dark"] .cm-s-default .cm-string { color: #98c379; }
 [data-theme="dark"] .cm-s-default .cm-number { color: #e5c07b; }
 
-#challenge-list-options:hover {
-    transform: none !important;
-    box-shadow: none !important;
-}
-
 .challenge-btn {
     transition: all 0.2s ease;
     border-left: 4px solid transparent !important; 

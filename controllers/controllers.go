@@ -194,7 +194,7 @@ func (c *PortfolioController) RunCode() {
     }
 
     // 2. Fetch Challenge & Test Cases
-    challenge, err := models.GetChallengeById(req.ChallengeID) // FETCHED HERE
+    challenge, err := models.GetChallengeById(req.ChallengeID) 
     if err != nil {
         c.Data["json"] = map[string]interface{}{
             "passed": false, 
@@ -216,7 +216,7 @@ func (c *PortfolioController) RunCode() {
     allPassed := true
     var outputLog strings.Builder
 
-    // Default to 'solve' if database field is empty for some reason
+    // Default to 'solve' if database field is empty
     funcName := challenge.FunctionName
     if funcName == "" {
         funcName = "solve"
@@ -230,7 +230,6 @@ func (c *PortfolioController) RunCode() {
             time.Sleep(250 * time.Millisecond)
         }
 
-        // DYNAMIC FUNCTION CALL: Uses the DB function name
         fullCode := fmt.Sprintf("%s\n\nprint(%s(%s))", req.UserCode, funcName, tc.InputArgs)
 
         pistonReq := models.PistonRequest{
