@@ -149,9 +149,9 @@ func SeedChallenges() {
     """
     Validates if a string is a valid currency amount.
     Rules:
-    1. Must be a positive number.
-    2. No more than 2 decimal places.
-    3. No currency symbols ($).
+    1. Must be a valid number.
+    2. Number must be positive.
+    3. No more than 2 decimal places.
     
     Args: amount_str (str)
     Returns: bool
@@ -159,6 +159,7 @@ func SeedChallenges() {
     # TODO: Implement the input validation.
     return False`,
             Tests: []TestCase{
+                {InputArgs: "'1'", ExpectedOutput: "True"},
                 {InputArgs: "'10.50'", ExpectedOutput: "True"},
                 {InputArgs: "'-5.00'", ExpectedOutput: "False"},
                 {InputArgs: "'10.555'", ExpectedOutput: "False"},
@@ -186,7 +187,7 @@ func SeedChallenges() {
     current_line = ""
 
     for word in words:
-        # BUG: Logic allows lines > 32 chars in specific edge cases.
+        # BUG: Output is not compliant to FCC guidelines. Find logic errors and fix.
         if len(current_line) + len(word) > 32:
             lines.append(current_line)
             current_line = word
@@ -197,6 +198,7 @@ func SeedChallenges() {
     return lines`,
             Tests: []TestCase{
                 {InputArgs: "'This is a test of the emergency broadcast system'", ExpectedOutput: "['This is a test of the emergency', 'broadcast system']"},
+                {InputArgs: "'Federal law requires us to state that this program is funded by the committee to elect.'", ExpectedOutput: "['Federal law requires us to state', 'that this program is funded by', 'the committee to elect.']"},                
                 {InputArgs: "'A short line'", ExpectedOutput: "['A short line']"},
             },
         },
