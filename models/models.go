@@ -564,6 +564,14 @@ type ResourceItem struct {
     Icon        string
 }
 
+type Creator struct {
+    Name        string
+    Handle      string
+    Description string
+    Image       string
+    Link        string
+}
+
 // --- Static Data Retrieval ---
 
 func GetTechSpecs() []TechItem {
@@ -874,5 +882,38 @@ func GetResearchMeta() []ResearchMeta {
         {Label: "SYSTEM", Value: "ACTIVE", Status: "success"},
         {Label: "THREADS", Value: "16", Status: "warning"},
         {Label: "FOCUS", Value: "DISTRIBUTED", Status: "accent"},
+    }
+}
+
+func GetCreators() []Creator {
+    return []Creator{
+        {
+            Name:        "The Primeagen",
+            Handle:      "@ThePrimeTimeagen",
+            Description: "My go-to for industry news during live streams and 'The Standup' podcast. He challenges me to stop over-engineering, learn new tools like Go, and build and try new things.",
+            Image:       "https://unavatar.io/youtube/ThePrimeTimeagen", 
+            Link:        "https://www.youtube.com/@ThePrimeTimeagen",
+        },
+        {
+            Name:        "Coding Jesus",
+            Handle:      "@CodingJesus",
+            Description: "Brutal honesty about the state of the software engineering industry and those in it. His content shapes my realistic view of corporate engineering and career growth.",
+            Image:       "https://unavatar.io/youtube/CodingJesus",
+            Link:        "https://www.youtube.com/@CodingJesus",
+        },
+        {
+            Name:        "Theo - t3.gg",
+            Handle:      "@t3dotgg",
+            Description: "The bleeding edge of the web. Theo keeps me current on the newest Javascript ecosystems, full-stack development best practices, and serverless architectures.",
+            Image:       "https://unavatar.io/youtube/t3dotgg",
+            Link:        "https://www.youtube.com/@t3dotgg",
+        },
+        {
+            Name:        "Anthony Sistilli",
+            Handle:      "@AnthonySistilli",
+            Description: "My go to resource web design, frameworks, and humorous engineering content. His advice on how to best build a portfolio helped to shape this website.",
+            Image:       "https://unavatar.io/youtube/AnthonySistilli",
+            Link:        "https://www.youtube.com/@AnthonySistilli",
+        },
     }
 }

@@ -74,6 +74,37 @@
             {{end}}
         </div>
     </div>
+
+    <div class="mt-5">
+        <h3 class="fw-bold border-bottom border-cream pb-2">Inspiration Feed</h3>
+        <p class="text-secondary mb-4">The voices that shape my mindset, keep me updated on industry trends, and challenge my technical opinions.</p>
+
+        <div class="row g-4">
+            {{range .Creators}}
+            <div class="col-xl-3 col-md-6">
+                <a href="{{.Link}}" target="_blank" class="text-decoration-none text-reset">
+                    <div class="sys-card h-100 p-4 text-center position-relative overflow-hidden">
+                        
+                        <div style="width: 170px; height: 170px; border: 4px solid var(--border-shadow); background: #fff; border-radius: 50%; 
+                                    display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto; 
+                                    box-shadow: 0 .5rem 1rem rgba(0,0,0,0.06); overflow: hidden;">
+                            <img src="{{.Image}}" 
+                                    alt="{{.Name}}" 
+                                    style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+
+                        <h5 class="fw-bold mb-0">{{.Name}}</h5>
+                        <div class="text-mono small text-accent mb-3">{{.Handle}}</div>
+                        
+                        <p class="text-secondary small fst-italic mb--2">
+                            "{{.Description}}"
+                        </p>
+                    </div>
+                </a>
+            </div>
+            {{end}}
+        </div>
+    </div>
 </div>
 
 <div class="container">

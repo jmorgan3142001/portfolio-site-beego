@@ -142,6 +142,7 @@ func (c *PortfolioController) Directory() {
     c.Data["Books"] = models.GetBooks()
     c.Data["NextBooks"] = models.GetNextReads()
     c.Data["Resources"] = models.GetDigitalResources()
+    c.Data["Creators"] = models.GetCreators()
 
     // Research Data
     c.Data["Papers"] = models.GetResearchPapers()
