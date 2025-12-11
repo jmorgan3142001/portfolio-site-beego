@@ -41,7 +41,7 @@ type Challenge struct {
     Title        string      `orm:"size(255)"`
     Description  string      `orm:"type(text)"`
     InputHint    string      `orm:"size(255)"`
-    FunctionName string      `orm:"size(100)"` // <--- NEW: Stores "convert_time", etc.
+    FunctionName string      `orm:"size(100)"`
     Difficulty   string      `orm:"size(50)"`
     Category     string      `orm:"size(50)"`
     Type         string      `orm:"size(50)"`
@@ -579,7 +579,7 @@ func GetTechSpecs() []TechItem {
         {Category: "Languages", Items: []string{"Python", "C#", "TypeScript", "SQL", "Go"}},
         {Category: "Frameworks", Items: []string{"Django", ".NET Core", "Angular", "Flutter", "Beego"}},
         {Category: "Databases", Items: []string{"PostgreSQL", "Oracle", "MySQL", "SQLite"}},
-        {Category: "Infrastructure", Items: []string{"AWS", "Azure", "Google Cloud", "Docker", "Git", "gRPC"}},
+        {Category: "Infrastructure", Items: []string{"AWS", "Azure", "Google Cloud", "Docker", "Git"}},
     }
 }
 

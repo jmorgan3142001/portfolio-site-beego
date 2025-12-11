@@ -36,8 +36,48 @@
     --bs-body-color: var(--text-primary) !important;
     --bs-secondary-rgb: 89, 89, 89 !important; 
     --bs-primary: #8B1E24 !important;
+    --bs-container-max-width-lg:  min(70rem, 98vw) !important;
 }
 
+.container {
+  max-width: 100%;
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: min(540px, 95vw);
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: min(720px, 95vw);
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: min(960px, 95vw);
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: min(1140px, 95vw);
+    }
+}
+
+@media (min-width: 1400px) {
+    .container {
+        max-width: min(1320px, 95vw);
+    }
+}
+
+@media (min-width: 1800px) {
+    .container {
+        max-width: 1540px;
+    }
+}
 /* Dark Mode Overrides */
 [data-theme="dark"] {
     /* Core Palette (Dark) */
