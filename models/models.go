@@ -576,9 +576,9 @@ type Creator struct {
 
 func GetTechSpecs() []TechItem {
     return []TechItem{
-        {Category: "Languages", Items: []string{"Python", "C#", "TypeScript", "SQL", "Go"}},
+        {Category: "Languages", Items: []string{"Python", "C#", "TypeScript", "SQL", "C/C++", "Go"}},
         {Category: "Frameworks", Items: []string{"Django", ".NET Core", "Angular", "Flutter", "Beego"}},
-        {Category: "Databases", Items: []string{"PostgreSQL", "Oracle", "MySQL", "SQLite"}},
+        {Category: "Databases", Items: []string{"PostgreSQL", "SQLite", "SQL Server", "Oracle SQL"}},
         {Category: "Infrastructure", Items: []string{"AWS", "Azure", "Google Cloud", "Docker", "Git"}},
     }
 }
@@ -677,7 +677,7 @@ func GetSystemModules() []SystemModule {
             Icon:        "bi-hdd-network",
             Description: "Server design, API construction, and operational practices that keep services secure and highly available.",
             Progress:    100,
-            Tags:        []string{"Python (Django)", "Go (Beego)", "PostgreSQL"},
+            Tags:        []string{"Python (Django)", "C# (.Net)", "Go (Beego)", "PostgreSQL"},
         },
         {
             ID:          "MODULE_02",
@@ -685,7 +685,7 @@ func GetSystemModules() []SystemModule {
             Icon:        "bi-window-stack",
             Description: "Bridging backend services with user-facing interfaces, focusing on reliable data flows, performance, and usable UI/UX.",
             Progress:    100,
-            Tags:        []string{"Angular", "TypeScript", "UI/UX"},
+            Tags:        []string{"Angular", "TypeScript", "UI/UX", "REST"},
         },
         {
             ID:          "MODULE_03",
@@ -701,7 +701,7 @@ func GetSystemModules() []SystemModule {
             Icon:        "bi-diagram-3",
             Description: "Designing scalable infrastructure, replication, and fault-tolerance strategies for resilient distributed systems.",
             Progress:    100,
-            Tags:        []string{"gRPC", "Docker", "AWS"},
+            Tags:        []string{"gRPC", "Docker", "AWS", "Azure"},
         },
     }
 }
