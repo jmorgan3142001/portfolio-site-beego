@@ -421,7 +421,11 @@ func CheckToxicity(content string) bool {
         return false // Handle JSON marshaling error
     }
 
-    resp, err := http.Post(url, "application/json", bytes.NewBuffer(requestBody))
+    client := &http.Client{
+        Timeout: 5 * time.Second, 
+    }
+
+    resp, err := client.Post(url, "application/json", bytes.NewBuffer(requestBody))
     if err != nil {
         return false
     }

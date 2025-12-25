@@ -185,14 +185,18 @@
                     </div>
                     
                     <form action="/logs/submit" method="post">
+                        <div style="display:none;">
+                            <label>Website URL</label>
+                            <input type="text" name="website_url" value="">
+                        </div>
                         <div class="mb-3">
                             <label class="text-mono x-small text-secondary fw-bold mb-1">--AUTHOR</label>
-                            <input type="text" name="username" class="form-control bg-light border-0 text-mono" placeholder="guest_user" required maxlength="20">
+                            <input type="text" name="username" class="form-control bg-light border-0 text-mono" placeholder="guest_user" required maxlength="50">
                         </div>
                         
                         <div class="mb-3">
                             <label class="text-mono x-small text-secondary fw-bold mb-1">--MESSAGE</label>
-                            <textarea name="payload" rows="3" class="form-control bg-light border-0 text-mono" placeholder="echo 'Hello World'" required maxlength="140"></textarea>
+                            <textarea name="payload" rows="3" class="form-control bg-light border-0 text-mono" placeholder="echo 'Hello World'" required maxlength="200"></textarea>
                         </div>
                         
                         <button type="submit" class="btn btn-retro w-100 text-mono small">

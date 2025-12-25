@@ -8,9 +8,15 @@ import (
 	"net/http"
 	"portfolio-site/models"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/beego/beego/v2/server/web"
+)
+
+var (
+    ipRateLimiter = make(map[string]time.Time)
+    mutex         sync.Mutex
 )
 
 // --- Controller Definition ---
@@ -101,12 +107,40 @@ func (c *PortfolioController) Get() {
 }
 
 func (c *PortfolioController) SubmitLog() {
+    ip := c.Ctx.Input.IP()
+    
+    mutex.Lock()
+    lastTime, exists := ipRateLimiter[ip]
+    if exists && time.Since(lastTime) < 24*time.Hour {
+        mutex.Unlock()
+        c.Ctx.WriteString("Please only send at most one message per day.")
+        return 
+    }
+    ipRateLimiter[ip] = time.Now()
+    mutex.Unlock()
+
+    if c.GetString("website_url") != "" {
+        c.Redirect("/", 302)
+        return
+    }
+
     name := c.GetString("username")
     message := c.GetString("payload")
     userAgent := c.Ctx.Input.UserAgent()
 
+    if len(name) > 50 {
+        name = name[:50]
+    }
+
+    if len(message) > 200 {
+        message = message[:200]
+    }
+
     if name != "" && message != "" {
-        models.AddAccessLog(name, message, userAgent)
+        err := models.AddAccessLog(name, message, userAgent)
+        if err != nil {
+            fmt.Println("Log rejected:", err)
+        }
     }
 
     c.Redirect("/", 302)
