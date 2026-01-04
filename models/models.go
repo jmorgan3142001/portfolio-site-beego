@@ -581,7 +581,7 @@ type Creator struct {
 func GetTechSpecs() []TechItem {
     return []TechItem{
         {Category: "Languages", Items: []string{"Python", "C#", "TypeScript", "SQL", "C/C++", "Go"}},
-        {Category: "Frameworks", Items: []string{"Django", "ASP .NET", "Angular", "React", "Beego"}},
+        {Category: "Frameworks", Items: []string{"Django", "ASP.NET", "Angular", "React", "Beego"}},
         {Category: "Databases", Items: []string{"PostgreSQL", "SQLite", "SQL Server", "Redis"}},
         {Category: "Infrastructure", Items: []string{"AWS", "Azure", "Google Cloud", "Docker", "Git"}},
     }
@@ -608,7 +608,7 @@ func GetExperience() []Experience {
             Role:        "Systems Programmer II",
             Duration:    "2023 - 2025",
             Description: "Led full-stack development for healthcare software using C# and SQL. I helped modernize legacy systems by migrating core applications to .NET Core and improving data workflows.",
-            Tags:        []string{"C#", ".Net Core", "Flutter", "SQL", "jQuery"},
+            Tags:        []string{"C#", "ASP.Net", "Flutter", "SQL", "jQuery"},
         },
         {
             Company:     "District 186",
