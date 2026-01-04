@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'skills.txt':
             'Languages: Python, Go, TypeScript, C++, C#, SQL\n' +
             'Backend: Django, .NET Core, REST APIs, gRPC\n' +
-            'Frontend: TypeScript, Angular, Bootstrap, Vite\n' +
+            'Frontend: TypeScript, Angular, React, Bootstrap, Vite\n' +
             'Databases and Infra: PostgreSQL, SQL Server, Azure, Docker\n' +
             'Areas: distributed systems, performance, testing, CI/CD, observability',
 

@@ -581,8 +581,8 @@ type Creator struct {
 func GetTechSpecs() []TechItem {
     return []TechItem{
         {Category: "Languages", Items: []string{"Python", "C#", "TypeScript", "SQL", "C/C++", "Go"}},
-        {Category: "Frameworks", Items: []string{"Django", ".NET Core", "Angular", "Flutter", "Beego"}},
-        {Category: "Databases", Items: []string{"PostgreSQL", "SQLite", "SQL Server", "Oracle SQL"}},
+        {Category: "Frameworks", Items: []string{"Django", "ASP .NET", "Angular", "React", "Beego"}},
+        {Category: "Databases", Items: []string{"PostgreSQL", "SQLite", "SQL Server", "Redis"}},
         {Category: "Infrastructure", Items: []string{"AWS", "Azure", "Google Cloud", "Docker", "Git"}},
     }
 }
@@ -689,7 +689,7 @@ func GetSystemModules() []SystemModule {
             Icon:        "bi-window-stack",
             Description: "Bridging backend services with user-facing interfaces, focusing on reliable data flows, performance, and usable UI/UX.",
             Progress:    100,
-            Tags:        []string{"Angular", "TypeScript", "UI/UX", "REST"},
+            Tags:        []string{"Angular", "React", "TypeScript", "UI/UX", "REST"},
         },
         {
             ID:          "MODULE_03",
