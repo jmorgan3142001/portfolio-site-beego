@@ -114,7 +114,12 @@ func (c *PortfolioController) SubmitLog() {
     if exists && time.Since(lastTime) < 24*time.Hour {
         mutex.Unlock()
         c.Ctx.WriteString("Please only send at most one message per day.")
-        return 
+        return
+    }
+    for k, v := range ipRateLimiter {
+        if time.Since(v) >= 24*time.Hour {
+            delete(ipRateLimiter, k)
+        }
     }
     ipRateLimiter[ip] = time.Now()
     mutex.Unlock()

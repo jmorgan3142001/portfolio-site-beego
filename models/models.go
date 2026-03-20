@@ -580,9 +580,9 @@ type Creator struct {
 
 func GetTechSpecs() []TechItem {
     return []TechItem{
-        {Category: "Languages", Items: []string{"Python", "C#", "TypeScript", "SQL", "C/C++", "Go"}},
-        {Category: "Frameworks", Items: []string{"Django", "ASP.NET", "Angular", "React", "Beego"}},
-        {Category: "Databases", Items: []string{"PostgreSQL", "SQLite", "SQL Server", "Redis"}},
+        {Category: "Languages", Items: []string{"TypeScript", "Python", "Go", "C#", "C/C++"}},
+        {Category: "Frameworks", Items: []string{"Angular", "Node.js", "Express", "Django", "React"}},
+        {Category: "Databases", Items: []string{"PostgreSQL", "MongoDB", "SQLite", "Redis"}},
         {Category: "Infrastructure", Items: []string{"AWS", "Azure", "Google Cloud", "Docker", "Git"}},
     }
 }
@@ -590,18 +590,25 @@ func GetTechSpecs() []TechItem {
 func GetExperience() []Experience {
     return []Experience{
         {
-            Company:     "NATIONAL CAPTIONING INSTITUTE",
+            Company:     "MOVI HEALTHCARE",
             Role:        "Software Engineer",
-            Duration:    "FEB 2025 - PRESENT",
-            Description: "Developing automated captioning systems that meet strict accessibility and broadcast standards. I also redesigned our testing pipeline and improved frontend performance across key workflows.",
-            Tags:        []string{"Python", "Performance", "Automation", "DevOps", "SQL"},
+            Duration:    "FEB 2026 - PRESENT",
+            Description: "Building and scaling features across a large MEAN stack monorepo in a fast-paced healthcare tech environment. Working with modern Angular, TypeScript, Node.js, and MongoDB with Mongoose to deliver reliable, production-grade software.",
+            Tags:        []string{"Angular", "TypeScript", "Express", "MongoDB", "Mongoose"},
         },
         {
             Company:     "UNCOMMON GIVING",
             Role:        "Software Engineer",
             Duration:    "2023 - PRESENT",
-            Description: "Building and maintaining web and mobile applications using JS, Python, and Flutter. I optimized the CI/CD pipelines to run tasks in parallel, reducing build and deployment times by over 50%.",
-            Tags:        []string{"Typescript", "Angular", "Python", "Django", "SQL"},
+            Description: "Building and maintaining web and mobile applications using TypeScript, Python, and Flutter. I optimized the CI/CD pipelines to run tasks in parallel, reducing build and deployment times by over 50%.",
+            Tags:        []string{"TypeScript", "Angular", "Python", "Django", "CI/CD"},
+        },
+        {
+            Company:     "NATIONAL CAPTIONING INSTITUTE",
+            Role:        "Software Engineer",
+            Duration:    "FEB 2025 - JAN 2026",
+            Description: "Developed automated captioning systems meeting strict accessibility and broadcast standards. Redesigned the testing pipeline and improved frontend performance across key workflows.",
+            Tags:        []string{"Python", "Performance", "Automation", "DevOps"},
         },
         {
             Company:     "MUSC",

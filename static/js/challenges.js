@@ -1,6 +1,8 @@
 let editor;
 let currentChallengeId = null;
 
+const escapeHtml = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
 window.onload = function() {
     editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
         lineNumbers: true,
@@ -64,7 +66,7 @@ function loadChallenge(id, title, desc, starter, lang, diff, btnElement) {
     editor.setValue(starter);
     document.getElementById('run-btn').disabled = false;
     
-    document.getElementById('console-output').innerHTML = '<span class="text-secondary">> Module Loaded: ' + id + '</span>';
+    document.getElementById('console-output').innerHTML = '<span class="text-secondary">> Module Loaded: ' + escapeHtml(id) + '</span>';
 
     const bsCollapse = new bootstrap.Collapse(document.getElementById('challengeList'), {
         toggle: false
@@ -116,7 +118,8 @@ async function runCode() {
 
 function formatOutput(rawText) {
     if (!rawText) return '';
-    return rawText.replace(/\n/g, '<br/>')
+    const safe = escapeHtml(rawText);
+    return safe.replace(/\n/g, '<br/>')
                     .replace(/✓/g, '<span class="text-success fw-bold">✓</span>')
                     .replace(/✗/g, '<span class="text-danger fw-bold">✗</span>');
 }

@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const commandHistory = [];
     let historyIndex = -1;
 
+    const escapeHtml = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
     // Help Text Constant
     const WELCOME_TEXT = "Welcome to Portfolio Shell v1.0. Type 'help' to see available commands.<br />Warning: User is not privileged. Do not attempt 'sudo' commands.";
 
@@ -29,23 +31,25 @@ document.addEventListener('DOMContentLoaded', () => {
             '- Open Source (NCI): Django5 Forms Fieldset and Django5 Scheduler contributions focused on accessibility and scheduling.',
 
         'skills.txt':
-            'Languages: Python, Go, TypeScript, C++, C#, SQL\n' +
-            'Backend: Django, .NET Core, REST APIs, gRPC\n' +
-            'Frontend: TypeScript, Angular, React, Bootstrap, Vite\n' +
-            'Databases and Infra: PostgreSQL, SQL Server, Azure, Docker\n' +
-            'Areas: distributed systems, performance, testing, CI/CD, observability',
+            'Languages: TypeScript, Python, Go, C#, C/C++\n' +
+            'Backend: Node.js, Express, Django, REST APIs, Mongoose\n' +
+            'Frontend: Angular, React, Bootstrap, Vite\n' +
+            'Databases and Infra: PostgreSQL, MongoDB, SQLite, Azure, Docker\n' +
+            'Areas: MEAN stack, distributed systems, performance, testing, CI/CD',
 
         'about.txt':
             "Hi, I'm Jake Morgan, a full-stack engineer focused on building pragmatic, reliable software that scales. " +
             "I prefer clean, testable code and practical solutions that help teams move faster. " +
-            "Recent work has centered on captioning automation, modernizing legacy systems, and improving developer workflows.\n\n" +
+            "Currently working in a large MEAN stack monorepo at Movi Healthcare, and contributing to Uncommon Giving on the side.\n\n" +
             "Outside of work I stay active, tinker with tech, and live with two pocket pitties (see pets.txt).",
 
         'experience.txt':
-            'NATIONAL CAPTIONING INSTITUTE - Software Engineer (Feb 2025 - Present)\n' +
-            '  - Building automated captioning systems that meet accessibility and broadcast standards; redesigned testing and improved frontend performance.\n\n' +
+            'MOVI HEALTHCARE - Software Engineer (Feb 2026 - Present)\n' +
+            '  - Building and scaling features in a large MEAN stack monorepo; Angular, TypeScript, Node.js, MongoDB with Mongoose.\n\n' +
             'UNCOMMON GIVING - Software Engineer (2023 - Present)\n' +
             '  - Full-stack development (TypeScript, Python, Flutter); optimized CI/CD to parallelize tasks and reduce deployment time.\n\n' +
+            'NATIONAL CAPTIONING INSTITUTE - Software Engineer (Feb 2025 - Jan 2026)\n' +
+            '  - Built automated captioning systems meeting accessibility and broadcast standards; redesigned testing and improved frontend performance.\n\n' +
             'MUSC - Systems Programmer II (2023 - 2025)\n' +
             '  - Led full-stack modernization to .NET Core and improved data workflows and maintainability.\n\n' +
             'DISTRICT 186 - Computer Programmer (2022 - 2023)\n' +
@@ -419,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Capture current prompt color for history consistency
             const currentPromptColor = document.querySelector('.terminal-prompt').style.color || '';
-            historyLine.innerHTML = `<span class="terminal-prompt" style="user-select:none; color: ${currentPromptColor};">user@portfolio:~/library$</span> ${fullCommand}`;
+            historyLine.innerHTML = `<span class="terminal-prompt" style="user-select:none; color: ${currentPromptColor};">user@portfolio:~/library$</span> ${escapeHtml(fullCommand)}`;
             terminalOutput.appendChild(historyLine);
 
             const parts = fullCommand.split(' ');
