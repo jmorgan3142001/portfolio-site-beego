@@ -88,7 +88,7 @@ func (c *PortfolioController) Get() {
     c.Data["Name"] = "Jake Morgan"
     c.Data["Career"] = "Software Engineer"
     c.Data["Location"] = "Charleston, SC USA"
-    c.Data["Email"] = "jmorgan3142001@gmail.com"
+    c.Data["Email"] = "jmorgan7922@gmail.com"
     c.Data["GithubLink"] = "https://github.com/jmorgan3142001"
     c.Data["LinkedinLink"] = "https://www.linkedin.com/in/jake-morgan-/"
     
@@ -156,7 +156,7 @@ func (c *PortfolioController) About() {
     c.Data["Title"] = "User Log"
     c.Data["Name"] = "Jake Morgan"
     c.Data["Page"] = "about"
-    c.Data["Email"] = "jmorgan3142001@gmail.com"
+    c.Data["Email"] = "jmorgan7922@gmail.com"
     c.Data["GithubLink"] = "https://github.com/jmorgan3142001"
     c.Data["LinkedinLink"] = "https://www.linkedin.com/in/jake-morgan-/"
     
@@ -173,7 +173,7 @@ func (c *PortfolioController) Directory() {
     c.Data["Title"] = "File Server"
     c.Data["Name"] = "Jake Morgan"
     c.Data["Page"] = "directory"
-    c.Data["Email"] = "jmorgan3142001@gmail.com"
+    c.Data["Email"] = "jmorgan7922@gmail.com"
     c.Data["GithubLink"] = "https://github.com/jmorgan3142001"
     c.Data["LinkedinLink"] = "https://www.linkedin.com/in/jake-morgan-/"
 
@@ -197,7 +197,7 @@ func (c *PortfolioController) Terminal() {
     c.Data["Title"] = "Interactive Shell"
     c.Data["Name"] = "Jake Morgan"
     c.Data["Page"] = "terminal"
-    c.Data["Email"] = "jmorgan3142001@gmail.com"
+    c.Data["Email"] = "jmorgan7922@gmail.com"
     c.Data["GithubLink"] = "https://github.com/jmorgan3142001"
     c.Data["LinkedinLink"] = "https://www.linkedin.com/in/jake-morgan-/"
 
@@ -209,7 +209,7 @@ func (c *PortfolioController) Challenge() {
     c.Data["Title"] = "Skill Check"
     c.Data["Name"] = "Jake Morgan"
     c.Data["Page"] = "challenges"
-    c.Data["Email"] = "jmorgan3142001@gmail.com"
+    c.Data["Email"] = "jmorgan7922@gmail.com"
     c.Data["GithubLink"] = "https://github.com/jmorgan3142001"
     c.Data["LinkedinLink"] = "https://www.linkedin.com/in/jake-morgan-/"
 

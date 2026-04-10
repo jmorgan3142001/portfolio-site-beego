@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Simulated File System
     const fileSystem = {
         'contact.txt':
-            'Email: jmorgan3142001@gmail.com\n' +
+            'Email: jmorgan7922@gmail.com\n' +
             'LinkedIn: https://www.linkedin.com/in/jake-morgan-\n' +
             'Resume (PDF): https://docs.google.com/document/d/1qCF9Oe2GXS9ayBZgxiA9xq1ZOHGdxF9deOKG7T9Cwvg/export?format=pdf\n' +
             'Note: Email is best for quick questions; LinkedIn is best for professional outreach.',
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'LinkedIn: https://www.linkedin.com/in/jake-morgan-\n' +
             'Portfolio: /\n' +
             'GitHub: https://github.com/jmorgan3142001\n' +
-            'Email: jmorgan3142001@gmail.com',
+            'Email: jmorgan7922@gmail.com',
 
         'pets.txt':
             'Ashe & Rhaenyra - the Staffies!\n' +
